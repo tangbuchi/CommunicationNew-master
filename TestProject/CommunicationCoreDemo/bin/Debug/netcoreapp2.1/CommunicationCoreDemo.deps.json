@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v2.1",
+    "signature": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v2.1": {
+      "CommunicationCoreDemo/1.0.0": {
+        "dependencies": {
+          "Communication": "6.2.5.0"
+        },
+        "runtime": {
+          "CommunicationCoreDemo.dll": {}
+        }
+      },
+      "Communication/6.2.5.0": {
+        "runtime": {
+          "Communication.dll": {
+            "assemblyVersion": "6.2.5.0",
+            "fileVersion": "6.2.5.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "CommunicationCoreDemo/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Communication/6.2.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

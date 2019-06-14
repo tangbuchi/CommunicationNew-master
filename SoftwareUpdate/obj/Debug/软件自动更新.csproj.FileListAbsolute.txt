@@ -1,0 +1,8 @@
+E:\2019智慧水务\源代码\Demo合集软件\HslCommunication-master\软件自动更新\bin\Debug\软件自动更新.exe
+E:\2019智慧水务\源代码\Demo合集软件\HslCommunication-master\软件自动更新\bin\Debug\软件自动更新.pdb
+E:\2019智慧水务\源代码\Demo合集软件\HslCommunication-master\软件自动更新\obj\Debug\软件自动更新.Form2.resources
+E:\2019智慧水务\源代码\Demo合集软件\HslCommunication-master\软件自动更新\obj\Debug\软件自动更新.Properties.Resources.resources
+E:\2019智慧水务\源代码\Demo合集软件\HslCommunication-master\软件自动更新\obj\Debug\软件自动更新.csproj.GenerateResource.cache
+E:\2019智慧水务\源代码\Demo合集软件\HslCommunication-master\软件自动更新\obj\Debug\软件自动更新.csproj.CoreCompileInputs.cache
+E:\2019智慧水务\源代码\Demo合集软件\HslCommunication-master\软件自动更新\obj\Debug\软件自动更新.exe
+E:\2019智慧水务\源代码\Demo合集软件\HslCommunication-master\软件自动更新\obj\Debug\软件自动更新.pdb

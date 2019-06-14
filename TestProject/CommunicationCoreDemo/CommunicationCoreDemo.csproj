@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>CommunicationCoreDemo</AssemblyName>
+    <ApplicationIcon />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Communication">
+      <HintPath>..\..\Communication_NetStandard\bin\Debug\netstandard2.0\Communication.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

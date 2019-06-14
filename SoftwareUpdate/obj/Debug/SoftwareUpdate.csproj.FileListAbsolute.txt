@@ -1,0 +1,17 @@
+E:\2019智慧水务\源代码\Demo合集软件\Communication\软件自动更新\bin\Debug\软件自动更新.exe
+E:\2019智慧水务\源代码\Demo合集软件\Communication\软件自动更新\bin\Debug\软件自动更新.pdb
+E:\2019智慧水务\源代码\Demo合集软件\Communication\软件自动更新\obj\Debug\软件自动更新.Form2.resources
+E:\2019智慧水务\源代码\Demo合集软件\Communication\软件自动更新\obj\Debug\软件自动更新.Properties.Resources.resources
+E:\2019智慧水务\源代码\Demo合集软件\Communication\软件自动更新\obj\Debug\SoftwareUpdate.csproj.GenerateResource.cache
+E:\2019智慧水务\源代码\Demo合集软件\Communication\软件自动更新\obj\Debug\SoftwareUpdate.csproj.CoreCompileInputs.cache
+E:\2019智慧水务\源代码\Demo合集软件\Communication\软件自动更新\obj\Debug\软件自动更新.exe
+E:\2019智慧水务\源代码\Demo合集软件\Communication\软件自动更新\obj\Debug\软件自动更新.pdb
+E:\2019智慧水务\源代码\Demo合集软件\Communication2019.06.07\SoftwareUpdate\bin\Debug\软件自动更新.exe
+E:\2019智慧水务\源代码\Demo合集软件\Communication2019.06.07\SoftwareUpdate\bin\Debug\软件自动更新.pdb
+E:\2019智慧水务\源代码\Demo合集软件\Communication2019.06.07\SoftwareUpdate\obj\Debug\SoftwareUpdate.csprojAssemblyReference.cache
+E:\2019智慧水务\源代码\Demo合集软件\Communication2019.06.07\SoftwareUpdate\obj\Debug\软件自动更新.Form2.resources
+E:\2019智慧水务\源代码\Demo合集软件\Communication2019.06.07\SoftwareUpdate\obj\Debug\软件自动更新.Properties.Resources.resources
+E:\2019智慧水务\源代码\Demo合集软件\Communication2019.06.07\SoftwareUpdate\obj\Debug\SoftwareUpdate.csproj.GenerateResource.cache
+E:\2019智慧水务\源代码\Demo合集软件\Communication2019.06.07\SoftwareUpdate\obj\Debug\SoftwareUpdate.csproj.CoreCompileInputs.cache
+E:\2019智慧水务\源代码\Demo合集软件\Communication2019.06.07\SoftwareUpdate\obj\Debug\软件自动更新.exe
+E:\2019智慧水务\源代码\Demo合集软件\Communication2019.06.07\SoftwareUpdate\obj\Debug\软件自动更新.pdb

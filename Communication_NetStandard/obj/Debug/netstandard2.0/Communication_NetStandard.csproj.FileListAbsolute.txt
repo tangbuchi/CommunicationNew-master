@@ -1,0 +1,24 @@
+E:\2019智慧水务\源代码\Demo合集软件\HslCommunication-master\HslCommunication_NetStandard\bin\Debug\netstandard2.0\HslCommunication.xml
+E:\2019智慧水务\源代码\Demo合集软件\HslCommunication-master\HslCommunication_NetStandard\bin\Debug\netstandard2.0\Communication.deps.json
+E:\2019智慧水务\源代码\Demo合集软件\HslCommunication-master\HslCommunication_NetStandard\bin\Debug\netstandard2.0\Communication.dll
+E:\2019智慧水务\源代码\Demo合集软件\HslCommunication-master\HslCommunication_NetStandard\bin\Debug\netstandard2.0\Communication.pdb
+E:\2019智慧水务\源代码\Demo合集软件\HslCommunication-master\HslCommunication_NetStandard\obj\Debug\netstandard2.0\Communication_NetStandard.csprojAssemblyReference.cache
+E:\2019智慧水务\源代码\Demo合集软件\HslCommunication-master\HslCommunication_NetStandard\obj\Debug\netstandard2.0\Communication_NetStandard.csproj.CoreCompileInputs.cache
+E:\2019智慧水务\源代码\Demo合集软件\HslCommunication-master\HslCommunication_NetStandard\obj\Debug\netstandard2.0\Communication_NetStandard.AssemblyInfoInputs.cache
+E:\2019智慧水务\源代码\Demo合集软件\HslCommunication-master\HslCommunication_NetStandard\obj\Debug\netstandard2.0\Communication_NetStandard.AssemblyInfo.cs
+E:\2019智慧水务\源代码\Demo合集软件\HslCommunication-master\HslCommunication_NetStandard\obj\Debug\netstandard2.0\Communication.dll
+E:\2019智慧水务\源代码\Demo合集软件\HslCommunication-master\HslCommunication_NetStandard\obj\Debug\netstandard2.0\Communication.pdb
+E:\2019智慧水务\源代码\Demo合集软件\Communication\HslCommunication_NetStandard\bin\Debug\netstandard2.0\HslCommunication.xml
+E:\2019智慧水务\源代码\Demo合集软件\Communication\HslCommunication_NetStandard\bin\Debug\netstandard2.0\Communication.deps.json
+E:\2019智慧水务\源代码\Demo合集软件\Communication\HslCommunication_NetStandard\bin\Debug\netstandard2.0\Communication.dll
+E:\2019智慧水务\源代码\Demo合集软件\Communication\HslCommunication_NetStandard\bin\Debug\netstandard2.0\Communication.pdb
+E:\2019智慧水务\源代码\Demo合集软件\Communication\HslCommunication_NetStandard\obj\Debug\netstandard2.0\Communication_NetStandard.csprojAssemblyReference.cache
+E:\2019智慧水务\源代码\Demo合集软件\Communication\HslCommunication_NetStandard\obj\Debug\netstandard2.0\Communication_NetStandard.csproj.CoreCompileInputs.cache
+E:\2019智慧水务\源代码\Demo合集软件\Communication\HslCommunication_NetStandard\obj\Debug\netstandard2.0\Communication_NetStandard.AssemblyInfoInputs.cache
+E:\2019智慧水务\源代码\Demo合集软件\Communication\HslCommunication_NetStandard\obj\Debug\netstandard2.0\Communication_NetStandard.AssemblyInfo.cs
+E:\2019智慧水务\源代码\Demo合集软件\Communication\HslCommunication_NetStandard\obj\Debug\netstandard2.0\Communication.dll
+E:\2019智慧水务\源代码\Demo合集软件\Communication\HslCommunication_NetStandard\obj\Debug\netstandard2.0\Communication.pdb
+E:\2019智慧水务\源代码\Demo合集软件\Communication - 副本 - 副本\Communication_NetStandard\obj\Debug\netstandard2.0\Communication_NetStandard.csprojAssemblyReference.cache
+E:\2019智慧水务\源代码\Demo合集软件\Communication - 副本 - 副本\Communication_NetStandard\obj\Debug\netstandard2.0\Communication_NetStandard.csproj.CoreCompileInputs.cache
+E:\2019智慧水务\源代码\Demo合集软件\Communication - 副本 - 副本\Communication_NetStandard\obj\Debug\netstandard2.0\Communication_NetStandard.AssemblyInfoInputs.cache
+E:\2019智慧水务\源代码\Demo合集软件\Communication - 副本 - 副本\Communication_NetStandard\obj\Debug\netstandard2.0\Communication_NetStandard.AssemblyInfo.cs
