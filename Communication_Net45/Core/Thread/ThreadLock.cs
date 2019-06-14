@@ -257,7 +257,7 @@ namespace Communication.Core
         private static int NumWritersWaiting(int ls) { return (ls & c_lsWritersWaitingMask) >> c_lsWritersWaitingStartBit; }
         private static void AddWritersWaiting(ref int ls, int amount) { ls += (c_ls1WriterWaiting * amount); }
 
-        private static bool AnyWaiters( int ls ) { return (ls & c_lsAnyWaitingMask) != 0; }
+        private static bool AnyWaiters(int ls) { return (ls & c_lsAnyWaitingMask) != 0; }
 
         private static string DebugState(int ls)
         {
@@ -618,7 +618,7 @@ namespace Communication.Core
     #endregion
 
     #region 多线程并发处理数据的类
-    
+
 
     /*******************************************************************************
      * 
@@ -626,7 +626,7 @@ namespace Communication.Core
      *    
      * 
      *******************************************************************************/
-     
+
 
     /// <summary>
     /// 一个用于多线程并发处理数据的模型类，适用于处理数据量非常庞大的情况
@@ -644,7 +644,7 @@ namespace Communication.Core
         {
             m_dataList = dataList ?? throw new ArgumentNullException("dataList");
             m_operater = operater ?? throw new ArgumentNullException("operater");
-            if (threadCount < 1) throw new ArgumentException( "threadCount can not less than 1", "threadCount");
+            if (threadCount < 1) throw new ArgumentException("threadCount can not less than 1", "threadCount");
             m_threadCount = threadCount;
             //增加任务处理
             Interlocked.Add(ref m_opCount, dataList.Length);
@@ -933,7 +933,7 @@ namespace Communication.Core
         #region IDisposable Support
         private bool disposedValue = false; // 要检测冗余调用
 
-        void Dispose( bool disposing )
+        void Dispose(bool disposing)
         {
             if (!disposedValue)
             {
@@ -944,7 +944,7 @@ namespace Communication.Core
 
                 // TODO: 释放未托管的资源(未托管的对象)并在以下内容中替代终结器。
                 // TODO: 将大型字段设置为 null。
-                m_waiterLock.Close( );
+                m_waiterLock.Close();
 
                 disposedValue = true;
             }
@@ -960,10 +960,10 @@ namespace Communication.Core
         /// <summary>
         /// 释放资源
         /// </summary>
-        public void Dispose( )
+        public void Dispose()
         {
             // 请勿更改此代码。将清理代码放入以上 Dispose(bool disposing) 中。
-            Dispose( true );
+            Dispose(true);
             // TODO: 如果在以上内容中替代了终结器，则取消注释以下行。
             // GC.SuppressFinalize(this);
         }
@@ -976,7 +976,7 @@ namespace Communication.Core
         /// <summary>
         /// 基元内核模式构造同步锁
         /// </summary>
-        private AutoResetEvent m_waiterLock = new AutoResetEvent( false );
+        private AutoResetEvent m_waiterLock = new AutoResetEvent(false);
         /// <summary>
         /// 控制自旋的一个字段
         /// </summary>
@@ -993,7 +993,7 @@ namespace Communication.Core
         /// <summary>
         /// 获取锁
         /// </summary>
-        public void Enter( )
+        public void Enter()
         {
             int threadId = Thread.CurrentThread.ManagedThreadId;
             if (threadId == m_owningThreadId)
@@ -1003,18 +1003,18 @@ namespace Communication.Core
             }
             //SpinWait spinwait
 
-            if (Interlocked.Increment( ref m_waiters ) == 1) return;//用户锁可以使用的时候，直接返回，第一次调用时发生
+            if (Interlocked.Increment(ref m_waiters) == 1) return;//用户锁可以使用的时候，直接返回，第一次调用时发生
             //当发生锁竞争时，使用内核同步构造锁
-            m_waiterLock.WaitOne( );
+            m_waiterLock.WaitOne();
         }
 
         /// <summary>
         /// 离开锁
         /// </summary>
-        public void Leave( )
+        public void Leave()
         {
-            if (Interlocked.Decrement( ref m_waiters ) == 0) return;//没有可用的锁的时候
-            m_waiterLock.Set( );
+            if (Interlocked.Decrement(ref m_waiters) == 0) return;//没有可用的锁的时候
+            m_waiterLock.Set();
         }
 
     }
