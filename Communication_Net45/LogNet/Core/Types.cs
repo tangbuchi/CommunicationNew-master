@@ -14,7 +14,7 @@ namespace Communication.LogNet
     /// <summary>
     /// 带有日志消息的事件
     /// </summary>
-    public class HslEventArgs : EventArgs
+    public class CommonEventArgs : EventArgs
     {
         /// <summary>
         /// 消息信息

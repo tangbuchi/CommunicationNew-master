@@ -158,7 +158,7 @@ namespace DemoUpdateServer
             softUpdateServer.ServerStart( 18468 );
         }
 
-        private void LogNet_BeforeSaveToFile( object sender, Communication.LogNet.HslEventArgs e )
+        private void LogNet_BeforeSaveToFile( object sender, Communication.LogNet.CommonEventArgs e )
         {
             Invoke( new Action( ( ) =>
              {

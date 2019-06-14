@@ -40,7 +40,7 @@ namespace CommunicationDemo
             }
         }
 
-        private void LogNet_BeforeSaveToFile(object sender, HslEventArgs e)
+        private void LogNet_BeforeSaveToFile(object sender, CommonEventArgs e)
         {
             e.CommonMessage.Cancel = checkBox1.Checked;
         }

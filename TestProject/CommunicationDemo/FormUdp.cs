@@ -66,20 +66,18 @@ namespace CommunicationDemo
         private void button3_Click(object sender, EventArgs e)
         {
             // 数据发送
-            int count = int.Parse(textBox6.Text);
-            DateTime start = DateTime.Now;
-            for (int i = 0; i < count; i++)
-            {
-                OperateResult<string> read = udpClient.ReadFromServer(textBox4.Text);
 
-                if (read.IsSuccess)
-                {
-                    textBox8.AppendText(read.Content + Environment.NewLine);
-                }
-                else
-                {
-                    textBox8.AppendText("Read Failed：" + read.Message + Environment.NewLine);
-                }
+            DateTime start = DateTime.Now;
+
+            OperateResult<string> read = udpClient.ReadFromServer(textBox4.Text);
+
+            if (read.IsSuccess)
+            {
+                textBox8.AppendText(read.Content + Environment.NewLine);
+            }
+            else
+            {
+                textBox8.AppendText("Read Failed：" + read.Message + Environment.NewLine);
             }
         }
 
@@ -100,6 +98,5 @@ namespace CommunicationDemo
                 Communication.BasicFramework.SoftBasic.ShowExceptionMessage(ex);
             }
         }
-
     }
 }

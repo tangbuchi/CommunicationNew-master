@@ -181,7 +181,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(54, 17);
             this.label5.TabIndex = 10;
-            this.label5.Text = "Hsl 协议";
+            this.label5.Text = "协议";
             // 
             // label4
             // 

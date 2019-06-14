@@ -62,9 +62,9 @@ namespace Communication.LogNet
         /// <summary>
         /// 在存储到文件的时候将会触发的事件
         /// </summary>
-        public event EventHandler<HslEventArgs> BeforeSaveToFile = null;
+        public event EventHandler<CommonEventArgs> BeforeSaveToFile = null;
 
-        private void OnBeforeSaveToFile(HslEventArgs args)
+        private void OnBeforeSaveToFile(CommonEventArgs args)
         {
             BeforeSaveToFile?.Invoke(this, args);
         }
@@ -383,7 +383,7 @@ namespace Communication.LogNet
                     while (current != null)
                     {
                         // 触发事件
-                        OnBeforeSaveToFile( new HslEventArgs( ) { CommonMessage = current } );
+                        OnBeforeSaveToFile( new CommonEventArgs( ) { CommonMessage = current } );
 
                         // 检查是否需要真的进行存储
                         bool isSave = true;

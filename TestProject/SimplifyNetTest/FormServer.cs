@@ -58,11 +58,11 @@ namespace SimplifyNetTest
             label6.Text = simplifyServer.ClientCount.ToString( );
         }
 
-        private void LogNet_BeforeSaveToFile( object sender, Communication.LogNet.HslEventArgs e )
+        private void LogNet_BeforeSaveToFile( object sender, Communication.LogNet.CommonEventArgs e )
         {
             if(InvokeRequired)
             {
-                BeginInvoke( new Action<object, Communication.LogNet.HslEventArgs>( LogNet_BeforeSaveToFile), sender, e );
+                BeginInvoke( new Action<object, Communication.LogNet.CommonEventArgs>( LogNet_BeforeSaveToFile), sender, e );
                 return;
             }
 

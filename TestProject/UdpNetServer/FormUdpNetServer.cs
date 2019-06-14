@@ -60,11 +60,11 @@ namespace UdpNetServer
             textBox2.AppendText($"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")}]：" + handle + " 值：" + value + Environment.NewLine);
         }
 
-        private void LogNet_BeforeSaveToFile(object sender, Communication.LogNet.HslEventArgs e)
+        private void LogNet_BeforeSaveToFile(object sender, Communication.LogNet.CommonEventArgs e)
         {
             if (InvokeRequired)
             {
-                BeginInvoke(new Action<object, Communication.LogNet.HslEventArgs>(LogNet_BeforeSaveToFile), sender, e);
+                BeginInvoke(new Action<object, Communication.LogNet.CommonEventArgs>(LogNet_BeforeSaveToFile), sender, e);
                 return;
             }
 

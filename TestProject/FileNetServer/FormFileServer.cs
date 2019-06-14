@@ -67,11 +67,11 @@ namespace FileNetServer
             advancedFileServer.ServerStart( port );
         }
 
-        private void LogNet1_BeforeSaveToFile( object sender, Communication.LogNet.HslEventArgs e )
+        private void LogNet1_BeforeSaveToFile( object sender, Communication.LogNet.CommonEventArgs e )
         {
             if(InvokeRequired)
             {
-                Invoke( new Action<object, Communication.LogNet.HslEventArgs>( LogNet1_BeforeSaveToFile ), sender, e );
+                Invoke( new Action<object, Communication.LogNet.CommonEventArgs>( LogNet1_BeforeSaveToFile ), sender, e );
                 return;
             }
 
@@ -114,11 +114,11 @@ namespace FileNetServer
             ultimateFileServer.ServerStart( port );
         }
 
-        private void LogNet2_BeforeSaveToFile( object sender, Communication.LogNet.HslEventArgs e )
+        private void LogNet2_BeforeSaveToFile( object sender, Communication.LogNet.CommonEventArgs e )
         {
             if (InvokeRequired)
             {
-                Invoke( new Action<object, Communication.LogNet.HslEventArgs>( LogNet2_BeforeSaveToFile ), sender, e );
+                Invoke( new Action<object, Communication.LogNet.CommonEventArgs>( LogNet2_BeforeSaveToFile ), sender, e );
                 return;
             }
 

@@ -88,7 +88,7 @@ namespace 软件自动更新
         };
         public static SystemUpdate Controls项目 = new SystemUpdate( )
         {
-            SoftName = "HslControlsDemo",
+            SoftName = "ControlsDemo",
             SoftNameHead = "",
             ServerIp = "127.0.0.1",
             ServerPort = 5000,

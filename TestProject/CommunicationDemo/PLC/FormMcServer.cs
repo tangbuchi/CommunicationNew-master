@@ -202,13 +202,13 @@ namespace CommunicationDemo
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void LogNet_BeforeSaveToFile( object sender, Communication.LogNet.HslEventArgs e )
+        private void LogNet_BeforeSaveToFile( object sender, Communication.LogNet.CommonEventArgs e )
         {
             try
             {
                 if (InvokeRequired)
                 {
-                    Invoke( new Action<object, Communication.LogNet.HslEventArgs>( LogNet_BeforeSaveToFile ), sender, e );
+                    Invoke( new Action<object, Communication.LogNet.CommonEventArgs>( LogNet_BeforeSaveToFile ), sender, e );
                     return;
                 }
 

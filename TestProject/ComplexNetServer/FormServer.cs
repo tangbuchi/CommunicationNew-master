@@ -88,7 +88,7 @@ namespace ComplexNetServer
             }
         }
 
-        private void LogNet_BeforeSaveToFile( object sender, Communication.LogNet.HslEventArgs e )
+        private void LogNet_BeforeSaveToFile( object sender, Communication.LogNet.CommonEventArgs e )
         {
             // 显示日志信息
             ShowTextInfo( e.CommonMessage.ToString( ) );

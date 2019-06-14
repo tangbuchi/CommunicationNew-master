@@ -83,7 +83,7 @@ namespace CommunicationDemo
                 label11.Text = "Take:";
                 button4.Text = "Clear";
                 label12.Text = "Receive:";
-                label5.Text = "Hsl protocol";
+                label5.Text = "protocol";
                 label20.Text = "Author:";
             }
         }

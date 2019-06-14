@@ -45,11 +45,11 @@ namespace CommunicationDemo
                 label2.Text = "blogs:";
                 label4.Text = "Agreement";
                 linkLabel2.Text = "thanks for the reward";
-                label20.Text = "Author:Hsl";
+                label20.Text = "Author";
                 label3.Text = "port:";
                 button1.Text = "Start Server";
                 button11.Text = "Close Server";
-                //label11.Text = "This server is not a strict LSis protocol and only supports perfect communication with HSL components.";
+                //label11.Text = "This server is not a strict LSis protocol and only supports perfect communication with components.";
                 label19.Text = "Note: The string of values needs to be converted to the corresponding data type";
                 button4.Text = "Connecting Alien client";
                 groupBox1.Text = "Single Data Read test";
@@ -204,13 +204,13 @@ namespace CommunicationDemo
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void LogNet_BeforeSaveToFile( object sender, Communication.LogNet.HslEventArgs e )
+        private void LogNet_BeforeSaveToFile( object sender, Communication.LogNet.CommonEventArgs e )
         {
             try
             {
                 if (InvokeRequired)
                 {
-                    Invoke( new Action<object, Communication.LogNet.HslEventArgs>( LogNet_BeforeSaveToFile ), sender, e );
+                    Invoke( new Action<object, Communication.LogNet.CommonEventArgs>( LogNet_BeforeSaveToFile ), sender, e );
                     return;
                 }
 

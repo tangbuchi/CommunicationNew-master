@@ -13312,12 +13312,12 @@
             释放资源
             </summary>
         </member>
-        <member name="T:Communication.LogNet.HslEventArgs">
+        <member name="T:Communication.LogNet.CommonEventArgs">
             <summary>
             带有日志消息的事件
             </summary>
         </member>
-        <member name="P:Communication.LogNet.HslEventArgs.CommonMessage">
+        <member name="P:Communication.LogNet.CommonEventArgs.CommonMessage">
             <summary>
             消息信息
             </summary>
