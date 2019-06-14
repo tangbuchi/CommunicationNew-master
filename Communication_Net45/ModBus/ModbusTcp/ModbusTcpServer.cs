@@ -39,21 +39,21 @@ namespace Communication.ModBus
         /// <summary>
         /// 实例化一个Modbus Tcp的服务器，支持数据读写操作
         /// </summary>
-        public ModbusTcpServer( )
+        public ModbusTcpServer()
         {
             // 四个数据池初始化，线圈，输入线圈，寄存器，只读寄存器
-            coilBuffer               = new SoftBuffer( DataPoolLength );
-            inputBuffer              = new SoftBuffer( DataPoolLength );
-            registerBuffer           = new SoftBuffer( DataPoolLength * 2 );
-            inputRegisterBuffer      = new SoftBuffer( DataPoolLength * 2 );
-            
-            subscriptions            = new List<ModBusMonitorAddress>( );
-            subcriptionHybirdLock    = new SimpleHybirdLock( );
-            ByteTransform            = new ReverseWordTransform( );
-            WordLength               = 1;
+            coilBuffer = new SoftBuffer(DataPoolLength);
+            inputBuffer = new SoftBuffer(DataPoolLength);
+            registerBuffer = new SoftBuffer(DataPoolLength * 2);
+            inputRegisterBuffer = new SoftBuffer(DataPoolLength * 2);
+
+            subscriptions = new List<ModBusMonitorAddress>();
+            subcriptionHybirdLock = new SimpleHybirdLock();
+            ByteTransform = new ReverseWordTransform();
+            WordLength = 1;
 
 #if !NETSTANDARD2_0
-            serialPort               = new SerialPort( );
+            serialPort = new SerialPort();
 #endif
         }
 
@@ -99,13 +99,13 @@ namespace Communication.ModBus
         /// 将数据源的内容生成原始数据，等待缓存
         /// </summary>
         /// <returns>原始的数据内容</returns>
-        protected override byte[] SaveToBytes( )
+        protected override byte[] SaveToBytes()
         {
             byte[] buffer = new byte[DataPoolLength * 6];
-            Array.Copy( coilBuffer.GetBytes( ),           0, buffer, 0,                   DataPoolLength );
-            Array.Copy( inputBuffer.GetBytes( ),          0, buffer, DataPoolLength,      DataPoolLength );
-            Array.Copy( registerBuffer.GetBytes( ),       0, buffer, DataPoolLength * 2,  DataPoolLength * 2 );
-            Array.Copy( inputRegisterBuffer.GetBytes( ),  0, buffer, DataPoolLength * 4,  DataPoolLength * 2 );
+            Array.Copy(coilBuffer.GetBytes(), 0, buffer, 0, DataPoolLength);
+            Array.Copy(inputBuffer.GetBytes(), 0, buffer, DataPoolLength, DataPoolLength);
+            Array.Copy(registerBuffer.GetBytes(), 0, buffer, DataPoolLength * 2, DataPoolLength * 2);
+            Array.Copy(inputRegisterBuffer.GetBytes(), 0, buffer, DataPoolLength * 4, DataPoolLength * 2);
             return buffer;
         }
 
@@ -113,30 +113,30 @@ namespace Communication.ModBus
         /// 从原始的数据复原数据
         /// </summary>
         /// <param name="content">原始的数据</param>
-        protected override void LoadFromBytes( byte[] content )
+        protected override void LoadFromBytes(byte[] content)
         {
-            if (content.Length < DataPoolLength * 6) throw new Exception( "File is not correct" );
+            if (content.Length < DataPoolLength * 6) throw new Exception("File is not correct");
 
-            coilBuffer.SetBytes(          content, 0,                  0, DataPoolLength );
-            inputBuffer.SetBytes(         content, DataPoolLength,     0, DataPoolLength );
-            registerBuffer.SetBytes(      content, DataPoolLength * 2, 0, DataPoolLength * 2 );
-            inputRegisterBuffer.SetBytes( content, DataPoolLength * 4, 0, DataPoolLength * 2 );
+            coilBuffer.SetBytes(content, 0, 0, DataPoolLength);
+            inputBuffer.SetBytes(content, DataPoolLength, 0, DataPoolLength);
+            registerBuffer.SetBytes(content, DataPoolLength * 2, 0, DataPoolLength * 2);
+            inputRegisterBuffer.SetBytes(content, DataPoolLength * 4, 0, DataPoolLength * 2);
         }
 
         #endregion
 
         #region Coil Read Write
-        
+
         /// <summary>
         /// 读取地址的线圈的通断情况
         /// </summary>
         /// <param name="address">起始地址，示例："100"</param>
         /// <returns><c>True</c>或是<c>False</c></returns>
         /// <exception cref="IndexOutOfRangeException"></exception>
-        public bool ReadCoil( string address )
+        public bool ReadCoil(string address)
         {
-            ushort add = ushort.Parse( address );
-            return coilBuffer.GetByte( add ) != 0x00;
+            ushort add = ushort.Parse(address);
+            return coilBuffer.GetByte(add) != 0x00;
         }
 
         /// <summary>
@@ -146,10 +146,10 @@ namespace Communication.ModBus
         /// <param name="length">读取长度</param>
         /// <returns><c>True</c>或是<c>False</c></returns>
         /// <exception cref="IndexOutOfRangeException"></exception>
-        public bool[] ReadCoil( string address, ushort length )
+        public bool[] ReadCoil(string address, ushort length)
         {
-            ushort add = ushort.Parse( address );
-            return coilBuffer.GetBytes( add, length ).Select( m => m != 0x00 ).ToArray( );
+            ushort add = ushort.Parse(address);
+            return coilBuffer.GetBytes(add, length).Select(m => m != 0x00).ToArray();
         }
 
         /// <summary>
@@ -159,10 +159,10 @@ namespace Communication.ModBus
         /// <param name="data">是否通断</param>
         /// <returns><c>True</c>或是<c>False</c></returns>
         /// <exception cref="IndexOutOfRangeException"></exception>
-        public void WriteCoil( string address, bool data )
+        public void WriteCoil(string address, bool data)
         {
-            ushort add = ushort.Parse( address );
-            coilBuffer.SetValue( (byte)(data ? 0x01 : 0x00), add );
+            ushort add = ushort.Parse(address);
+            coilBuffer.SetValue((byte)(data ? 0x01 : 0x00), add);
         }
 
         /// <summary>
@@ -172,12 +172,12 @@ namespace Communication.ModBus
         /// <param name="data">是否通断</param>
         /// <returns><c>True</c>或是<c>False</c></returns>
         /// <exception cref="IndexOutOfRangeException"></exception>
-        public void WriteCoil( string address, bool[] data )
+        public void WriteCoil(string address, bool[] data)
         {
             if (data == null) return;
 
-            ushort add = ushort.Parse( address );
-            coilBuffer.SetBytes( data.Select( m => (byte)(m ? 0x01 : 0x00) ).ToArray( ), add );
+            ushort add = ushort.Parse(address);
+            coilBuffer.SetBytes(data.Select(m => (byte)(m ? 0x01 : 0x00)).ToArray(), add);
         }
 
         #endregion
@@ -190,10 +190,10 @@ namespace Communication.ModBus
         /// <param name="address">起始地址，示例："100"</param>
         /// <returns><c>True</c>或是<c>False</c></returns>
         /// <exception cref="IndexOutOfRangeException"></exception>
-        public bool ReadDiscrete( string address )
+        public bool ReadDiscrete(string address)
         {
-            ushort add = ushort.Parse( address );
-            return inputBuffer.GetByte( add ) != 0x00;
+            ushort add = ushort.Parse(address);
+            return inputBuffer.GetByte(add) != 0x00;
         }
 
         /// <summary>
@@ -203,10 +203,10 @@ namespace Communication.ModBus
         /// <param name="length">读取长度</param>
         /// <returns><c>True</c>或是<c>False</c></returns>
         /// <exception cref="IndexOutOfRangeException"></exception>
-        public bool[] ReadDiscrete( string address, ushort length )
+        public bool[] ReadDiscrete(string address, ushort length)
         {
-            ushort add = ushort.Parse( address );
-            return inputBuffer.GetBytes( add, length ).Select( m => m != 0x00 ).ToArray( );
+            ushort add = ushort.Parse(address);
+            return inputBuffer.GetBytes(add, length).Select(m => m != 0x00).ToArray();
         }
 
         /// <summary>
@@ -215,10 +215,10 @@ namespace Communication.ModBus
         /// <param name="address">起始地址，示例："100"</param>
         /// <param name="data">是否通断</param>
         /// <exception cref="IndexOutOfRangeException"></exception>
-        public void WriteDiscrete( string address, bool data )
+        public void WriteDiscrete(string address, bool data)
         {
-            ushort add = ushort.Parse( address );
-            inputBuffer.SetValue( (byte)(data ? 0x01 : 0x00), add );
+            ushort add = ushort.Parse(address);
+            inputBuffer.SetValue((byte)(data ? 0x01 : 0x00), add);
         }
 
         /// <summary>
@@ -227,12 +227,12 @@ namespace Communication.ModBus
         /// <param name="address">起始地址，示例："100"</param>
         /// <param name="data">是否通断</param>
         /// <exception cref="IndexOutOfRangeException"></exception>
-        public void WriteDiscrete( string address, bool[] data )
+        public void WriteDiscrete(string address, bool[] data)
         {
             if (data == null) return;
 
-            ushort add = ushort.Parse( address );
-            inputBuffer.SetBytes( data.Select( m => (byte)(m ? 0x01 : 0x00) ).ToArray( ), add );
+            ushort add = ushort.Parse(address);
+            inputBuffer.SetBytes(data.Select(m => (byte)(m ? 0x01 : 0x00)).ToArray(), add);
         }
 
         #endregion
@@ -246,22 +246,22 @@ namespace Communication.ModBus
         /// <param name="length">数据长度</param>
         /// <exception cref="IndexOutOfRangeException"></exception>
         /// <returns>byte数组值</returns>
-        public override OperateResult<byte[]> Read( string address, ushort length )
+        public override OperateResult<byte[]> Read(string address, ushort length)
         {
-            OperateResult<ModbusAddress> analysis = ModbusInfo.AnalysisAddress( address, true, ModbusInfo.ReadRegister );
-            if (!analysis.IsSuccess) return OperateResult.CreateFailedResult<byte[]>( analysis );
+            OperateResult<ModbusAddress> analysis = ModbusInfo.AnalysisAddress(address, true, ModbusInfo.ReadRegister);
+            if (!analysis.IsSuccess) return OperateResult.CreateFailedResult<byte[]>(analysis);
 
-            if(analysis.Content.Function == ModbusInfo.ReadRegister)
+            if (analysis.Content.Function == ModbusInfo.ReadRegister)
             {
-                return OperateResult.CreateSuccessResult( registerBuffer.GetBytes( analysis.Content.Address * 2, length * 2 ) );
+                return OperateResult.CreateSuccessResult(registerBuffer.GetBytes(analysis.Content.Address * 2, length * 2));
             }
-            else if(analysis.Content.Function == ModbusInfo.ReadInputRegister)
+            else if (analysis.Content.Function == ModbusInfo.ReadInputRegister)
             {
-                return OperateResult.CreateSuccessResult( inputRegisterBuffer.GetBytes( analysis.Content.Address * 2, length * 2 ) );
+                return OperateResult.CreateSuccessResult(inputRegisterBuffer.GetBytes(analysis.Content.Address * 2, length * 2));
             }
             else
             {
-                return new OperateResult<byte[]>( StringResources.Language.NotSupportedDataType );
+                return new OperateResult<byte[]>(StringResources.Language.NotSupportedDataType);
             }
         }
 
@@ -271,24 +271,24 @@ namespace Communication.ModBus
         /// <param name="address">地址</param>
         /// <param name="value">数据值</param>
         /// <returns>是否写入成功的结果对象</returns>
-        public override OperateResult Write( string address, byte[] value )
+        public override OperateResult Write(string address, byte[] value)
         {
-            OperateResult<ModbusAddress> analysis = ModbusInfo.AnalysisAddress( address, true, ModbusInfo.ReadRegister );
-            if (!analysis.IsSuccess) return OperateResult.CreateFailedResult<byte[]>( analysis );
+            OperateResult<ModbusAddress> analysis = ModbusInfo.AnalysisAddress(address, true, ModbusInfo.ReadRegister);
+            if (!analysis.IsSuccess) return OperateResult.CreateFailedResult<byte[]>(analysis);
 
             if (analysis.Content.Function == ModbusInfo.ReadRegister)
             {
-                registerBuffer.SetBytes( value, analysis.Content.Address * 2 );
-                return OperateResult.CreateSuccessResult( );
+                registerBuffer.SetBytes(value, analysis.Content.Address * 2);
+                return OperateResult.CreateSuccessResult();
             }
             else if (analysis.Content.Function == ModbusInfo.ReadInputRegister)
             {
-                inputRegisterBuffer.SetBytes( value, analysis.Content.Address * 2 );
-                return OperateResult.CreateSuccessResult( );
+                inputRegisterBuffer.SetBytes(value, analysis.Content.Address * 2);
+                return OperateResult.CreateSuccessResult();
             }
             else
             {
-                return new OperateResult<byte[]>( StringResources.Language.NotSupportedDataType );
+                return new OperateResult<byte[]>(StringResources.Language.NotSupportedDataType);
             }
         }
 
@@ -298,9 +298,9 @@ namespace Communication.ModBus
         /// <param name="address">起始地址，示例："100"，如果是输入寄存器："x=4;100"</param>
         /// <param name="high">高位数据</param>
         /// <param name="low">地位数据</param>
-        public void Write( string address, byte high, byte low )
+        public void Write(string address, byte high, byte low)
         {
-            Write( address, new byte[] { high, low } );
+            Write(address, new byte[] { high, low });
         }
 
         #endregion
@@ -312,63 +312,63 @@ namespace Communication.ModBus
         /// </summary>
         /// <param name="socket">网络套接字</param>
         /// <param name="endPoint">终端节点</param>
-        protected override void ThreadPoolLoginAfterClientCheck( Socket socket, System.Net.IPEndPoint endPoint )
+        protected override void ThreadPoolLoginAfterClientCheck(Socket socket, System.Net.IPEndPoint endPoint)
         {
             // 开始接收数据信息
-            AppSession appSession = new AppSession( );
+            AppSession appSession = new AppSession();
             appSession.IpEndPoint = endPoint;
             appSession.WorkSocket = socket;
             try
             {
-                socket.BeginReceive( new byte[0], 0, 0, SocketFlags.None, new AsyncCallback( SocketAsyncCallBack ), appSession );
-                AddClient( appSession );
+                socket.BeginReceive(new byte[0], 0, 0, SocketFlags.None, new AsyncCallback(SocketAsyncCallBack), appSession);
+                AddClient(appSession);
             }
             catch
             {
-                socket.Close( );
-                LogNet?.WriteDebug( ToString( ), string.Format( StringResources.Language.ClientOfflineInfo, endPoint ) );
+                socket.Close();
+                LogNet?.WriteDebug(ToString(), string.Format(StringResources.Language.ClientOfflineInfo, endPoint));
             }
         }
 
-        private void SocketAsyncCallBack( IAsyncResult ar )
+        private void SocketAsyncCallBack(IAsyncResult ar)
         {
             if (ar.AsyncState is AppSession session)
             {
                 try
                 {
-                    int receiveCount = session.WorkSocket.EndReceive( ar );
+                    int receiveCount = session.WorkSocket.EndReceive(ar);
 
-                    ModbusTcpMessage mdMessage = new ModbusTcpMessage( );
-                    OperateResult<byte[]> read1 = ReceiveByMessage( session.WorkSocket, 5000, mdMessage );
+                    ModbusTcpMessage mdMessage = new ModbusTcpMessage();
+                    OperateResult<byte[]> read1 = ReceiveByMessage(session.WorkSocket, 5000, mdMessage);
                     if (!read1.IsSuccess)
                     {
-                        LogNet?.WriteDebug( ToString( ), string.Format( StringResources.Language.ClientOfflineInfo, session.IpEndPoint ) );
-                        RemoveClient( session );
+                        LogNet?.WriteDebug(ToString(), string.Format(StringResources.Language.ClientOfflineInfo, session.IpEndPoint));
+                        RemoveClient(session);
                         return;
                     };
 
                     ushort id = (ushort)(read1.Content[0] * 256 + read1.Content[1]);
-                    byte[] back = ModbusInfo.PackCommandToTcp( ReadFromModbusCore( SoftBasic.BytesArrayRemoveBegin( read1.Content, 6 ) ), id );
+                    byte[] back = ModbusInfo.PackCommandToTcp(ReadFromModbusCore(SoftBasic.BytesArrayRemoveBegin(read1.Content, 6)), id);
                     if (back != null)
                     {
-                        session.WorkSocket.Send( back );
+                        session.WorkSocket.Send(back);
                     }
                     else
                     {
-                        session.WorkSocket.Close( );
-                        RemoveClient( session );
+                        session.WorkSocket.Close();
+                        RemoveClient(session);
                         return;
                     }
 
-                    RaiseDataReceived( read1.Content );
-                    session.WorkSocket.BeginReceive( new byte[0], 0, 0, SocketFlags.None, new AsyncCallback( SocketAsyncCallBack ), session );
+                    RaiseDataReceived(read1.Content);
+                    session.WorkSocket.BeginReceive(new byte[0], 0, 0, SocketFlags.None, new AsyncCallback(SocketAsyncCallBack), session);
                 }
                 catch
                 {
                     // 关闭连接，记录日志
-                    session.WorkSocket?.Close( );
-                    LogNet?.WriteDebug( ToString( ), string.Format( StringResources.Language.ClientOfflineInfo, session.IpEndPoint ) );
-                    RemoveClient( session );
+                    session.WorkSocket?.Close();
+                    LogNet?.WriteDebug(ToString(), string.Format(StringResources.Language.ClientOfflineInfo, session.IpEndPoint));
+                    RemoveClient(session);
                     return;
                 }
             }
@@ -384,7 +384,7 @@ namespace Communication.ModBus
         /// <param name="modbusCore">modbus核心报文</param>
         /// <param name="error">错误码</param>
         /// <returns>携带错误码的modbus报文</returns>
-        private byte[] CreateExceptionBack( byte[] modbusCore, byte error )
+        private byte[] CreateExceptionBack(byte[] modbusCore, byte error)
         {
             byte[] buffer = new byte[3];
             buffer[0] = modbusCore[0];
@@ -399,13 +399,13 @@ namespace Communication.ModBus
         /// <param name="modbusCore">modbus核心报文</param>
         /// <param name="content">返回的实际数据内容</param>
         /// <returns>携带内容的modbus报文</returns>
-        private byte[] CreateReadBack( byte[] modbusCore, byte[] content )
+        private byte[] CreateReadBack(byte[] modbusCore, byte[] content)
         {
             byte[] buffer = new byte[3 + content.Length];
             buffer[0] = modbusCore[0];
             buffer[1] = modbusCore[1];
             buffer[2] = (byte)content.Length;
-            Array.Copy( content, 0, buffer, 3, content.Length );
+            Array.Copy(content, 0, buffer, 3, content.Length);
             return buffer;
         }
 
@@ -414,225 +414,225 @@ namespace Communication.ModBus
         /// </summary>
         /// <param name="modbus">modbus核心报文</param>
         /// <returns>携带成功写入的信息</returns>
-        private byte[] CreateWriteBack( byte[] modbus )
+        private byte[] CreateWriteBack(byte[] modbus)
         {
             byte[] buffer = new byte[6];
-            Array.Copy( modbus, 0, buffer, 0, 6 );
+            Array.Copy(modbus, 0, buffer, 0, 6);
             return buffer;
         }
 
 
-        private byte[] ReadCoilBack( byte[] modbus )
+        private byte[] ReadCoilBack(byte[] modbus)
         {
             try
             {
-                ushort address = ByteTransform.TransUInt16( modbus, 2 );
-                ushort length = ByteTransform.TransUInt16( modbus, 4 );
+                ushort address = ByteTransform.TransUInt16(modbus, 2);
+                ushort length = ByteTransform.TransUInt16(modbus, 4);
 
                 // 越界检测
                 if ((address + length) > ushort.MaxValue + 1)
                 {
-                    return CreateExceptionBack( modbus, ModbusInfo.FunctionCodeOverBound );
+                    return CreateExceptionBack(modbus, ModbusInfo.FunctionCodeOverBound);
                 }
 
                 // 地址长度检测
                 if (length > 2040)
                 {
-                    return CreateExceptionBack( modbus, ModbusInfo.FunctionCodeQuantityOver );
+                    return CreateExceptionBack(modbus, ModbusInfo.FunctionCodeQuantityOver);
                 }
 
-                bool[] read = ReadCoil( address.ToString( ), length );
-                byte[] buffer = BasicFramework.SoftBasic.BoolArrayToByte( read );
-                return CreateReadBack( modbus, buffer );
+                bool[] read = ReadCoil(address.ToString(), length);
+                byte[] buffer = BasicFramework.SoftBasic.BoolArrayToByte(read);
+                return CreateReadBack(modbus, buffer);
             }
             catch (Exception ex)
             {
-                LogNet?.WriteException( ToString( ), StringResources.Language.ModbusTcpReadCoilException, ex );
-                return CreateExceptionBack( modbus, ModbusInfo.FunctionCodeReadWriteException );
+                LogNet?.WriteException(ToString(), StringResources.Language.ModbusTcpReadCoilException, ex);
+                return CreateExceptionBack(modbus, ModbusInfo.FunctionCodeReadWriteException);
             }
         }
 
-        private byte[] ReadDiscreteBack( byte[] modbus )
+        private byte[] ReadDiscreteBack(byte[] modbus)
         {
             try
             {
-                ushort address = ByteTransform.TransUInt16( modbus, 2 );
-                ushort length = ByteTransform.TransUInt16( modbus, 4 );
+                ushort address = ByteTransform.TransUInt16(modbus, 2);
+                ushort length = ByteTransform.TransUInt16(modbus, 4);
 
                 // 越界检测
                 if ((address + length) > ushort.MaxValue + 1)
                 {
-                    return CreateExceptionBack( modbus, ModbusInfo.FunctionCodeOverBound );
+                    return CreateExceptionBack(modbus, ModbusInfo.FunctionCodeOverBound);
                 }
 
                 // 地址长度检测
                 if (length > 2040)
                 {
-                    return CreateExceptionBack( modbus, ModbusInfo.FunctionCodeQuantityOver );
+                    return CreateExceptionBack(modbus, ModbusInfo.FunctionCodeQuantityOver);
                 }
 
-                bool[] read = ReadDiscrete( address.ToString( ), length );
-                byte[] buffer = BasicFramework.SoftBasic.BoolArrayToByte( read );
-                return CreateReadBack( modbus, buffer );
+                bool[] read = ReadDiscrete(address.ToString(), length);
+                byte[] buffer = BasicFramework.SoftBasic.BoolArrayToByte(read);
+                return CreateReadBack(modbus, buffer);
             }
             catch (Exception ex)
             {
-                LogNet?.WriteException( ToString( ), StringResources.Language.ModbusTcpReadCoilException, ex );
-                return CreateExceptionBack( modbus, ModbusInfo.FunctionCodeReadWriteException );
+                LogNet?.WriteException(ToString(), StringResources.Language.ModbusTcpReadCoilException, ex);
+                return CreateExceptionBack(modbus, ModbusInfo.FunctionCodeReadWriteException);
             }
         }
 
 
-        private byte[] ReadRegisterBack( byte[] modbus )
+        private byte[] ReadRegisterBack(byte[] modbus)
         {
             try
             {
-                ushort address = ByteTransform.TransUInt16( modbus, 2 );
-                ushort length = ByteTransform.TransUInt16( modbus, 4 );
+                ushort address = ByteTransform.TransUInt16(modbus, 2);
+                ushort length = ByteTransform.TransUInt16(modbus, 4);
 
                 // 越界检测
                 if ((address + length) > ushort.MaxValue + 1)
                 {
-                    return CreateExceptionBack( modbus, ModbusInfo.FunctionCodeOverBound );
+                    return CreateExceptionBack(modbus, ModbusInfo.FunctionCodeOverBound);
                 }
 
                 // 地址长度检测
                 if (length > 127)
                 {
-                    return CreateExceptionBack( modbus, ModbusInfo.FunctionCodeQuantityOver );
+                    return CreateExceptionBack(modbus, ModbusInfo.FunctionCodeQuantityOver);
                 }
 
-                byte[] buffer = Read( address.ToString( ), length ).Content;
-                return CreateReadBack( modbus, buffer );
+                byte[] buffer = Read(address.ToString(), length).Content;
+                return CreateReadBack(modbus, buffer);
             }
             catch (Exception ex)
             {
-                LogNet?.WriteException( ToString( ), StringResources.Language.ModbusTcpReadRegisterException, ex );
-                return CreateExceptionBack( modbus, ModbusInfo.FunctionCodeReadWriteException );
+                LogNet?.WriteException(ToString(), StringResources.Language.ModbusTcpReadRegisterException, ex);
+                return CreateExceptionBack(modbus, ModbusInfo.FunctionCodeReadWriteException);
             }
         }
 
-        private byte[] ReadInputRegisterBack( byte[] modbus )
+        private byte[] ReadInputRegisterBack(byte[] modbus)
         {
             try
             {
-                ushort address = ByteTransform.TransUInt16( modbus, 2 );
-                ushort length = ByteTransform.TransUInt16( modbus, 4 );
+                ushort address = ByteTransform.TransUInt16(modbus, 2);
+                ushort length = ByteTransform.TransUInt16(modbus, 4);
 
                 // 越界检测
                 if ((address + length) > ushort.MaxValue + 1)
                 {
-                    return CreateExceptionBack( modbus, ModbusInfo.FunctionCodeOverBound );
+                    return CreateExceptionBack(modbus, ModbusInfo.FunctionCodeOverBound);
                 }
 
                 // 地址长度检测
                 if (length > 127)
                 {
-                    return CreateExceptionBack( modbus, ModbusInfo.FunctionCodeQuantityOver );
+                    return CreateExceptionBack(modbus, ModbusInfo.FunctionCodeQuantityOver);
                 }
 
-                byte[] buffer = Read( "x=4;" + address.ToString( ), length ).Content;
-                return CreateReadBack( modbus, buffer );
+                byte[] buffer = Read("x=4;" + address.ToString(), length).Content;
+                return CreateReadBack(modbus, buffer);
             }
             catch (Exception ex)
             {
-                LogNet?.WriteException( ToString( ), StringResources.Language.ModbusTcpReadRegisterException, ex );
-                return CreateExceptionBack( modbus, ModbusInfo.FunctionCodeReadWriteException );
+                LogNet?.WriteException(ToString(), StringResources.Language.ModbusTcpReadRegisterException, ex);
+                return CreateExceptionBack(modbus, ModbusInfo.FunctionCodeReadWriteException);
             }
         }
 
-        private byte[] WriteOneCoilBack( byte[] modbus )
+        private byte[] WriteOneCoilBack(byte[] modbus)
         {
             try
             {
-                ushort address = ByteTransform.TransUInt16( modbus, 2 );
+                ushort address = ByteTransform.TransUInt16(modbus, 2);
 
                 if (modbus[4] == 0xFF && modbus[5] == 0x00)
                 {
-                    WriteCoil( address.ToString( ), true );
+                    WriteCoil(address.ToString(), true);
                 }
                 else if (modbus[4] == 0x00 && modbus[5] == 0x00)
                 {
-                    WriteCoil( address.ToString( ), false );
+                    WriteCoil(address.ToString(), false);
                 }
-                return CreateWriteBack( modbus );
+                return CreateWriteBack(modbus);
             }
             catch (Exception ex)
             {
-                LogNet?.WriteException( ToString( ), StringResources.Language.ModbusTcpWriteCoilException, ex );
-                return CreateExceptionBack( modbus, ModbusInfo.FunctionCodeReadWriteException );
+                LogNet?.WriteException(ToString(), StringResources.Language.ModbusTcpWriteCoilException, ex);
+                return CreateExceptionBack(modbus, ModbusInfo.FunctionCodeReadWriteException);
             }
         }
 
 
 
-        private byte[] WriteOneRegisterBack( byte[] modbus )
+        private byte[] WriteOneRegisterBack(byte[] modbus)
         {
             try
             {
-                ushort address = ByteTransform.TransUInt16( modbus, 2 );
-                short ValueOld = ReadInt16( address.ToString( ) ).Content;
+                ushort address = ByteTransform.TransUInt16(modbus, 2);
+                short ValueOld = ReadInt16(address.ToString()).Content;
                 // 写入到寄存器
-                Write( address.ToString( ), modbus[4], modbus[5] );
-                short ValueNew = ReadInt16( address.ToString( ) ).Content;
+                Write(address.ToString(), modbus[4], modbus[5]);
+                short ValueNew = ReadInt16(address.ToString()).Content;
                 // 触发写入请求
-                OnRegisterBeforWrite( address, ValueOld, ValueNew );
+                OnRegisterBeforWrite(address, ValueOld, ValueNew);
 
-                return CreateWriteBack( modbus );
+                return CreateWriteBack(modbus);
             }
             catch (Exception ex)
             {
-                LogNet?.WriteException( ToString( ), StringResources.Language.ModbusTcpWriteRegisterException, ex );
-                return CreateExceptionBack( modbus, ModbusInfo.FunctionCodeReadWriteException );
+                LogNet?.WriteException(ToString(), StringResources.Language.ModbusTcpWriteRegisterException, ex);
+                return CreateExceptionBack(modbus, ModbusInfo.FunctionCodeReadWriteException);
             }
         }
 
-        private byte[] WriteCoilsBack( byte[] modbus )
+        private byte[] WriteCoilsBack(byte[] modbus)
         {
             try
             {
-                ushort address = ByteTransform.TransUInt16( modbus, 2 );
-                ushort length = ByteTransform.TransUInt16( modbus, 4 );
+                ushort address = ByteTransform.TransUInt16(modbus, 2);
+                ushort length = ByteTransform.TransUInt16(modbus, 4);
 
                 if ((address + length) > ushort.MaxValue + 1)
                 {
-                    return CreateExceptionBack( modbus, ModbusInfo.FunctionCodeOverBound );
+                    return CreateExceptionBack(modbus, ModbusInfo.FunctionCodeOverBound);
                 }
 
                 if (length > 2040)
                 {
-                    return CreateExceptionBack( modbus, ModbusInfo.FunctionCodeQuantityOver );
+                    return CreateExceptionBack(modbus, ModbusInfo.FunctionCodeQuantityOver);
                 }
 
                 byte[] buffer = new byte[modbus.Length - 7];
-                Array.Copy( modbus, 7, buffer, 0, buffer.Length );
-                bool[] value = BasicFramework.SoftBasic.ByteToBoolArray( buffer, length );
-                WriteCoil( address.ToString( ), value );
-                return CreateWriteBack( modbus );
+                Array.Copy(modbus, 7, buffer, 0, buffer.Length);
+                bool[] value = BasicFramework.SoftBasic.ByteToBoolArray(buffer, length);
+                WriteCoil(address.ToString(), value);
+                return CreateWriteBack(modbus);
             }
             catch (Exception ex)
             {
-                LogNet?.WriteException( ToString( ), StringResources.Language.ModbusTcpWriteCoilException, ex );
-                return CreateExceptionBack( modbus, ModbusInfo.FunctionCodeReadWriteException );
+                LogNet?.WriteException(ToString(), StringResources.Language.ModbusTcpWriteCoilException, ex);
+                return CreateExceptionBack(modbus, ModbusInfo.FunctionCodeReadWriteException);
             }
         }
 
 
-        private byte[] WriteRegisterBack( byte[] modbus )
+        private byte[] WriteRegisterBack(byte[] modbus)
         {
             try
             {
-                ushort address = ByteTransform.TransUInt16( modbus, 2 );
-                ushort length = ByteTransform.TransUInt16( modbus, 4 );
+                ushort address = ByteTransform.TransUInt16(modbus, 2);
+                ushort length = ByteTransform.TransUInt16(modbus, 4);
 
                 if ((address + length) > ushort.MaxValue + 1)
                 {
-                    return CreateExceptionBack( modbus, ModbusInfo.FunctionCodeOverBound );
+                    return CreateExceptionBack(modbus, ModbusInfo.FunctionCodeOverBound);
                 }
 
                 if (length > 127)
                 {
-                    return CreateExceptionBack( modbus, ModbusInfo.FunctionCodeQuantityOver );
+                    return CreateExceptionBack(modbus, ModbusInfo.FunctionCodeQuantityOver);
                 }
 
                 byte[] buffer = new byte[modbus.Length - 7];
@@ -641,11 +641,11 @@ namespace Communication.ModBus
                 MonitorAddress[] addresses = new MonitorAddress[length];
                 for (ushort i = 0; i < length; i++)
                 {
-                    short ValueOld = ReadInt16( (address + i).ToString( ) ).Content;
-                    Write( (address + i).ToString( ), modbus[2 * i + 7], modbus[2 * i + 8] );
-                    short ValueNew = ReadInt16( (address + i).ToString( ) ).Content;
+                    short ValueOld = ReadInt16((address + i).ToString()).Content;
+                    Write((address + i).ToString(), modbus[2 * i + 7], modbus[2 * i + 8]);
+                    short ValueNew = ReadInt16((address + i).ToString()).Content;
                     // 触发写入请求
-                    addresses[i] = new MonitorAddress( )
+                    addresses[i] = new MonitorAddress()
                     {
                         Address = (ushort)(address + i),
                         ValueOrigin = ValueOld,
@@ -656,15 +656,15 @@ namespace Communication.ModBus
                 // 所有数据都更改完成后，再触发消息
                 for (int i = 0; i < addresses.Length; i++)
                 {
-                    OnRegisterBeforWrite( addresses[i].Address, addresses[i].ValueOrigin, addresses[i].ValueNew );
+                    OnRegisterBeforWrite(addresses[i].Address, addresses[i].ValueOrigin, addresses[i].ValueNew);
                 }
 
-                return CreateWriteBack( modbus );
+                return CreateWriteBack(modbus);
             }
             catch (Exception ex)
             {
-                LogNet?.WriteException( ToString( ), StringResources.Language.ModbusTcpWriteRegisterException, ex );
-                return CreateExceptionBack( modbus, ModbusInfo.FunctionCodeReadWriteException );
+                LogNet?.WriteException(ToString(), StringResources.Language.ModbusTcpWriteRegisterException, ex);
+                return CreateExceptionBack(modbus, ModbusInfo.FunctionCodeReadWriteException);
             }
         }
 
@@ -682,22 +682,22 @@ namespace Communication.ModBus
         /// 新增一个数据监视的任务，针对的是寄存器
         /// </summary>
         /// <param name="monitor">监视地址对象</param>
-        public void AddSubcription( ModBusMonitorAddress monitor )
+        public void AddSubcription(ModBusMonitorAddress monitor)
         {
-            subcriptionHybirdLock.Enter( );
-            subscriptions.Add( monitor );
-            subcriptionHybirdLock.Leave( );
+            subcriptionHybirdLock.Enter();
+            subscriptions.Add(monitor);
+            subcriptionHybirdLock.Leave();
         }
 
         /// <summary>
         /// 移除一个数据监视的任务
         /// </summary>
         /// <param name="monitor"></param>
-        public void RemoveSubcrption( ModBusMonitorAddress monitor )
+        public void RemoveSubcrption(ModBusMonitorAddress monitor)
         {
-            subcriptionHybirdLock.Enter( );
-            subscriptions.Remove( monitor );
-            subcriptionHybirdLock.Leave( );
+            subcriptionHybirdLock.Enter();
+            subscriptions.Remove(monitor);
+            subcriptionHybirdLock.Leave();
         }
 
         /// <summary>
@@ -706,21 +706,21 @@ namespace Communication.ModBus
         /// <param name="address">数据地址</param>
         /// <param name="before">修改之前的数</param>
         /// <param name="after">修改之后的数</param>
-        private void OnRegisterBeforWrite( ushort address, short before, short after )
+        private void OnRegisterBeforWrite(ushort address, short before, short after)
         {
-            subcriptionHybirdLock.Enter( );
+            subcriptionHybirdLock.Enter();
             for (int i = 0; i < subscriptions.Count; i++)
             {
                 if (subscriptions[i].Address == address)
                 {
-                    subscriptions[i].SetValue( after );
+                    subscriptions[i].SetValue(after);
                     if (before != after)
                     {
-                        subscriptions[i].SetChangeValue( before, after );
+                        subscriptions[i].SetChangeValue(before, after);
                     }
                 }
             }
-            subcriptionHybirdLock.Leave( );
+            subcriptionHybirdLock.Leave();
         }
 
         #endregion
@@ -732,7 +732,7 @@ namespace Communication.ModBus
         /// </summary>
         /// <param name="buffer">缓存数据</param>
         /// <returns>是否合格</returns>
-        private bool CheckModbusMessageLegal( byte[] buffer )
+        private bool CheckModbusMessageLegal(byte[] buffer)
         {
             try
             {
@@ -779,7 +779,7 @@ namespace Communication.ModBus
             }
             catch (Exception ex)
             {
-                LogNet?.WriteException( ToString( ), ex );
+                LogNet?.WriteException(ToString(), ex);
                 return false;
             }
         }
@@ -789,7 +789,7 @@ namespace Communication.ModBus
         /// </summary>
         /// <param name="modbusCore">核心的Modbus报文</param>
         /// <returns>进行数据交互之后的结果</returns>
-        protected virtual byte[] ReadFromModbusCore( byte[] modbusCore )
+        protected virtual byte[] ReadFromModbusCore(byte[] modbusCore)
         {
             byte[] buffer = null;
 
@@ -797,39 +797,39 @@ namespace Communication.ModBus
             {
                 case ModbusInfo.ReadCoil:
                     {
-                        buffer = ReadCoilBack( modbusCore ); break;
+                        buffer = ReadCoilBack(modbusCore); break;
                     }
                 case ModbusInfo.ReadDiscrete:
                     {
-                        buffer = ReadDiscreteBack( modbusCore ); break;
+                        buffer = ReadDiscreteBack(modbusCore); break;
                     }
                 case ModbusInfo.ReadRegister:
                     {
-                        buffer = ReadRegisterBack( modbusCore ); break;
+                        buffer = ReadRegisterBack(modbusCore); break;
                     }
                 case ModbusInfo.ReadInputRegister:
                     {
-                        buffer = ReadInputRegisterBack( modbusCore ); break;
+                        buffer = ReadInputRegisterBack(modbusCore); break;
                     }
                 case ModbusInfo.WriteOneCoil:
                     {
-                        buffer = WriteOneCoilBack( modbusCore ); break;
+                        buffer = WriteOneCoilBack(modbusCore); break;
                     }
                 case ModbusInfo.WriteOneRegister:
                     {
-                        buffer = WriteOneRegisterBack( modbusCore ); break;
+                        buffer = WriteOneRegisterBack(modbusCore); break;
                     }
                 case ModbusInfo.WriteCoil:
                     {
-                        buffer = WriteCoilsBack( modbusCore ); break;
+                        buffer = WriteCoilsBack(modbusCore); break;
                     }
                 case ModbusInfo.WriteRegister:
                     {
-                        buffer = WriteRegisterBack( modbusCore ); break;
+                        buffer = WriteRegisterBack(modbusCore); break;
                     }
                 default:
                     {
-                        buffer = CreateExceptionBack( modbusCore, ModbusInfo.FunctionCodeNotSupport ); break;
+                        buffer = CreateExceptionBack(modbusCore, ModbusInfo.FunctionCodeNotSupport); break;
                     }
             }
 
@@ -848,9 +848,9 @@ namespace Communication.ModBus
         /// 使用默认的参数进行初始化串口，9600波特率，8位数据位，无奇偶校验，1位停止位
         /// </summary>
         /// <param name="com">串口信息</param>
-        public void StartSerialPort( string com )
+        public void StartSerialPort(string com)
         {
-            StartSerialPort( com, 9600 );
+            StartSerialPort(com, 9600);
         }
 
         /// <summary>
@@ -858,31 +858,31 @@ namespace Communication.ModBus
         /// </summary>
         /// <param name="com">串口信息</param>
         /// <param name="baudRate">波特率</param>
-        public void StartSerialPort( string com, int baudRate )
+        public void StartSerialPort(string com, int baudRate)
         {
-            StartSerialPort( sp =>
-            {
-                sp.PortName = com;
-                sp.BaudRate = baudRate;
-                sp.DataBits = 8;
-                sp.Parity = Parity.None;
-                sp.StopBits = StopBits.One;
-            } );
+            StartSerialPort(sp =>
+           {
+               sp.PortName = com;
+               sp.BaudRate = baudRate;
+               sp.DataBits = 8;
+               sp.Parity = Parity.None;
+               sp.StopBits = StopBits.One;
+           });
         }
 
         /// <summary>
         /// 使用自定义的初始化方法初始化串口的参数
         /// </summary>
         /// <param name="inni">初始化信息的委托</param>
-        public void StartSerialPort( Action<SerialPort> inni )
+        public void StartSerialPort(Action<SerialPort> inni)
         {
             if (!serialPort.IsOpen)
             {
-                inni?.Invoke( serialPort );
+                inni?.Invoke(serialPort);
 
                 serialPort.ReadBufferSize = 1024;
                 serialPort.ReceivedBytesThreshold = 1;
-                serialPort.Open( );
+                serialPort.Open();
                 serialPort.DataReceived += SerialPort_DataReceived;
             }
         }
@@ -890,11 +890,11 @@ namespace Communication.ModBus
         /// <summary>
         /// 关闭串口
         /// </summary>
-        public void CloseSerialPort( )
+        public void CloseSerialPort()
         {
             if (serialPort.IsOpen)
             {
-                serialPort.Close( );
+                serialPort.Close();
             }
         }
 
@@ -903,60 +903,60 @@ namespace Communication.ModBus
         /// </summary>
         /// <param name="sender">串口对象</param>
         /// <param name="e">消息</param>
-        private void SerialPort_DataReceived( object sender, SerialDataReceivedEventArgs e )
+        private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             int rCount = 0;
             byte[] buffer = new byte[1024];
             byte[] receive = null;
 
-            while(true)
+            while (true)
             {
-                System.Threading.Thread.Sleep( 20 );            // 此处做个微小的延时，等待数据接收完成
-                int count = serialPort.Read( buffer, rCount, serialPort.BytesToRead );
+                System.Threading.Thread.Sleep(20);            // 此处做个微小的延时，等待数据接收完成
+                int count = serialPort.Read(buffer, rCount, serialPort.BytesToRead);
                 rCount += count;
-                if(count == 0) break;
+                if (count == 0) break;
 
                 receive = new byte[rCount];
-                Array.Copy( buffer, 0, receive, 0, count );
+                Array.Copy(buffer, 0, receive, 0, count);
             }
 
-            if(receive == null) return;
-            
+            if (receive == null) return;
+
             if (receive.Length < 3)
             {
-                LogNet?.WriteError( ToString( ), $"Uknown Data：" + SoftBasic.ByteToHexString( receive, ' ' ) );
+                LogNet?.WriteError(ToString(), $"Uknown Data：" + SoftBasic.ByteToHexString(receive, ' '));
                 return;
             }
 
-            if (Serial.SoftCRC16.CheckCRC16( receive ))
+            if (Serial.SoftCRC16.CheckCRC16(receive))
             {
-                byte[] modbusCore = SoftBasic.BytesArrayRemoveLast( receive, 2 );
+                byte[] modbusCore = SoftBasic.BytesArrayRemoveLast(receive, 2);
 
-                if (!CheckModbusMessageLegal( modbusCore ))
+                if (!CheckModbusMessageLegal(modbusCore))
                 {
                     // 指令长度验证错误，关闭网络连接
-                    LogNet?.WriteError( ToString( ), $"Receive Nosense Modbus-rtu : " + SoftBasic.ByteToHexString( receive, ' ' ) );
+                    LogNet?.WriteError(ToString(), $"Receive Nosense Modbus-rtu : " + SoftBasic.ByteToHexString(receive, ' '));
                     return;
                 }
 
                 // 验证站号是否一致
-                if(station >= 0 && station != modbusCore[0])
+                if (station >= 0 && station != modbusCore[0])
                 {
-                    LogNet?.WriteError( ToString( ), $"Station not match Modbus-rtu : " + SoftBasic.ByteToHexString( receive, ' ' ) );
+                    LogNet?.WriteError(ToString(), $"Station not match Modbus-rtu : " + SoftBasic.ByteToHexString(receive, ' '));
                     return;
                 }
 
                 // LogNet?.WriteError( ToString( ), $"Success：" + BasicFramework.SoftBasic.ByteToHexString( receive, ' ' ) );
                 // 需要回发消息
-                byte[] copy = ModbusInfo.PackCommandToRtu( ReadFromModbusCore( modbusCore ) );
+                byte[] copy = ModbusInfo.PackCommandToRtu(ReadFromModbusCore(modbusCore));
 
-                serialPort.Write( copy, 0, copy.Length );
+                serialPort.Write(copy, 0, copy.Length);
 
-                if (IsStarted) RaiseDataReceived( receive );
+                if (IsStarted) RaiseDataReceived(receive);
             }
             else
             {
-                LogNet?.WriteWarn( "CRC Check Failed : " + SoftBasic.ByteToHexString( receive, ' ' ) );
+                LogNet?.WriteWarn("CRC Check Failed : " + SoftBasic.ByteToHexString(receive, ' '));
             }
         }
 
@@ -982,7 +982,7 @@ namespace Communication.ModBus
         /// 返回表示当前对象的字符串
         /// </summary>
         /// <returns>字符串</returns>
-        public override string ToString( )
+        public override string ToString()
         {
             return $"ModbusTcpServer[{Port}]";
         }
