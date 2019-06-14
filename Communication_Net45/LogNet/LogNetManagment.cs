@@ -50,16 +50,16 @@ namespace Communication.LogNet
         internal const string LogFileHeadString = "Logs_";
 
 
-        internal static string GetDegreeDescription(HslMessageDegree degree)
+        internal static string GetDegreeDescription(CommonMessageDegree degree)
         {
             switch (degree)
             {
-                case HslMessageDegree.DEBUG: return StringResources.Language.LogNetDebug;
-                case HslMessageDegree.INFO: return StringResources.Language.LogNetInfo;
-                case HslMessageDegree.WARN: return StringResources.Language.LogNetWarn;
-                case HslMessageDegree.ERROR: return StringResources.Language.LogNetError;
-                case HslMessageDegree.FATAL: return StringResources.Language.LogNetFatal;
-                case HslMessageDegree.None: return StringResources.Language.LogNetAbandon;
+                case CommonMessageDegree.DEBUG: return StringResources.Language.LogNetDebug;
+                case CommonMessageDegree.INFO: return StringResources.Language.LogNetInfo;
+                case CommonMessageDegree.WARN: return StringResources.Language.LogNetWarn;
+                case CommonMessageDegree.ERROR: return StringResources.Language.LogNetError;
+                case CommonMessageDegree.FATAL: return StringResources.Language.LogNetFatal;
+                case CommonMessageDegree.None: return StringResources.Language.LogNetAbandon;
                 default: return StringResources.Language.LogNetAbandon;
             }
         }

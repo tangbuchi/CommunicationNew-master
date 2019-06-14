@@ -50,7 +50,6 @@ E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\PushNetServer\
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\PushNetServer\bin\Debug\Communication.dll
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\PushNetServer\bin\Debug\Newtonsoft.Json.dll
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\PushNetServer\bin\Debug\Communication.pdb
-E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\PushNetServer\bin\Debug\Communication.xml
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\PushNetServer\obj\Debug\PushNetServer.csprojAssemblyReference.cache
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\PushNetServer\obj\Debug\PushNetServer.FormServer.resources
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\PushNetServer\obj\Debug\PushNetServer.Properties.Resources.resources
@@ -59,3 +58,4 @@ E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\PushNetServer\
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\PushNetServer\obj\Debug\PushNetServer.csproj.CopyComplete
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\PushNetServer\obj\Debug\PushNetServer.exe
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\PushNetServer\obj\Debug\PushNetServer.pdb
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\PushNetServer\bin\Debug\Communication.xml

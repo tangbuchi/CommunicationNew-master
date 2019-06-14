@@ -42,9 +42,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Communication_Net45\bin\Debug\Communication.dll</HintPath>
     </Reference>
-    <Reference Include="DSCDTU">
-      <HintPath>..\DSCDTU\bin\Debug\DSCDTU.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\HslCommunication_Net35\bin\Debug\Newtonsoft.Json.dll</HintPath>
@@ -660,30 +657,6 @@
       <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="img\VirtualMachine.png" />
-    <None Include="img\usbcontroller.png" />
-    <None Include="img\Tag_7213.png" />
-    <None Include="img\Table_748.png" />
-    <None Include="img\Structure_507.png" />
-    <None Include="img\Module_648.png" />
-    <None Include="img\Method_636.png" />
-    <None Include="img\loading.gif" />
-    <None Include="img\ListView_687.png" />
-    <None Include="img\lightningBolt_16xLG.png" />
-    <None Include="img\grid_Data_16xLG.png" />
-    <None Include="img\glasses_16xLG.png" />
-    <None Include="img\Event_594_exp.png" />
-    <None Include="img\Event_594.png" />
-    <None Include="img\Enum_582.png" />
-    <None Include="img\docview_xaml_on_16x16.png" />
-    <None Include="img\Delegate_8339.png" />
-    <None Include="img\Copy_6524.png" />
-    <None Include="img\Cloud_16xLG.png" />
-    <None Include="img\ClassIcon.png" />
-    <None Include="img\Class_489.png" />
-    <None Include="img\brackets_Square_16xMD.png" />
-    <None Include="img\Activity_16xLG.png" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

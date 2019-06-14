@@ -13,7 +13,7 @@ namespace Communication.Enthernet.Redis
     /// <summary>
     /// 这是一个redis的客户端类，支持读取，写入，发布订阅，但是不支持订阅，如果需要订阅，请使用另一个类
     /// </summary>
-    public class RedisClient : NetworkDoubleBase<HslMessage, RegularByteTransform>
+    public class RedisClient : NetworkDoubleBase<CommonMessage, RegularByteTransform>
     {
         #region Constructor
 

@@ -530,7 +530,7 @@ namespace Communication.Core.Net
         protected OperateResult<byte[], byte[]> ReceiveAndCheckBytes( Socket socket, int timeout )
         {
             // 30秒超时接收验证
-            HslTimeOut hslTimeOut = new HslTimeOut( )
+            TimeOut TimeOut = new TimeOut( )
             {
                 DelayTime = timeout,
                 IsSuccessful = false,
@@ -538,16 +538,16 @@ namespace Communication.Core.Net
                 WorkSocket = socket,
             };
 
-            if (timeout > 0) ThreadPool.QueueUserWorkItem( new WaitCallback( ThreadPoolCheckTimeOut ), hslTimeOut );
+            if (timeout > 0) ThreadPool.QueueUserWorkItem( new WaitCallback( ThreadPoolCheckTimeOut ), TimeOut );
             
             // 接收头指令
             OperateResult<byte[]> headResult = Receive( socket, HslProtocol.HeadByteLength );
             if (!headResult.IsSuccess)
             {
-                hslTimeOut.IsSuccessful = true;
+                TimeOut.IsSuccessful = true;
                 return OperateResult.CreateFailedResult<byte[],byte[]>( headResult );
             }
-            hslTimeOut.IsSuccessful = true;
+            TimeOut.IsSuccessful = true;
             
             // 检查令牌
             if (!CheckRemoteToken( headResult.Content ))

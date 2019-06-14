@@ -66,7 +66,7 @@ namespace SimplifyNetTest
                 return;
             }
 
-            textBox2.AppendText( e.HslMessage.ToString( ) + Environment.NewLine );
+            textBox2.AppendText( e.CommonMessage.ToString( ) + Environment.NewLine );
         }
 
         private void SimplifyServer_ReceiveStringEvent( AppSession session, NetHandle handle, string value )

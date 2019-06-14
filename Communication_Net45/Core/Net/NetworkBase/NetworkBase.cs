@@ -98,10 +98,10 @@ namespace Communication.Core.Net
         /// <summary>
         /// 检查网络套接字是否操作超时，需要对套接字进行封装
         /// </summary>
-        /// <param name="obj">通常是 <see cref="HslTimeOut"/> 对象 </param>
+        /// <param name="obj">通常是 <see cref="TimeOut"/> 对象 </param>
         protected void ThreadPoolCheckTimeOut( object obj )
         {
-            if (obj is HslTimeOut timeout)
+            if (obj is TimeOut timeout)
             {
                 while (!timeout.IsSuccessful)
                 {
@@ -372,18 +372,18 @@ namespace Communication.Core.Net
         /// <returns>带有是否成功的byte数组对象</returns>
         protected OperateResult<byte[]> ReceiveByMessage( Socket socket, int timeOut, INetMessage netMessage )
         {
-            HslTimeOut hslTimeOut = new HslTimeOut( )
+            TimeOut TimeOut = new TimeOut( )
             {
                 DelayTime = timeOut,
                 WorkSocket = socket,
             };
-            if (timeOut > 0) ThreadPool.QueueUserWorkItem( new WaitCallback( ThreadPoolCheckTimeOut ), hslTimeOut );
+            if (timeOut > 0) ThreadPool.QueueUserWorkItem( new WaitCallback( ThreadPoolCheckTimeOut ), TimeOut );
 
             // 接收指令头
             OperateResult<byte[]> headResult = Receive( socket, netMessage.ProtocolHeadBytesLength );
             if (!headResult.IsSuccess)
             {
-                hslTimeOut.IsSuccessful = true;
+                TimeOut.IsSuccessful = true;
                 return headResult;
             }
 
@@ -391,18 +391,18 @@ namespace Communication.Core.Net
             int contentLength = netMessage.GetContentLengthByHeadBytes( );
             if (contentLength <= 0)
             {
-                hslTimeOut.IsSuccessful = true;
+                TimeOut.IsSuccessful = true;
                 return headResult;
             }
 
             OperateResult<byte[]> contentResult = Receive( socket, contentLength );
             if (!contentResult.IsSuccess)
             {
-                hslTimeOut.IsSuccessful = true;
+                TimeOut.IsSuccessful = true;
                 return contentResult;
             }
 
-            hslTimeOut.IsSuccessful = true;
+            TimeOut.IsSuccessful = true;
             netMessage.ContentBytes = contentResult.Content;
             return OperateResult.CreateSuccessResult( SoftBasic.SpliceTwoByteArray( headResult.Content, contentResult.Content ) );
         }
@@ -638,7 +638,7 @@ namespace Communication.Core.Net
                 var socket = new Socket( AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );
                 try
                 {
-                    HslTimeOut connectTimeout = new HslTimeOut( )
+                    TimeOut connectTimeout = new TimeOut( )
                     {
                         WorkSocket = socket,
                         DelayTime = timeOut
@@ -674,7 +674,7 @@ namespace Communication.Core.Net
 
                 var socket = new Socket( AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );
                 // 超时验证的信息
-                HslTimeOut connectTimeout = new HslTimeOut( )
+                TimeOut connectTimeout = new TimeOut( )
                 {
                     WorkSocket = socket,
                     DelayTime = timeOut
@@ -758,7 +758,7 @@ namespace Communication.Core.Net
             state.WorkSocket = socket;
 
             // timeout check
-            HslTimeOut connectTimeout = new HslTimeOut( )
+            TimeOut connectTimeout = new TimeOut( )
             {
                 WorkSocket = socket,
                 DelayTime = timeOut

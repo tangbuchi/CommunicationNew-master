@@ -23,7 +23,7 @@ namespace Communication.Enthernet
     /// 此处贴上了Demo项目的服务器配置的示例代码
     /// <code lang="cs" source="TestProject\CommunicationDemo\FormSimplifyNet.cs" region="FormSimplifyNet" title="FormSimplifyNet示例" />
     /// </example>
-    public class NetSimplifyClient : NetworkDoubleBase<HslMessage, RegularByteTransform>
+    public class NetSimplifyClient : NetworkDoubleBase<CommonMessage, RegularByteTransform>
     {
         #region Constructor
 

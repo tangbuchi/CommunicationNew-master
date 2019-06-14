@@ -44,7 +44,7 @@ namespace Communication.Core
         /// </summary>
         /// <param name="timeout">数据封送对象</param>
         /// <param name="millisecond">超时的时间</param>
-        internal static void ThreadPoolCheckConnect( HslTimeOut timeout, int millisecond )
+        internal static void ThreadPoolCheckConnect( TimeOut timeout, int millisecond )
         {
             while (!timeout.IsSuccessful)
             {
@@ -64,7 +64,7 @@ namespace Communication.Core
         /// <param name="obj">socket对象</param>
         internal static void ThreadPoolCheckTimeOut( object obj )
         {
-            if (obj is HslTimeOut timeout)
+            if (obj is TimeOut timeout)
             {
                 while (!timeout.IsSuccessful)
                 {

@@ -75,7 +75,7 @@ namespace FileNetServer
                 return;
             }
 
-            textBox5.AppendText( e.HslMessage.ToString( ) + Environment.NewLine );
+            textBox5.AppendText( e.CommonMessage.ToString( ) + Environment.NewLine );
         }
         private void button1_Click( object sender, EventArgs e )
         {
@@ -122,7 +122,7 @@ namespace FileNetServer
                 return;
             }
 
-            textBox6.AppendText( e.HslMessage.ToString( ) + Environment.NewLine );
+            textBox6.AppendText( e.CommonMessage.ToString( ) + Environment.NewLine );
         }
         private void button2_Click( object sender, EventArgs e )
         {

@@ -244,7 +244,7 @@ namespace CommunicationDemo
                     return;
                 }
 
-                textBox1.AppendText( e.HslMessage.ToString( ) + Environment.NewLine );
+                textBox1.AppendText( e.CommonMessage.ToString( ) + Environment.NewLine );
             }
             catch
             {

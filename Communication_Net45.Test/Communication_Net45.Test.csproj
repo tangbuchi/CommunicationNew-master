@@ -69,7 +69,7 @@
     <Compile Include="Documentation\Samples\BasicFramework\SoftBufferExample.cs" />
     <Compile Include="Documentation\Samples\BasicFramework\SoftFileSaveBaseExample.cs" />
     <Compile Include="Documentation\Samples\Core\IReadWriteNet.cs" />
-    <Compile Include="Core\Net\HslProtocolTest.cs" />
+    <Compile Include="Core\Net\ProtocolTest.cs" />
     <Compile Include="Core\Net\NetHandleTest.cs" />
     <Compile Include="Core\Security\SecurityTest.cs" />
     <Compile Include="Core\Transfer\ByteTransformHelperTest.cs" />

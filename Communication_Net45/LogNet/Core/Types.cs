@@ -19,7 +19,7 @@ namespace Communication.LogNet
         /// <summary>
         /// 消息信息
         /// </summary>
-        public HslMessageItem HslMessage { get; set; }
+        public CommonMessageItem CommonMessage { get; set; }
 
     }
 
@@ -81,7 +81,7 @@ namespace Communication.LogNet
     /// <summary>
     /// 记录消息的等级
     /// </summary>
-    public enum HslMessageDegree
+    public enum CommonMessageDegree
     {
         /// <summary>
         /// 一条消息都不记录
@@ -116,14 +116,14 @@ namespace Communication.LogNet
     /// <summary>
     /// 单个日志的记录信息
     /// </summary>
-    public class HslMessageItem
+    public class CommonMessageItem
     {
         private static long IdNumber = 0;
 
         /// <summary>
         /// 默认的无参构造器
         /// </summary>
-        public HslMessageItem( )
+        public CommonMessageItem( )
         {
             Id    = Interlocked.Increment( ref IdNumber );
             Time  = DateTime.Now;
@@ -137,7 +137,7 @@ namespace Communication.LogNet
         /// <summary>
         /// 消息的等级
         /// </summary>
-        public HslMessageDegree Degree { get; set; } = HslMessageDegree.DEBUG;
+        public CommonMessageDegree Degree { get; set; } = CommonMessageDegree.DEBUG;
 
         /// <summary>
         /// 线程ID
@@ -170,7 +170,7 @@ namespace Communication.LogNet
         /// <returns>字符串信息</returns>
         public override string ToString( )
         {
-            if (Degree != HslMessageDegree.None)
+            if (Degree != CommonMessageDegree.None)
             {
                 if (string.IsNullOrEmpty( KeyWord ))
                 {
@@ -193,7 +193,7 @@ namespace Communication.LogNet
         /// <returns>字符串信息</returns>
         public string ToStringWithoutKeyword( )
         {
-            if (Degree != HslMessageDegree.None)
+            if (Degree != CommonMessageDegree.None)
             {
                 return $"[{Degree}] {Time.ToString( "yyyy-MM-dd HH:mm:ss.fff" )} Thread [{ThreadId.ToString( "D3" )}] {Text}";
             }

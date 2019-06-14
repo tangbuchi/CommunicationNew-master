@@ -30,7 +30,7 @@ namespace Communication.Controls
             formatCenter.Alignment = StringAlignment.Center;
             formatCenter.LineAlignment = StringAlignment.Center;
 
-            pieItems = new HslPieItem[0];
+            pieItems = new PieItem[0];
         }
 
         private void UserPieChart_Load( object sender, EventArgs e )
@@ -40,7 +40,7 @@ namespace Communication.Controls
 
         #region Private
         
-        private HslPieItem[] pieItems = new HslPieItem[0];                      // 饼图的数据
+        private PieItem[] pieItems = new PieItem[0];                      // 饼图的数据
         private Random random = null;                                           // 随机数
         private StringFormat formatCenter = null;                               // 格式化的文本位置
         private int margin = 40;                                                // 边界距离
@@ -260,7 +260,7 @@ namespace Communication.Controls
         /// </summary>
         /// <param name="source">特殊的显示对象</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public void SetDataSource( HslPieItem[] source )
+        public void SetDataSource( PieItem[] source )
         {
             if (source != null)
             {
@@ -281,11 +281,11 @@ namespace Communication.Controls
             if (values == null) throw new ArgumentNullException( "values" );
             if (names.Length != values.Length) throw new Exception( "两个数组的长度不一致！" );
 
-            pieItems = new HslPieItem[names.Length];
+            pieItems = new PieItem[names.Length];
 
             for (int i = 0; i < names.Length; i++)
             {
-                pieItems[i] = new HslPieItem( )
+                pieItems[i] = new PieItem( )
                 {
                     Name = names[i],
                     Value = values[i],

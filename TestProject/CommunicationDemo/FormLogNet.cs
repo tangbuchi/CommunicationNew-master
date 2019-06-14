@@ -23,10 +23,10 @@ namespace CommunicationDemo
         private void FormLogNet_Load(object sender, EventArgs e)
         {
             logNet = new LogNetSingle("log.txt");
-            comboBox1.DataSource = Communication.BasicFramework.SoftBasic.GetEnumValues<HslMessageDegree>();
-            comboBox1.SelectedItem = HslMessageDegree.DEBUG;
-            comboBox2.DataSource = Communication.BasicFramework.SoftBasic.GetEnumValues<HslMessageDegree>();
-            comboBox2.SelectedItem = HslMessageDegree.DEBUG;
+            comboBox1.DataSource = Communication.BasicFramework.SoftBasic.GetEnumValues<CommonMessageDegree>();
+            comboBox1.SelectedItem = CommonMessageDegree.DEBUG;
+            comboBox2.DataSource = Communication.BasicFramework.SoftBasic.GetEnumValues<CommonMessageDegree>();
+            comboBox2.SelectedItem = CommonMessageDegree.DEBUG;
             comboBox2.SelectedIndexChanged += ComboBox2_SelectedIndexChanged;
 
             logNet.FiltrateKeyword("123");  // 过滤关键字123的存储
@@ -42,12 +42,12 @@ namespace CommunicationDemo
 
         private void LogNet_BeforeSaveToFile(object sender, HslEventArgs e)
         {
-            e.HslMessage.Cancel = checkBox1.Checked;
+            e.CommonMessage.Cancel = checkBox1.Checked;
         }
 
         private void ComboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            HslMessageDegree degree = (HslMessageDegree)comboBox2.SelectedItem;
+            CommonMessageDegree degree = (CommonMessageDegree)comboBox2.SelectedItem;
             logNet.SetMessageDegree(degree);
         }
 
@@ -56,29 +56,29 @@ namespace CommunicationDemo
         private void button1_Click(object sender, EventArgs e)
         {
             // 写日志
-            HslMessageDegree degree = (HslMessageDegree)comboBox1.SelectedItem;
+            CommonMessageDegree degree = (CommonMessageDegree)comboBox1.SelectedItem;
 
             // 两种方法，第一种
             logNet.RecordMessage(degree, textBox1.Text, textBox2.Text);
 
             // 第二种
-            //if(degree == HslMessageDegree.DEBUG)
+            //if(degree == CommonMessageDegree.DEBUG)
             //{
             //    logNet.WriteDebug( textBox1.Text, textBox2.Text );
             //}
-            //else if(degree == HslMessageDegree.INFO)
+            //else if(degree == CommonMessageDegree.INFO)
             //{
             //    logNet.WriteInfo( textBox1.Text, textBox2.Text );
             //}
-            //else if(degree == HslMessageDegree.WARN)
+            //else if(degree == CommonMessageDegree.WARN)
             //{
             //    logNet.WriteWarn( textBox1.Text, textBox2.Text );
             //}
-            //else if (degree == HslMessageDegree.ERROR)
+            //else if (degree == CommonMessageDegree.ERROR)
             //{
             //    logNet.WriteError( textBox1.Text, textBox2.Text );
             //}
-            //else if (degree == HslMessageDegree.FATAL)
+            //else if (degree == CommonMessageDegree.FATAL)
             //{
             //    logNet.WriteFatal( textBox1.Text, textBox2.Text );
             //}

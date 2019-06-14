@@ -34,7 +34,7 @@ namespace Communication.LogNet
         /// <param name="degree">消息等级</param>
         /// <param name="keyWord">关键字</param>
         /// <param name="text">日志内容</param>
-        void RecordMessage(HslMessageDegree degree, string keyWord, string text);
+        void RecordMessage(CommonMessageDegree degree, string keyWord, string text);
 
         /// <summary>
         /// 写入一条调试日志
@@ -138,7 +138,7 @@ namespace Communication.LogNet
         /// 设置日志的存储等级，高于该等级的才会被存储
         /// </summary>
         /// <param name="degree">登记信息</param>
-        void SetMessageDegree(HslMessageDegree degree);
+        void SetMessageDegree(CommonMessageDegree degree);
 
         /// <summary>
         /// 获取已存在的日志文件名称

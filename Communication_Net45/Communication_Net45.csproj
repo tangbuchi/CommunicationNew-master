@@ -183,7 +183,7 @@
     <Compile Include="Core\IMessage\EFORTMessagePrevious.cs" />
     <Compile Include="Core\IMessage\FetchWriteMessage.cs" />
     <Compile Include="Core\IMessage\FinsMessage.cs" />
-    <Compile Include="Core\IMessage\HslMessage.cs" />
+    <Compile Include="Core\IMessage\Message.cs" />
     <Compile Include="Core\IMessage\INetMessage.cs" />
     <Compile Include="Core\IMessage\KukaVarProxyMessage.cs" />
     <Compile Include="Core\IMessage\LsisFastEnetMessage.cs" />
@@ -222,8 +222,8 @@
     <Compile Include="Core\Transfer\RegularByteTransform.cs" />
     <Compile Include="Core\Transfer\ReverseBytesTransform.cs" />
     <Compile Include="Core\Transfer\ReverseWordTransform.cs" />
-    <Compile Include="Core\Types\HslPieItem.cs" />
-    <Compile Include="Core\Types\HslTimeOut.cs" />
+    <Compile Include="Core\Types\PieItem.cs" />
+    <Compile Include="Core\Types\TimeOut.cs" />
     <Compile Include="Core\Types\IDataTransfer.cs" />
     <Compile Include="Core\Types\OperateResult.cs" />
     <Compile Include="Enthernet\ComplexNet\NetComplexClient.cs" />

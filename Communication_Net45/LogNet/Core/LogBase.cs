@@ -30,7 +30,7 @@ namespace Communication.LogNet
         {
             m_fileSaveLock = new SimpleHybirdLock( );
             m_simpleHybirdLock = new SimpleHybirdLock( );
-            m_WaitForSave = new Queue<HslMessageItem>( );
+            m_WaitForSave = new Queue<CommonMessageItem>( );
             filtrateKeyword = new List<string>( );
             filtrateLock = new SimpleHybirdLock( );
         }
@@ -39,8 +39,8 @@ namespace Communication.LogNet
 
         #region Private Member
 
-        private HslMessageDegree m_messageDegree = HslMessageDegree.DEBUG;                     // 默认的存储规则
-        private Queue<HslMessageItem> m_WaitForSave ;                                          // 待存储数据的缓存
+        private CommonMessageDegree m_messageDegree = CommonMessageDegree.DEBUG;                     // 默认的存储规则
+        private Queue<CommonMessageItem> m_WaitForSave ;                                          // 待存储数据的缓存
         private SimpleHybirdLock m_simpleHybirdLock ;                                          // 缓存列表的锁
         private int m_SaveStatus = 0;                                                          // 存储状态
         private List<string> filtrateKeyword;                                                  // 需要过滤的存储对象
@@ -99,7 +99,7 @@ namespace Communication.LogNet
         /// <param name="text">文本内容</param>
         public void WriteDebug(string keyWord, string text)
         {
-            RecordMessage( HslMessageDegree.DEBUG, keyWord, text );
+            RecordMessage( CommonMessageDegree.DEBUG, keyWord, text );
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace Communication.LogNet
         /// <param name="text">文本内容</param>
         public void WriteInfo(string keyWord, string text)
         {
-            RecordMessage( HslMessageDegree.INFO, keyWord, text );
+            RecordMessage( CommonMessageDegree.INFO, keyWord, text );
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace Communication.LogNet
         /// <param name="text">文本内容</param>
         public void WriteWarn(string keyWord, string text)
         {
-            RecordMessage( HslMessageDegree.WARN, keyWord, text );
+            RecordMessage( CommonMessageDegree.WARN, keyWord, text );
         }
 
 
@@ -157,7 +157,7 @@ namespace Communication.LogNet
         /// <param name="text">文本内容</param>
         public void WriteError(string keyWord, string text)
         {
-            RecordMessage( HslMessageDegree.ERROR, keyWord, text );
+            RecordMessage( CommonMessageDegree.ERROR, keyWord, text );
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace Communication.LogNet
         /// <param name="text">文本内容</param>
         public void WriteFatal(string keyWord, string text)
         {
-            RecordMessage( HslMessageDegree.FATAL, keyWord, text );
+            RecordMessage( CommonMessageDegree.FATAL, keyWord, text );
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace Communication.LogNet
         /// <param name="ex">异常</param>
         public void WriteException(string keyWord, string text, Exception ex)
         {
-            RecordMessage( HslMessageDegree.FATAL, keyWord, LogNetManagment.GetSaveStringFromException( text, ex ) );
+            RecordMessage( CommonMessageDegree.FATAL, keyWord, LogNetManagment.GetSaveStringFromException( text, ex ) );
         }
 
         /// <summary>
@@ -207,7 +207,7 @@ namespace Communication.LogNet
         /// <param name="degree">消息的等级</param>
         /// <param name="keyWord">关键字</param>
         /// <param name="text">文本</param>
-        public void RecordMessage( HslMessageDegree degree, string keyWord, string text )
+        public void RecordMessage( CommonMessageDegree degree, string keyWord, string text )
         {
             WriteToFile( degree, keyWord, text );
         }
@@ -263,7 +263,7 @@ namespace Communication.LogNet
 
             stringBuilder.Append("/");
             stringBuilder.Append(Environment.NewLine);
-            RecordMessage(HslMessageDegree.None, string.Empty, stringBuilder.ToString());
+            RecordMessage(CommonMessageDegree.None, string.Empty, stringBuilder.ToString());
             //ThreadPool.QueueUserWorkItem(new WaitCallback(ThreadPoolSaveText), stringBuilder.ToString());
         }
         
@@ -273,7 +273,7 @@ namespace Communication.LogNet
         /// <param name="text">内容</param>
         public void WriteAnyString(string text)
         {
-            RecordMessage(HslMessageDegree.None, string.Empty, text);
+            RecordMessage(CommonMessageDegree.None, string.Empty, text);
         }
         
         /// <summary>
@@ -281,7 +281,7 @@ namespace Communication.LogNet
         /// </summary>
         public void WriteNewLine()
         {
-            RecordMessage(HslMessageDegree.None, string.Empty, "\u0002" + Environment.NewLine);
+            RecordMessage(CommonMessageDegree.None, string.Empty, "\u0002" + Environment.NewLine);
             //ThreadPool.QueueUserWorkItem(new WaitCallback(ThreadPoolSaveText), "\u0002" + Environment.NewLine);
         }
 
@@ -289,7 +289,7 @@ namespace Communication.LogNet
         /// 设置日志的存储等级，高于该等级的才会被存储
         /// </summary>
         /// <param name="degree">消息等级</param>
-        public void SetMessageDegree(HslMessageDegree degree)
+        public void SetMessageDegree(CommonMessageDegree degree)
         {
             m_messageDegree = degree;
         }
@@ -316,19 +316,19 @@ namespace Communication.LogNet
 
         #region File Write
 
-        private void WriteToFile( HslMessageDegree degree, string keyWord, string text )
+        private void WriteToFile( CommonMessageDegree degree, string keyWord, string text )
         {
             // 过滤事件
             if (degree <= m_messageDegree)
             {
                 // 需要记录数据
-                HslMessageItem item = GetHslMessageItem( degree, keyWord, text );
+                CommonMessageItem item = GetCommonMessageItem( degree, keyWord, text );
                 AddItemToCache( item );
             }
         }
 
 
-        private void AddItemToCache(HslMessageItem item)
+        private void AddItemToCache(CommonMessageItem item)
         {
             m_simpleHybirdLock.Enter();
 
@@ -349,9 +349,9 @@ namespace Communication.LogNet
             }
         }
 
-        private HslMessageItem GetAndRemoveLogItem()
+        private CommonMessageItem GetAndRemoveLogItem()
         {
-            HslMessageItem result = null;
+            CommonMessageItem result = null;
 
             m_simpleHybirdLock.Enter();
 
@@ -365,7 +365,7 @@ namespace Communication.LogNet
         private void ThreadPoolSaveFile(object obj)
         {
             // 获取需要存储的日志
-            HslMessageItem current = GetAndRemoveLogItem();
+            CommonMessageItem current = GetAndRemoveLogItem();
             // 进入文件操作的锁
             m_fileSaveLock.Enter();
 
@@ -383,7 +383,7 @@ namespace Communication.LogNet
                     while (current != null)
                     {
                         // 触发事件
-                        OnBeforeSaveToFile( new HslEventArgs( ) { HslMessage = current } );
+                        OnBeforeSaveToFile( new HslEventArgs( ) { CommonMessage = current } );
 
                         // 检查是否需要真的进行存储
                         bool isSave = true;
@@ -397,7 +397,7 @@ namespace Communication.LogNet
                         // 如果需要存储的就过滤掉
                         if (isSave)
                         {
-                            sw.Write( HslMessageFormate( current ) );
+                            sw.Write( CommonMessageFormate( current ) );
                             sw.Write( Environment.NewLine );
                         }
 
@@ -407,9 +407,9 @@ namespace Communication.LogNet
                 catch (Exception ex)
                 {
                     AddItemToCache( current );
-                    AddItemToCache( new HslMessageItem( )
+                    AddItemToCache( new CommonMessageItem( )
                     {
-                        Degree = HslMessageDegree.FATAL,
+                        Degree = CommonMessageDegree.FATAL,
                         Text = LogNetManagment.GetSaveStringFromException("LogNetSelf", ex),
                     } );
                 }
@@ -430,28 +430,28 @@ namespace Communication.LogNet
             }
         }
 
-        private string HslMessageFormate( HslMessageItem hslMessage )
+        private string CommonMessageFormate( CommonMessageItem CommonMessage )
         {
             StringBuilder stringBuilder = new StringBuilder( );
-            if (hslMessage.Degree != HslMessageDegree.None)
+            if (CommonMessage.Degree != CommonMessageDegree.None)
             {
                 stringBuilder.Append( "\u0002" );
                 stringBuilder.Append( "[" );
-                stringBuilder.Append( LogNetManagment.GetDegreeDescription( hslMessage.Degree ) );
+                stringBuilder.Append( LogNetManagment.GetDegreeDescription( CommonMessage.Degree ) );
                 stringBuilder.Append( "] " );
 
-                stringBuilder.Append( hslMessage.Time.ToString( "yyyy-MM-dd HH:mm:ss.fff" ) );
+                stringBuilder.Append( CommonMessage.Time.ToString( "yyyy-MM-dd HH:mm:ss.fff" ) );
                 stringBuilder.Append( " thread:[" );
-                stringBuilder.Append( hslMessage.ThreadId.ToString( "D2" ) );
+                stringBuilder.Append( CommonMessage.ThreadId.ToString( "D2" ) );
                 stringBuilder.Append( "] " );
 
-                if (!string.IsNullOrEmpty( hslMessage.KeyWord ))
+                if (!string.IsNullOrEmpty( CommonMessage.KeyWord ))
                 {
-                    stringBuilder.Append( hslMessage.KeyWord );
+                    stringBuilder.Append( CommonMessage.KeyWord );
                     stringBuilder.Append( " : " );
                 }
             }
-            stringBuilder.Append(hslMessage.Text);
+            stringBuilder.Append(CommonMessage.Text);
 
             return stringBuilder.ToString();
         }
@@ -476,9 +476,9 @@ namespace Communication.LogNet
                 }
                 catch (Exception ex)
                 {
-                    AddItemToCache(new HslMessageItem()
+                    AddItemToCache(new CommonMessageItem()
                     {
-                        Degree = HslMessageDegree.FATAL,
+                        Degree = CommonMessageDegree.FATAL,
                         Text = LogNetManagment.GetSaveStringFromException("LogNetSelf", ex),
                     });
                 }
@@ -530,9 +530,9 @@ namespace Communication.LogNet
 
 
 
-        private HslMessageItem GetHslMessageItem(HslMessageDegree degree, string keyWord, string text)
+        private CommonMessageItem GetCommonMessageItem(CommonMessageDegree degree, string keyWord, string text)
         {
-            return new HslMessageItem()
+            return new CommonMessageItem()
             {
                 KeyWord      = keyWord,
                 Degree       = degree,

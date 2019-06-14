@@ -68,7 +68,7 @@ namespace UdpNetServer
                 return;
             }
 
-            textBox2.AppendText(e.HslMessage.ToString() + Environment.NewLine);
+            textBox2.AppendText(e.CommonMessage.ToString() + Environment.NewLine);
         }
 
 

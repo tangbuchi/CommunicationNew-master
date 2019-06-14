@@ -3294,7 +3294,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Communication.Controls.UserPieChart.SetDataSource(Communication.Core.HslPieItem[])">
+        <member name="M:Communication.Controls.UserPieChart.SetDataSource(Communication.Core.PieItem[])">
             <summary>
             设置显示的数据源
             </summary>
@@ -3941,46 +3941,46 @@
             发送的字节信息
             </summary>
         </member>
-        <member name="T:Communication.Core.IMessage.HslMessage">
+        <member name="T:Communication.Core.IMessage.CommonMessage">
             <summary>
             本组件系统使用的默认的消息规则，说明解析和反解析规则的
             </summary>
         </member>
-        <member name="P:Communication.Core.IMessage.HslMessage.ProtocolHeadBytesLength">
+        <member name="P:Communication.Core.IMessage.CommonMessage.ProtocolHeadBytesLength">
             <summary>
             本协议的消息头长度
             </summary>
         </member>
-        <member name="P:Communication.Core.IMessage.HslMessage.HeadBytes">
+        <member name="P:Communication.Core.IMessage.CommonMessage.HeadBytes">
             <summary>
             头子节信息
             </summary>
         </member>
-        <member name="P:Communication.Core.IMessage.HslMessage.ContentBytes">
+        <member name="P:Communication.Core.IMessage.CommonMessage.ContentBytes">
             <summary>
             内容字节信息
             </summary>
         </member>
-        <member name="M:Communication.Core.IMessage.HslMessage.CheckHeadBytesLegal(System.Byte[])">
+        <member name="M:Communication.Core.IMessage.CommonMessage.CheckHeadBytesLegal(System.Byte[])">
             <summary>
             检查接收的数据是否合法
             </summary>
             <param name="token">令牌</param>
             <returns>是否合法</returns>
         </member>
-        <member name="M:Communication.Core.IMessage.HslMessage.GetContentLengthByHeadBytes">
+        <member name="M:Communication.Core.IMessage.CommonMessage.GetContentLengthByHeadBytes">
             <summary>
             从头子节信息中解析出接下来需要接收的数据长度
             </summary>
             <returns>接下来的数据长度</returns>
         </member>
-        <member name="M:Communication.Core.IMessage.HslMessage.GetHeadBytesIdentity">
+        <member name="M:Communication.Core.IMessage.CommonMessage.GetHeadBytesIdentity">
             <summary>
             获取头子节里的特殊标识
             </summary>
             <returns>标识信息</returns>
         </member>
-        <member name="P:Communication.Core.IMessage.HslMessage.SendBytes">
+        <member name="P:Communication.Core.IMessage.CommonMessage.SendBytes">
             <summary>
             发送的字节信息
             </summary>
@@ -4783,7 +4783,7 @@
             <summary>
             检查网络套接字是否操作超时，需要对套接字进行封装
             </summary>
-            <param name="obj">通常是 <see cref="T:Communication.HslTimeOut"/> 对象 </param>
+            <param name="obj">通常是 <see cref="T:Communication.TimeOut"/> 对象 </param>
         </member>
         <member name="M:Communication.Core.Net.NetworkBase.Receive(System.Net.Sockets.Socket,System.Int32)">
             <summary>
@@ -7887,7 +7887,7 @@
             Socket传输中的缓冲池大小
             </summary>
         </member>
-        <member name="M:Communication.Core.NetSupport.ThreadPoolCheckConnect(Communication.HslTimeOut,System.Int32)">
+        <member name="M:Communication.Core.NetSupport.ThreadPoolCheckConnect(Communication.TimeOut,System.Int32)">
             <summary>
             检查是否超时的静态方法
             </summary>
@@ -9303,27 +9303,27 @@
             <param name="encoding">字符串的编码方式</param>
             <returns>buffer数据</returns>
         </member>
-        <member name="T:Communication.Core.HslPieItem">
+        <member name="T:Communication.Core.PieItem">
             <summary>
             饼图的基本元素
             </summary>
         </member>
-        <member name="M:Communication.Core.HslPieItem.#ctor">
+        <member name="M:Communication.Core.PieItem.#ctor">
             <summary>
             实例化一个饼图基本元素的对象
             </summary>
         </member>
-        <member name="P:Communication.Core.HslPieItem.Name">
+        <member name="P:Communication.Core.PieItem.Name">
             <summary>
             名称
             </summary>
         </member>
-        <member name="P:Communication.Core.HslPieItem.Value">
+        <member name="P:Communication.Core.PieItem.Value">
             <summary>
             值
             </summary>
         </member>
-        <member name="P:Communication.Core.HslPieItem.Back">
+        <member name="P:Communication.Core.PieItem.Back">
             <summary>
             背景颜色
             </summary>
@@ -9635,42 +9635,42 @@
             <param name="deBytes">等待解密的数据</param>
             <returns>解密后的字节数据</returns>
         </member>
-        <member name="T:Communication.HslTimeOut">
+        <member name="T:Communication.TimeOut">
             <summary>
             超时操作的类 [a class use to indicate the time-out of the connection]
             </summary>
         </member>
-        <member name="M:Communication.HslTimeOut.#ctor">
+        <member name="M:Communication.TimeOut.#ctor">
             <summary>
             实例化对象
             </summary>
         </member>
-        <member name="P:Communication.HslTimeOut.StartTime">
+        <member name="P:Communication.TimeOut.StartTime">
             <summary>
             操作的开始时间
             </summary>
         </member>
-        <member name="P:Communication.HslTimeOut.IsSuccessful">
+        <member name="P:Communication.TimeOut.IsSuccessful">
             <summary>
             操作是否成功
             </summary>
         </member>
-        <member name="P:Communication.HslTimeOut.DelayTime">
+        <member name="P:Communication.TimeOut.DelayTime">
             <summary>
             延时的时间，单位毫秒
             </summary>
         </member>
-        <member name="P:Communication.HslTimeOut.WorkSocket">
+        <member name="P:Communication.TimeOut.WorkSocket">
             <summary>
             连接超时用的Socket
             </summary>
         </member>
-        <member name="P:Communication.HslTimeOut.Operator">
+        <member name="P:Communication.TimeOut.Operator">
             <summary>
             用于超时执行的方法
             </summary>
         </member>
-        <member name="P:Communication.HslTimeOut.HybirdLock">
+        <member name="P:Communication.TimeOut.HybirdLock">
             <summary>
             当前对象判断的同步锁
             </summary>
@@ -13015,7 +13015,7 @@
             存储之前引发的事件，允许额外的操作
             </summary>
         </member>
-        <member name="M:Communication.LogNet.ILogNet.RecordMessage(Communication.LogNet.HslMessageDegree,System.String,System.String)">
+        <member name="M:Communication.LogNet.ILogNet.RecordMessage(Communication.LogNet.CommonMessageDegree,System.String,System.String)">
             <summary>
             自定义的消息记录
             </summary>
@@ -13120,7 +13120,7 @@
             <param name="keyWord">关键字</param>
             <param name="text">日志内容</param>
         </member>
-        <member name="M:Communication.LogNet.ILogNet.SetMessageDegree(Communication.LogNet.HslMessageDegree)">
+        <member name="M:Communication.LogNet.ILogNet.SetMessageDegree(Communication.LogNet.CommonMessageDegree)">
             <summary>
             设置日志的存储等级，高于该等级的才会被存储
             </summary>
@@ -13251,7 +13251,7 @@
             <param name="text">内容</param>
             <param name="ex">异常</param>
         </member>
-        <member name="M:Communication.LogNet.LogNetBase.RecordMessage(Communication.LogNet.HslMessageDegree,System.String,System.String)">
+        <member name="M:Communication.LogNet.LogNetBase.RecordMessage(Communication.LogNet.CommonMessageDegree,System.String,System.String)">
             <summary>
             记录一条自定义的消息
             </summary>
@@ -13276,7 +13276,7 @@
             写入一条换行符
             </summary>
         </member>
-        <member name="M:Communication.LogNet.LogNetBase.SetMessageDegree(Communication.LogNet.HslMessageDegree)">
+        <member name="M:Communication.LogNet.LogNetBase.SetMessageDegree(Communication.LogNet.CommonMessageDegree)">
             <summary>
             设置日志的存储等级，高于该等级的才会被存储
             </summary>
@@ -13317,7 +13317,7 @@
             带有日志消息的事件
             </summary>
         </member>
-        <member name="P:Communication.LogNet.HslEventArgs.HslMessage">
+        <member name="P:Communication.LogNet.HslEventArgs.CommonMessage">
             <summary>
             消息信息
             </summary>
@@ -13368,93 +13368,93 @@
             按每年生成日志文件
             </summary>
         </member>
-        <member name="T:Communication.LogNet.HslMessageDegree">
+        <member name="T:Communication.LogNet.CommonMessageDegree">
             <summary>
             记录消息的等级
             </summary>
         </member>
-        <member name="F:Communication.LogNet.HslMessageDegree.None">
+        <member name="F:Communication.LogNet.CommonMessageDegree.None">
             <summary>
             一条消息都不记录
             </summary>
         </member>
-        <member name="F:Communication.LogNet.HslMessageDegree.FATAL">
+        <member name="F:Communication.LogNet.CommonMessageDegree.FATAL">
             <summary>
             记录致命等级及以上日志的消息
             </summary>
         </member>
-        <member name="F:Communication.LogNet.HslMessageDegree.ERROR">
+        <member name="F:Communication.LogNet.CommonMessageDegree.ERROR">
             <summary>
             记录异常等级及以上日志的消息
             </summary>
         </member>
-        <member name="F:Communication.LogNet.HslMessageDegree.WARN">
+        <member name="F:Communication.LogNet.CommonMessageDegree.WARN">
             <summary>
             记录警告等级及以上日志的消息
             </summary>
         </member>
-        <member name="F:Communication.LogNet.HslMessageDegree.INFO">
+        <member name="F:Communication.LogNet.CommonMessageDegree.INFO">
             <summary>
             记录信息等级及以上日志的消息
             </summary>
         </member>
-        <member name="F:Communication.LogNet.HslMessageDegree.DEBUG">
+        <member name="F:Communication.LogNet.CommonMessageDegree.DEBUG">
             <summary>
             记录调试等级及以上日志的信息
             </summary>
         </member>
-        <member name="T:Communication.LogNet.HslMessageItem">
+        <member name="T:Communication.LogNet.CommonMessageItem">
             <summary>
             单个日志的记录信息
             </summary>
         </member>
-        <member name="M:Communication.LogNet.HslMessageItem.#ctor">
+        <member name="M:Communication.LogNet.CommonMessageItem.#ctor">
             <summary>
             默认的无参构造器
             </summary>
         </member>
-        <member name="P:Communication.LogNet.HslMessageItem.Id">
+        <member name="P:Communication.LogNet.CommonMessageItem.Id">
             <summary>
             单个记录信息的标识ID，程序重新运行时清空
             </summary>
         </member>
-        <member name="P:Communication.LogNet.HslMessageItem.Degree">
+        <member name="P:Communication.LogNet.CommonMessageItem.Degree">
             <summary>
             消息的等级
             </summary>
         </member>
-        <member name="P:Communication.LogNet.HslMessageItem.ThreadId">
+        <member name="P:Communication.LogNet.CommonMessageItem.ThreadId">
             <summary>
             线程ID
             </summary>
         </member>
-        <member name="P:Communication.LogNet.HslMessageItem.Text">
+        <member name="P:Communication.LogNet.CommonMessageItem.Text">
             <summary>
             消息文本
             </summary>
         </member>
-        <member name="P:Communication.LogNet.HslMessageItem.Time">
+        <member name="P:Communication.LogNet.CommonMessageItem.Time">
             <summary>
             消息发生的事件
             </summary>
         </member>
-        <member name="P:Communication.LogNet.HslMessageItem.KeyWord">
+        <member name="P:Communication.LogNet.CommonMessageItem.KeyWord">
             <summary>
             消息的关键字
             </summary>
         </member>
-        <member name="P:Communication.LogNet.HslMessageItem.Cancel">
+        <member name="P:Communication.LogNet.CommonMessageItem.Cancel">
             <summary>
             是否取消写入到文件中去，在事件BeforeSaveToFile触发的时候捕获即可设置。
             </summary>
         </member>
-        <member name="M:Communication.LogNet.HslMessageItem.ToString">
+        <member name="M:Communication.LogNet.CommonMessageItem.ToString">
             <summary>
             返回表示当前对象的字符串
             </summary>
             <returns>字符串信息</returns>
         </member>
-        <member name="M:Communication.LogNet.HslMessageItem.ToStringWithoutKeyword">
+        <member name="M:Communication.LogNet.CommonMessageItem.ToStringWithoutKeyword">
             <summary>
             返回表示当前对象的字符串，剔除了关键字
             </summary>

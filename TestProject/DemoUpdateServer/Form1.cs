@@ -162,9 +162,9 @@ namespace DemoUpdateServer
         {
             Invoke( new Action( ( ) =>
              {
-                 if (e.HslMessage.Degree != Communication.LogNet.HslMessageDegree.FATAL)
+                 if (e.CommonMessage.Degree != Communication.LogNet.CommonMessageDegree.FATAL)
                  {
-                     textBox2.AppendText( e.HslMessage.ToString( ) + Environment.NewLine );
+                     textBox2.AppendText( e.CommonMessage.ToString( ) + Environment.NewLine );
                  }
              } ) );
         }

@@ -50,3 +50,16 @@ E:\2019智慧水务\源代码\Demo合集软件\Communication2019.06.07\TestProje
 E:\2019智慧水务\源代码\Demo合集软件\Communication2019.06.07\TestProject\DSCDTU\obj\Debug\DSCDTU.FormDTUAbout.resources
 E:\2019智慧水务\源代码\Demo合集软件\Communication2019.06.07\TestProject\DSCDTU\obj\Debug\DSCDTU.FormDTUConfig.resources
 E:\2019智慧水务\源代码\Demo合集软件\Communication2019.06.07\TestProject\DSCDTU\obj\Debug\DSCDTU.FormDTUSetting.resources
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\DSCDTU\bin\Debug\DSCDTU.pdb
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\DSCDTU\obj\Debug\DSCDTU.csprojAssemblyReference.cache
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\DSCDTU\obj\Debug\DSCDTU.FormDTUAbout.resources
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\DSCDTU\obj\Debug\DSCDTU.FormDTUConfig.resources
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\DSCDTU\obj\Debug\DSCDTU.FormDTUMain.resources
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\DSCDTU\obj\Debug\DSCDTU.FormDTUSetting.resources
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\DSCDTU\obj\Debug\DSCDTU.FormDTUSelParam.resources
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\DSCDTU\obj\Debug\DSCDTU.csproj.GenerateResource.cache
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\DSCDTU\obj\Debug\DSCDTU.csproj.CoreCompileInputs.cache
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\DSCDTU\obj\Debug\DSCDTU.pdb
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\DSCDTU\bin\Debug\DSCDTU.exe.config
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\DSCDTU\bin\Debug\DSCDTU.exe
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\DSCDTU\obj\Debug\DSCDTU.exe
