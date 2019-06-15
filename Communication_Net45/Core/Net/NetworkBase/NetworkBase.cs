@@ -41,7 +41,7 @@ namespace Communication.Core.Net
         /// <remarks>
         /// 令牌的默认值为空，都是0x00
         /// </remarks>
-        public NetworkBase( )
+        public NetworkBase()
         {
             Token = Guid.Empty;
         }
@@ -99,21 +99,21 @@ namespace Communication.Core.Net
         /// 检查网络套接字是否操作超时，需要对套接字进行封装
         /// </summary>
         /// <param name="obj">通常是 <see cref="TimeOut"/> 对象 </param>
-        protected void ThreadPoolCheckTimeOut( object obj )
+        protected void ThreadPoolCheckTimeOut(object obj)
         {
             if (obj is TimeOut timeout)
             {
                 while (!timeout.IsSuccessful)
                 {
-                    Thread.Sleep( 100 );
+                    Thread.Sleep(100);
                     if ((DateTime.Now - timeout.StartTime).TotalMilliseconds > timeout.DelayTime)
                     {
                         // 连接超时或是验证超时
                         if (!timeout.IsSuccessful)
                         {
-                            LogNet?.WriteWarn( ToString( ), "Wait Time Out : " + timeout.DelayTime );
-                            timeout.Operator?.Invoke( );
-                            timeout.WorkSocket?.Close( );
+                            LogNet?.WriteWarn(ToString(), "Wait Time Out : " + timeout.DelayTime);
+                            timeout.Operator?.Invoke();
+                            timeout.WorkSocket?.Close();
                         }
                         break;
                     }
@@ -143,36 +143,36 @@ namespace Communication.Core.Net
         /// <param name="socket">网络通讯的套接字</param>
         /// <param name="length">准备接收的数据长度</param>
         /// <returns>包含了字节数据的结果类</returns>
-        protected OperateResult<byte[]> Receive( Socket socket, int length )
+        protected OperateResult<byte[]> Receive(Socket socket, int length)
         {
-            if (length == 0) return OperateResult.CreateSuccessResult( new byte[0] );
+            if (length == 0) return OperateResult.CreateSuccessResult(new byte[0]);
 
             if (UseSynchronousNet)
             {
                 try
                 {
-                    byte[] data = NetSupport.ReadBytesFromSocket( socket, length );
-                    return OperateResult.CreateSuccessResult( data );
+                    byte[] data = NetSupport.ReadBytesFromSocket(socket, length);
+                    return OperateResult.CreateSuccessResult(data);
                 }
                 catch (Exception ex)
                 {
-                    socket?.Close( );
-                    LogNet?.WriteException( ToString( ), "Receive", ex );
-                    return new OperateResult<byte[]>( ex.Message );
+                    socket?.Close();
+                    LogNet?.WriteException(ToString(), "Receive", ex);
+                    return new OperateResult<byte[]>(ex.Message);
                 }
             }
 
-            OperateResult<byte[]> result = new OperateResult<byte[]>( );
+            OperateResult<byte[]> result = new OperateResult<byte[]>();
             ManualResetEvent receiveDone = null;
             StateObject state = null;
             try
             {
-                receiveDone = new ManualResetEvent( false );
-                state = new StateObject( length );
+                receiveDone = new ManualResetEvent(false);
+                state = new StateObject(length);
             }
             catch (Exception ex)
             {
-                return new OperateResult<byte[]>( ex.Message );
+                return new OperateResult<byte[]>(ex.Message);
             }
 
 
@@ -182,32 +182,32 @@ namespace Communication.Core.Net
                 state.WorkSocket = socket;
 
                 // Begin receiving the data from the remote device.
-                socket.BeginReceive( state.Buffer, state.AlreadyDealLength,
+                socket.BeginReceive(state.Buffer, state.AlreadyDealLength,
                     state.DataLength - state.AlreadyDealLength, SocketFlags.None,
-                    new AsyncCallback( ReceiveCallback ), state );
+                    new AsyncCallback(ReceiveCallback), state);
             }
             catch (Exception ex)
             {
                 // 发生了错误，直接返回
-                LogNet?.WriteException( ToString( ), ex );
+                LogNet?.WriteException(ToString(), ex);
                 result.Message = ex.Message;
-                receiveDone.Close( );
-                socket?.Close( );
+                receiveDone.Close();
+                socket?.Close();
                 return result;
             }
 
 
 
             // 等待接收完成，或是发生异常
-            receiveDone.WaitOne( );
-            receiveDone.Close( );
+            receiveDone.WaitOne();
+            receiveDone.Close();
 
 
 
             // 接收数据失败
             if (state.IsError)
             {
-                socket?.Close( );
+                socket?.Close();
                 result.Message = state.ErrerMsg;
                 return result;
             }
@@ -218,7 +218,7 @@ namespace Communication.Core.Net
             {
                 // result.IsSuccess = true;
                 result.Message = StringResources.Language.RemoteClosedConnection;
-                socket?.Close( );
+                socket?.Close();
                 return result;
             }
 
@@ -226,20 +226,20 @@ namespace Communication.Core.Net
             // 正常接收到数据
             result.Content = state.Buffer;
             result.IsSuccess = true;
-            state.Clear( );
+            state.Clear();
             state = null;
             return result;
         }
 
 
-        private void ReceiveCallback( IAsyncResult ar )
+        private void ReceiveCallback(IAsyncResult ar)
         {
             if (ar.AsyncState is StateObject state)
             {
                 try
                 {
                     Socket client = state.WorkSocket;
-                    int bytesRead = client.EndReceive( ar );
+                    int bytesRead = client.EndReceive(ar);
 
                     if (bytesRead > 0)
                     {
@@ -248,29 +248,29 @@ namespace Communication.Core.Net
                         if (state.AlreadyDealLength < state.DataLength)
                         {
                             // 获取接下来的所有的数据
-                            client.BeginReceive( state.Buffer, state.AlreadyDealLength,
+                            client.BeginReceive(state.Buffer, state.AlreadyDealLength,
                                 state.DataLength - state.AlreadyDealLength, SocketFlags.None,
-                                new AsyncCallback( ReceiveCallback ), state );
+                                new AsyncCallback(ReceiveCallback), state);
                         }
                         else
                         {
                             // 接收到了所有的数据，通知接收数据的线程继续
-                            state.WaitDone.Set( );
+                            state.WaitDone.Set();
                         }
                     }
                     else
                     {
                         // 对方关闭了网络通讯
                         state.IsClose = true;
-                        state.WaitDone.Set( );
+                        state.WaitDone.Set();
                     }
                 }
                 catch (Exception ex)
                 {
                     state.IsError = true;
-                    LogNet?.WriteException( ToString( ), "ReceiveCallback", ex );
+                    LogNet?.WriteException(ToString(), "ReceiveCallback", ex);
                     state.ErrerMsg = ex.Message;
-                    state.WaitDone.Set( );
+                    state.WaitDone.Set();
                 }
             }
         }
@@ -286,43 +286,43 @@ namespace Communication.Core.Net
         /// <param name="socket">网络通讯的套接字</param>
         /// <param name="length">准备接收的数据长度</param>
         /// <returns>包含了字节数据的结果类</returns>
-        protected OperateResult<byte[]> ReceiveAsync( Socket socket, int length )
+        protected OperateResult<byte[]> ReceiveAsync(Socket socket, int length)
         {
-            if (length <= 0) return OperateResult.CreateSuccessResult( new byte[0] );
+            if (length <= 0) return OperateResult.CreateSuccessResult(new byte[0]);
 
-            var state               = new StateObjectAsync<byte[]>( length );
-            state.Tcs               = new TaskCompletionSource<byte[]>( );
-            state.WorkSocket        = socket;
+            var state = new StateObjectAsync<byte[]>(length);
+            state.Tcs = new TaskCompletionSource<byte[]>();
+            state.WorkSocket = socket;
 
             try
             {
-                socket.BeginReceive( state.Buffer, state.AlreadyDealLength, state.DataLength - state.AlreadyDealLength,
-                    SocketFlags.None, new AsyncCallback( ReceiveAsyncCallback ), state );
+                socket.BeginReceive(state.Buffer, state.AlreadyDealLength, state.DataLength - state.AlreadyDealLength,
+                    SocketFlags.None, new AsyncCallback(ReceiveAsyncCallback), state);
                 byte[] byteResult = state.Tcs.Task.Result;
                 if (byteResult == null)
                 {
-                    socket?.Close( );
-                    return new OperateResult<byte[]>( StringResources.Language.RemoteClosedConnection );
+                    socket?.Close();
+                    return new OperateResult<byte[]>(StringResources.Language.RemoteClosedConnection);
                 }
 
-                state.Clear( );
+                state.Clear();
                 state = null;
-                return OperateResult.CreateSuccessResult( byteResult );
+                return OperateResult.CreateSuccessResult(byteResult);
             }
             catch (Exception ex)
             {
-                return new OperateResult<byte[]>( ex.Message );
+                return new OperateResult<byte[]>(ex.Message);
             }
         }
 
-        private void ReceiveAsyncCallback( IAsyncResult ar )
+        private void ReceiveAsyncCallback(IAsyncResult ar)
         {
             if (ar.AsyncState is StateObjectAsync<byte[]> state)
             {
                 try
                 {
                     Socket socket = state.WorkSocket;
-                    int bytesRead = socket.EndReceive( ar );
+                    int bytesRead = socket.EndReceive(ar);
 
                     if (bytesRead > 0)
                     {
@@ -331,27 +331,27 @@ namespace Communication.Core.Net
                         if (state.AlreadyDealLength < state.DataLength)
                         {
                             // 获取接下来的所有的数据
-                            socket.BeginReceive( state.Buffer, state.AlreadyDealLength, state.DataLength - state.AlreadyDealLength,
-                                SocketFlags.None, new AsyncCallback( ReceiveAsyncCallback ), state );
+                            socket.BeginReceive(state.Buffer, state.AlreadyDealLength, state.DataLength - state.AlreadyDealLength,
+                                SocketFlags.None, new AsyncCallback(ReceiveAsyncCallback), state);
                         }
                         else
                         {
                             // 接收到了所有的数据，通知接收数据的线程继续
-                            state.Tcs.SetResult( state.Buffer );
+                            state.Tcs.SetResult(state.Buffer);
                         }
                     }
                     else
                     {
                         // 对方关闭了网络通讯
                         state.IsClose = true;
-                        state.Tcs.SetResult( null );
+                        state.Tcs.SetResult(null);
                     }
                 }
                 catch (Exception ex)
                 {
                     state.IsError = true;
-                    LogNet?.WriteException( ToString( ), "ReceiveAsyncCallback", ex );
-                    state.Tcs.SetException( ex );
+                    LogNet?.WriteException(ToString(), "ReceiveAsyncCallback", ex);
+                    state.Tcs.SetException(ex);
                 }
             }
         }
@@ -370,17 +370,17 @@ namespace Communication.Core.Net
         /// <param name="timeOut">超时时间</param>
         /// <param name="netMessage">消息的格式定义</param>
         /// <returns>带有是否成功的byte数组对象</returns>
-        protected OperateResult<byte[]> ReceiveByMessage( Socket socket, int timeOut, INetMessage netMessage )
+        protected OperateResult<byte[]> ReceiveByMessage(Socket socket, int timeOut, INetMessage netMessage)
         {
-            TimeOut TimeOut = new TimeOut( )
+            TimeOut TimeOut = new TimeOut()
             {
                 DelayTime = timeOut,
                 WorkSocket = socket,
             };
-            if (timeOut > 0) ThreadPool.QueueUserWorkItem( new WaitCallback( ThreadPoolCheckTimeOut ), TimeOut );
+            if (timeOut > 0) ThreadPool.QueueUserWorkItem(new WaitCallback(ThreadPoolCheckTimeOut), TimeOut);
 
             // 接收指令头
-            OperateResult<byte[]> headResult = Receive( socket, netMessage.ProtocolHeadBytesLength );
+            OperateResult<byte[]> headResult = Receive(socket, netMessage.ProtocolHeadBytesLength);
             if (!headResult.IsSuccess)
             {
                 TimeOut.IsSuccessful = true;
@@ -388,14 +388,14 @@ namespace Communication.Core.Net
             }
 
             netMessage.HeadBytes = headResult.Content;
-            int contentLength = netMessage.GetContentLengthByHeadBytes( );
+            int contentLength = netMessage.GetContentLengthByHeadBytes();
             if (contentLength <= 0)
             {
                 TimeOut.IsSuccessful = true;
                 return headResult;
             }
 
-            OperateResult<byte[]> contentResult = Receive( socket, contentLength );
+            OperateResult<byte[]> contentResult = Receive(socket, contentLength);
             if (!contentResult.IsSuccess)
             {
                 TimeOut.IsSuccessful = true;
@@ -404,7 +404,7 @@ namespace Communication.Core.Net
 
             TimeOut.IsSuccessful = true;
             netMessage.ContentBytes = contentResult.Content;
-            return OperateResult.CreateSuccessResult( SoftBasic.SpliceTwoByteArray( headResult.Content, contentResult.Content ) );
+            return OperateResult.CreateSuccessResult(SoftBasic.SpliceTwoByteArray(headResult.Content, contentResult.Content));
         }
 
         #endregion
@@ -417,36 +417,36 @@ namespace Communication.Core.Net
         /// <param name="socket">网络套接字</param>
         /// <param name="data">字节数据</param>
         /// <returns>发送是否成功的结果</returns>
-        protected OperateResult Send( Socket socket, byte[] data )
+        protected OperateResult Send(Socket socket, byte[] data)
         {
-            if (data == null) return OperateResult.CreateSuccessResult( );
+            if (data == null) return OperateResult.CreateSuccessResult();
 
             if (UseSynchronousNet)
             {
                 try
                 {
-                    socket.Send( data );
-                    return OperateResult.CreateSuccessResult( );
+                    socket.Send(data);
+                    return OperateResult.CreateSuccessResult();
                 }
                 catch (Exception ex)
                 {
-                    socket?.Close( );
-                    LogNet?.WriteException( "Send", ex );
-                    return new OperateResult<byte[]>( ex.Message );
+                    socket?.Close();
+                    LogNet?.WriteException("Send", ex);
+                    return new OperateResult<byte[]>(ex.Message);
                 }
             }
 
-            OperateResult result = new OperateResult( );
+            OperateResult result = new OperateResult();
             ManualResetEvent sendDone = null;
             StateObject state = null;
             try
             {
-                sendDone = new ManualResetEvent( false );
-                state = new StateObject( data.Length );
+                sendDone = new ManualResetEvent(false);
+                state = new StateObject(data.Length);
             }
             catch (Exception ex)
             {
-                return new OperateResult( ex.Message );
+                return new OperateResult(ex.Message);
             }
 
             try
@@ -455,31 +455,31 @@ namespace Communication.Core.Net
                 state.WorkSocket = socket;
                 state.Buffer = data;
 
-                socket.BeginSend( state.Buffer, state.AlreadyDealLength, state.DataLength - state.AlreadyDealLength,
-                    SocketFlags.None, new AsyncCallback( SendCallBack ), state );
+                socket.BeginSend(state.Buffer, state.AlreadyDealLength, state.DataLength - state.AlreadyDealLength,
+                    SocketFlags.None, new AsyncCallback(SendCallBack), state);
             }
             catch (Exception ex)
             {
                 // 发生了错误，直接返回
-                LogNet?.WriteException( ToString( ), ex );
+                LogNet?.WriteException(ToString(), ex);
                 result.Message = ex.Message;
-                socket?.Close( );
-                sendDone.Close( );
+                socket?.Close();
+                sendDone.Close();
                 return result;
             }
 
             // 等待发送完成
-            sendDone.WaitOne( );
-            sendDone.Close( );
+            sendDone.WaitOne();
+            sendDone.Close();
 
             if (state.IsError)
             {
-                socket.Close( );
+                socket.Close();
                 result.Message = state.ErrerMsg;
                 return result;
             }
 
-            state.Clear( );
+            state.Clear();
             state = null;
             result.IsSuccess = true;
             result.Message = StringResources.Language.SuccessText;
@@ -491,35 +491,35 @@ namespace Communication.Core.Net
         /// 发送数据异步返回的方法
         /// </summary>
         /// <param name="ar">异步对象</param>
-        private void SendCallBack( IAsyncResult ar )
+        private void SendCallBack(IAsyncResult ar)
         {
             if (ar.AsyncState is StateObject state)
             {
                 try
                 {
                     Socket socket = state.WorkSocket;
-                    int byteSend = socket.EndSend( ar );
+                    int byteSend = socket.EndSend(ar);
                     state.AlreadyDealLength += byteSend;
 
                     if (state.AlreadyDealLength < state.DataLength)
                     {
                         // 继续发送数据
-                        socket.BeginSend( state.Buffer, state.AlreadyDealLength, state.DataLength - state.AlreadyDealLength,
-                            SocketFlags.None, new AsyncCallback( SendCallBack ), state );
+                        socket.BeginSend(state.Buffer, state.AlreadyDealLength, state.DataLength - state.AlreadyDealLength,
+                            SocketFlags.None, new AsyncCallback(SendCallBack), state);
                     }
                     else
                     {
                         // 发送完成
-                        state.WaitDone.Set( );
+                        state.WaitDone.Set();
                     }
                 }
                 catch (Exception ex)
                 {
                     // 发生了异常
                     state.IsError = true;
-                    LogNet?.WriteException( ToString( ), "SendCallBack", ex );
+                    LogNet?.WriteException(ToString(), "SendCallBack", ex);
                     state.ErrerMsg = ex.Message;
-                    state.WaitDone.Set( );
+                    state.WaitDone.Set();
                 }
             }
         }
@@ -532,55 +532,55 @@ namespace Communication.Core.Net
         /// <param name="socket">网络的套接字</param>
         /// <param name="data">数据内容</param>
         /// <returns>是否发送成功</returns>
-        protected OperateResult SendAsync( Socket socket, byte[] data )
+        protected OperateResult SendAsync(Socket socket, byte[] data)
         {
-            if (data == null) return OperateResult.CreateSuccessResult( );
-            if (data.Length == 0) return OperateResult.CreateSuccessResult( );
+            if (data == null) return OperateResult.CreateSuccessResult();
+            if (data.Length == 0) return OperateResult.CreateSuccessResult();
 
-            var state              = new StateObjectAsync<bool>( data.Length );
-            state.Tcs              = new TaskCompletionSource<bool>( );
-            state.WorkSocket       = socket;
-            state.Buffer           = data;
+            var state = new StateObjectAsync<bool>(data.Length);
+            state.Tcs = new TaskCompletionSource<bool>();
+            state.WorkSocket = socket;
+            state.Buffer = data;
 
             try
             {
-                socket.BeginSend( state.Buffer, state.AlreadyDealLength, state.DataLength - state.AlreadyDealLength,
-                    SocketFlags.None, new AsyncCallback( SendAsyncCallBack ), state );
+                socket.BeginSend(state.Buffer, state.AlreadyDealLength, state.DataLength - state.AlreadyDealLength,
+                    SocketFlags.None, new AsyncCallback(SendAsyncCallBack), state);
                 bool boolResult = state.Tcs.Task.Result;
-                return OperateResult.CreateSuccessResult( );
+                return OperateResult.CreateSuccessResult();
             }
             catch (Exception ex)
             {
-                return new OperateResult( ex.Message );
+                return new OperateResult(ex.Message);
             }
         }
 
-        private void SendAsyncCallBack( IAsyncResult ar )
+        private void SendAsyncCallBack(IAsyncResult ar)
         {
             if (ar.AsyncState is StateObjectAsync<bool> state)
             {
                 try
                 {
-                    Socket socket            = state.WorkSocket;
-                    state.AlreadyDealLength += socket.EndSend( ar );
+                    Socket socket = state.WorkSocket;
+                    state.AlreadyDealLength += socket.EndSend(ar);
 
                     if (state.AlreadyDealLength < state.DataLength)
                     {
                         // 继续发送数据
-                        socket.BeginSend( state.Buffer, state.AlreadyDealLength, state.DataLength - state.AlreadyDealLength,
-                            SocketFlags.None, new AsyncCallback( SendAsyncCallBack ), state );
+                        socket.BeginSend(state.Buffer, state.AlreadyDealLength, state.DataLength - state.AlreadyDealLength,
+                            SocketFlags.None, new AsyncCallback(SendAsyncCallBack), state);
                     }
                     else
                     {
                         // 发送完成
-                        state.Tcs.SetResult( true );
+                        state.Tcs.SetResult(true);
                     }
                 }
                 catch (Exception ex)
                 {
                     state.IsError = true;
-                    LogNet?.WriteException( "SendAsyncCallBack", ex );
-                    state.Tcs.SetException( ex );
+                    LogNet?.WriteException("SendAsyncCallBack", ex);
+                    state.Tcs.SetException(ex);
                 }
             }
         }
@@ -600,9 +600,9 @@ namespace Communication.Core.Net
         /// <example>
         /// <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\Core\NetworkBase.cs" region="CreateSocketAndConnectExample" title="创建连接示例" />
         /// </example>
-        protected OperateResult<Socket> CreateSocketAndConnect( string ipAddress, int port )
+        protected OperateResult<Socket> CreateSocketAndConnect(string ipAddress, int port)
         {
-            return CreateSocketAndConnect( new IPEndPoint( IPAddress.Parse( ipAddress ), port ), 10000 );
+            return CreateSocketAndConnect(new IPEndPoint(IPAddress.Parse(ipAddress), port), 10000);
         }
 
 
@@ -616,9 +616,9 @@ namespace Communication.Core.Net
         /// <example>
         /// <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\Core\NetworkBase.cs" region="CreateSocketAndConnectExample" title="创建连接示例" />
         /// </example>
-        protected OperateResult<Socket> CreateSocketAndConnect( string ipAddress, int port, int timeOut )
+        protected OperateResult<Socket> CreateSocketAndConnect(string ipAddress, int port, int timeOut)
         {
-            return CreateSocketAndConnect( new IPEndPoint( IPAddress.Parse( ipAddress ), port ), timeOut );
+            return CreateSocketAndConnect(new IPEndPoint(IPAddress.Parse(ipAddress), port), timeOut);
         }
 
 
@@ -631,69 +631,69 @@ namespace Communication.Core.Net
         /// <example>
         /// <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\Core\NetworkBase.cs" region="CreateSocketAndConnectExample" title="创建连接示例" />
         /// </example>
-        protected OperateResult<Socket> CreateSocketAndConnect( IPEndPoint endPoint, int timeOut )
+        protected OperateResult<Socket> CreateSocketAndConnect(IPEndPoint endPoint, int timeOut)
         {
             if (UseSynchronousNet)
             {
-                var socket = new Socket( AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );
+                var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 try
                 {
-                    TimeOut connectTimeout = new TimeOut( )
+                    TimeOut connectTimeout = new TimeOut()
                     {
                         WorkSocket = socket,
                         DelayTime = timeOut
                     };
-                    ThreadPool.QueueUserWorkItem( new WaitCallback( ThreadPoolCheckTimeOut ), connectTimeout );
-                    socket.Connect( endPoint );
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(ThreadPoolCheckTimeOut), connectTimeout);
+                    socket.Connect(endPoint);
                     connectTimeout.IsSuccessful = true;
 
-                    return OperateResult.CreateSuccessResult( socket );
+                    return OperateResult.CreateSuccessResult(socket);
                 }
                 catch (Exception ex)
                 {
-                    socket?.Close( );
-                    LogNet?.WriteException( "CreateSocketAndConnect", ex );
-                    return new OperateResult<Socket>( ex.Message );
+                    socket?.Close();
+                    LogNet?.WriteException("CreateSocketAndConnect", ex);
+                    return new OperateResult<Socket>(ex.Message);
                 }
             }
             else
             {
-                OperateResult<Socket> result = new OperateResult<Socket>( );
+                OperateResult<Socket> result = new OperateResult<Socket>();
                 ManualResetEvent connectDone = null;
                 StateObject state = null;
                 try
                 {
-                    connectDone = new ManualResetEvent( false );
-                    state = new StateObject( );
+                    connectDone = new ManualResetEvent(false);
+                    state = new StateObject();
                 }
                 catch (Exception ex)
                 {
-                    return new OperateResult<Socket>( ex.Message );
+                    return new OperateResult<Socket>(ex.Message);
                 }
 
 
-                var socket = new Socket( AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );
+                var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 // 超时验证的信息
-                TimeOut connectTimeout = new TimeOut( )
+                TimeOut connectTimeout = new TimeOut()
                 {
                     WorkSocket = socket,
                     DelayTime = timeOut
                 };
-                ThreadPool.QueueUserWorkItem( new WaitCallback( ThreadPoolCheckTimeOut ), connectTimeout );
+                ThreadPool.QueueUserWorkItem(new WaitCallback(ThreadPoolCheckTimeOut), connectTimeout);
 
                 try
                 {
                     state.WaitDone = connectDone;
                     state.WorkSocket = socket;
-                    socket.BeginConnect( endPoint, new AsyncCallback( ConnectCallBack ), state );
+                    socket.BeginConnect(endPoint, new AsyncCallback(ConnectCallBack), state);
                 }
                 catch (Exception ex)
                 {
                     // 直接失败
                     connectTimeout.IsSuccessful = true;                                  // 退出线程池的超时检查
-                    LogNet?.WriteException( ToString( ), ex );                           // 记录错误日志
-                    socket.Close( );                                                     // 关闭网络信息
-                    connectDone.Close( );                                                // 释放等待资源
+                    LogNet?.WriteException(ToString(), ex);                           // 记录错误日志
+                    socket.Close();                                                     // 关闭网络信息
+                    connectDone.Close();                                                // 释放等待资源
                     result.Message = StringResources.Language.ConnectedFailed + ex.Message;       // 传递错误消息
                     return result;
                 }
@@ -701,22 +701,22 @@ namespace Communication.Core.Net
 
 
                 // 等待连接完成
-                connectDone.WaitOne( );
-                connectDone.Close( );
+                connectDone.WaitOne();
+                connectDone.Close();
                 connectTimeout.IsSuccessful = true;
 
                 if (state.IsError)
                 {
                     // 连接失败
                     result.Message = StringResources.Language.ConnectedFailed + state.ErrerMsg;
-                    socket?.Close( );
+                    socket?.Close();
                     return result;
                 }
 
 
                 result.Content = socket;
                 result.IsSuccess = true;
-                state.Clear( );
+                state.Clear();
                 state = null;
                 return result;
             }
@@ -727,73 +727,73 @@ namespace Communication.Core.Net
         /// 当连接的结果返回
         /// </summary>
         /// <param name="ar">异步对象</param>
-        private void ConnectCallBack( IAsyncResult ar )
+        private void ConnectCallBack(IAsyncResult ar)
         {
             if (ar.AsyncState is StateObject state)
             {
                 try
                 {
                     Socket socket = state.WorkSocket;
-                    socket.EndConnect( ar );
-                    state.WaitDone.Set( );
+                    socket.EndConnect(ar);
+                    state.WaitDone.Set();
                 }
                 catch (Exception ex)
                 {
                     // 发生了异常
                     state.IsError = true;
-                    LogNet?.WriteException( ToString( ), "ConnectCallBack", ex );
+                    LogNet?.WriteException(ToString(), "ConnectCallBack", ex);
                     state.ErrerMsg = ex.Message;
-                    state.WaitDone.Set( );
+                    state.WaitDone.Set();
                 }
             }
         }
 
 #if !NET35
 
-        private OperateResult<Socket> ConnectAsync( IPEndPoint endPoint, int timeOut )
+        private OperateResult<Socket> ConnectAsync(IPEndPoint endPoint, int timeOut)
         {
-            var socket = new Socket( AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );
-            var state = new StateObjectAsync<Socket>( );
-            state.Tcs = new TaskCompletionSource<Socket>( );
+            var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            var state = new StateObjectAsync<Socket>();
+            state.Tcs = new TaskCompletionSource<Socket>();
             state.WorkSocket = socket;
 
             // timeout check
-            TimeOut connectTimeout = new TimeOut( )
+            TimeOut connectTimeout = new TimeOut()
             {
                 WorkSocket = socket,
                 DelayTime = timeOut
             };
-            ThreadPool.QueueUserWorkItem( new WaitCallback( ThreadPoolCheckTimeOut ), connectTimeout );
+            ThreadPool.QueueUserWorkItem(new WaitCallback(ThreadPoolCheckTimeOut), connectTimeout);
 
             try
             {
-                socket.BeginConnect( endPoint, new AsyncCallback( ConnectAsyncCallBack ), state );
+                socket.BeginConnect(endPoint, new AsyncCallback(ConnectAsyncCallBack), state);
                 socket = state.Tcs.Task.Result;
-                return OperateResult.CreateSuccessResult( socket );
+                return OperateResult.CreateSuccessResult(socket);
             }
             catch (Exception ex)
             {
-                return new OperateResult<Socket>( ex.Message );
+                return new OperateResult<Socket>(ex.Message);
             }
         }
 
-        private void ConnectAsyncCallBack( IAsyncResult ar )
+        private void ConnectAsyncCallBack(IAsyncResult ar)
         {
             if (ar.AsyncState is StateObjectAsync<Socket> state)
             {
                 try
                 {
                     Socket socket = state.WorkSocket;
-                    socket.EndConnect( ar );
-                    state.Tcs.SetResult( socket );
+                    socket.EndConnect(ar);
+                    state.Tcs.SetResult(socket);
                 }
                 catch (Exception ex)
                 {
                     // 发生了异常
                     state.IsError = true;
-                    LogNet?.WriteException( "ConnectAsyncCallBack", ex );
+                    LogNet?.WriteException("ConnectAsyncCallBack", ex);
                     state.ErrerMsg = ex.Message;
-                    state.Tcs.SetException( ex );
+                    state.Tcs.SetException(ex);
                 }
             }
         }
@@ -820,9 +820,9 @@ namespace Communication.Core.Net
         /// <param name="stream">数据流</param>
         /// <param name="buffer">缓冲区</param>
         /// <returns>带有成功标志的读取数据长度</returns>
-        protected OperateResult<int> ReadStream( Stream stream, byte[] buffer )
+        protected OperateResult<int> ReadStream(Stream stream, byte[] buffer)
         {
-            ManualResetEvent WaitDone = new ManualResetEvent( false );
+            ManualResetEvent WaitDone = new ManualResetEvent(false);
             FileStateObject stateObject = new FileStateObject
             {
                 WaitDone = WaitDone,
@@ -833,47 +833,47 @@ namespace Communication.Core.Net
 
             try
             {
-                stream.BeginRead( buffer, 0, stateObject.DataLength, new AsyncCallback( ReadStreamCallBack ), stateObject );
+                stream.BeginRead(buffer, 0, stateObject.DataLength, new AsyncCallback(ReadStreamCallBack), stateObject);
             }
             catch (Exception ex)
             {
-                LogNet?.WriteException( ToString( ), ex );
+                LogNet?.WriteException(ToString(), ex);
                 stateObject = null;
-                WaitDone.Close( );
-                return new OperateResult<int>( );
+                WaitDone.Close();
+                return new OperateResult<int>();
             }
 
-            WaitDone.WaitOne( );
-            WaitDone.Close( );
+            WaitDone.WaitOne();
+            WaitDone.Close();
             if (stateObject.IsError)
             {
-                return new OperateResult<int>( )
+                return new OperateResult<int>()
                 {
                     Message = stateObject.ErrerMsg
                 };
             }
             else
             {
-                return OperateResult.CreateSuccessResult( stateObject.AlreadyDealLength );
+                return OperateResult.CreateSuccessResult(stateObject.AlreadyDealLength);
             }
         }
 
 
-        private void ReadStreamCallBack( IAsyncResult ar )
+        private void ReadStreamCallBack(IAsyncResult ar)
         {
             if (ar.AsyncState is FileStateObject stateObject)
             {
                 try
                 {
-                    stateObject.AlreadyDealLength += stateObject.Stream.EndRead( ar );
-                    stateObject.WaitDone.Set( );
+                    stateObject.AlreadyDealLength += stateObject.Stream.EndRead(ar);
+                    stateObject.WaitDone.Set();
                 }
                 catch (Exception ex)
                 {
-                    LogNet?.WriteException( ToString( ), ex );
+                    LogNet?.WriteException(ToString(), ex);
                     stateObject.IsError = true;
                     stateObject.ErrerMsg = ex.Message;
-                    stateObject.WaitDone.Set( );
+                    stateObject.WaitDone.Set();
                 }
             }
         }
@@ -889,9 +889,9 @@ namespace Communication.Core.Net
         /// <param name="stream">数据流</param>
         /// <param name="buffer">缓冲区</param>
         /// <returns>是否写入成功</returns>
-        protected OperateResult WriteStream( Stream stream, byte[] buffer )
+        protected OperateResult WriteStream(Stream stream, byte[] buffer)
         {
-            ManualResetEvent WaitDone = new ManualResetEvent( false );
+            ManualResetEvent WaitDone = new ManualResetEvent(false);
             FileStateObject stateObject = new FileStateObject
             {
                 WaitDone = WaitDone,
@@ -900,48 +900,48 @@ namespace Communication.Core.Net
 
             try
             {
-                stream.BeginWrite( buffer, 0, buffer.Length, new AsyncCallback( WriteStreamCallBack ), stateObject );
+                stream.BeginWrite(buffer, 0, buffer.Length, new AsyncCallback(WriteStreamCallBack), stateObject);
             }
             catch (Exception ex)
             {
-                LogNet?.WriteException( ToString( ), ex );
+                LogNet?.WriteException(ToString(), ex);
                 stateObject = null;
-                WaitDone.Close( );
-                return new OperateResult( ex.Message );
+                WaitDone.Close();
+                return new OperateResult(ex.Message);
             }
 
-            WaitDone.WaitOne( );
-            WaitDone.Close( );
+            WaitDone.WaitOne();
+            WaitDone.Close();
             if (stateObject.IsError)
             {
-                return new OperateResult( )
+                return new OperateResult()
                 {
                     Message = stateObject.ErrerMsg
                 };
             }
             else
             {
-                return OperateResult.CreateSuccessResult( );
+                return OperateResult.CreateSuccessResult();
             }
         }
 
-        private void WriteStreamCallBack( IAsyncResult ar )
+        private void WriteStreamCallBack(IAsyncResult ar)
         {
             if (ar.AsyncState is FileStateObject stateObject)
             {
                 try
                 {
-                    stateObject.Stream.EndWrite( ar );
+                    stateObject.Stream.EndWrite(ar);
                 }
                 catch (Exception ex)
                 {
-                    LogNet?.WriteException( ToString( ), ex );
+                    LogNet?.WriteException(ToString(), ex);
                     stateObject.IsError = true;
                     stateObject.ErrerMsg = ex.Message;
                 }
                 finally
                 {
-                    stateObject.WaitDone.Set( );
+                    stateObject.WaitDone.Set();
                 }
             }
         }
@@ -954,7 +954,7 @@ namespace Communication.Core.Net
         /// 返回表示当前对象的字符串
         /// </summary>
         /// <returns>字符串</returns>
-        public override string ToString( )
+        public override string ToString()
         {
             return "NetworkBase";
         }

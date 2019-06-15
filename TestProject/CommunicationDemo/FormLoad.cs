@@ -297,7 +297,7 @@ namespace CommunicationDemo
             {
                 button19.Text = "异形 Modbus Tcp";
                 button24.Text = "串口调试助手";
-                button30.Text = "以太网调试助手";
+                button30.Text = "TCP Client";
                 button25.Text = "傅立叶变换";
                 button26.Text = "订单号测试";
                 button27.Text = "注册码功能";
@@ -311,7 +311,7 @@ namespace CommunicationDemo
             {
                 button19.Text = "Alien Modbus Tcp";
                 button24.Text = "Serial debug";
-                button30.Text = "Tcp/Ip debug";
+                button30.Text = "TCP Client";
                 button25.Text = "Fourier transformation";
                 button26.Text = "OrderNumbe";
                 button27.Text = "Registration";

@@ -311,13 +311,6 @@ E:\2019智慧水务\源代码\Demo合集软件\CommunicationNew\TestProject\Comm
 E:\2019智慧水务\源代码\Demo合集软件\CommunicationNew\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.csproj.CopyComplete
 E:\2019智慧水务\源代码\Demo合集软件\CommunicationNew\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.exe
 E:\2019智慧水务\源代码\Demo合集软件\CommunicationNew\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.pdb
-E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\bin\Debug\CommunicationDemo.exe.config
-E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\bin\Debug\CommunicationDemo.exe
-E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\bin\Debug\CommunicationDemo.pdb
-E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\bin\Debug\Communication.dll
-E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\bin\Debug\Newtonsoft.Json.dll
-E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\bin\Debug\Communication.pdb
-E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.csprojAssemblyReference.cache
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.Algorithms.FormConnectPool.resources
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.Algorithms.FourierTransform.resources
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.FormBasicControl.resources
@@ -352,6 +345,7 @@ E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationD
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.FormLSisServer.resources
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.FormS7Server.resources
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.FormLsisFEnet.resources
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.FormHongDian.resources
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.FormRedisSubscribe.resources
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.FormRedisClient.resources
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.FormSimplifyNet.resources
@@ -384,7 +378,14 @@ E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationD
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.FormKuka.resources
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.csproj.GenerateResource.cache
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.csproj.CoreCompileInputs.cache
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.csprojAssemblyReference.cache
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\bin\Debug\CommunicationDemo.exe.config
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\bin\Debug\CommunicationDemo.exe
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\bin\Debug\CommunicationDemo.pdb
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\bin\Debug\Newtonsoft.Json.dll
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\bin\Debug\Communication.pdb
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\bin\Debug\Communication.xml
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.csproj.CopyComplete
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.exe
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.pdb
-E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\bin\Debug\Communication.xml
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\bin\Debug\Communication.dll

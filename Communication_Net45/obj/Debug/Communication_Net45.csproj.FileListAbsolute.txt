@@ -118,6 +118,11 @@ F:\智慧水务\源代码\CommunicationNew-master\Communication_Net45\obj\Debug\
 F:\智慧水务\源代码\CommunicationNew-master\Communication_Net45\obj\Debug\Communication_Net45.csproj.CopyComplete
 F:\智慧水务\源代码\CommunicationNew-master\Communication_Net45\obj\Debug\Communication.dll
 F:\智慧水务\源代码\CommunicationNew-master\Communication_Net45\obj\Debug\Communication.pdb
+E:\源代码\Demo合集软件\CommunicationNew-master\Communication_Net45\bin\Debug\Communication.xml
+E:\源代码\Demo合集软件\CommunicationNew-master\Communication_Net45\bin\Debug\Communication.dll
+E:\源代码\Demo合集软件\CommunicationNew-master\Communication_Net45\bin\Debug\Communication.pdb
+E:\源代码\Demo合集软件\CommunicationNew-master\Communication_Net45\bin\Debug\Newtonsoft.Json.dll
+E:\源代码\Demo合集软件\CommunicationNew-master\Communication_Net45\bin\Debug\Newtonsoft.Json.xml
 E:\源代码\Demo合集软件\CommunicationNew-master\Communication_Net45\obj\Debug\Communication_Net45.csprojAssemblyReference.cache
 E:\源代码\Demo合集软件\CommunicationNew-master\Communication_Net45\obj\Debug\Communication.BasicFramework.FormAuthorAdvertisement.resources
 E:\源代码\Demo合集软件\CommunicationNew-master\Communication_Net45\obj\Debug\Communication.BasicFramework.FormAuthorize.resources
@@ -140,11 +145,6 @@ E:\源代码\Demo合集软件\CommunicationNew-master\Communication_Net45\obj\De
 E:\源代码\Demo合集软件\CommunicationNew-master\Communication_Net45\obj\Debug\Communication.Properties.Resources.resources
 E:\源代码\Demo合集软件\CommunicationNew-master\Communication_Net45\obj\Debug\Communication_Net45.csproj.GenerateResource.cache
 E:\源代码\Demo合集软件\CommunicationNew-master\Communication_Net45\obj\Debug\Communication_Net45.csproj.CoreCompileInputs.cache
+E:\源代码\Demo合集软件\CommunicationNew-master\Communication_Net45\obj\Debug\Communication_Net45.csproj.CopyComplete
 E:\源代码\Demo合集软件\CommunicationNew-master\Communication_Net45\obj\Debug\Communication.dll
 E:\源代码\Demo合集软件\CommunicationNew-master\Communication_Net45\obj\Debug\Communication.pdb
-E:\源代码\Demo合集软件\CommunicationNew-master\Communication_Net45\bin\Debug\Communication.xml
-E:\源代码\Demo合集软件\CommunicationNew-master\Communication_Net45\bin\Debug\Communication.dll
-E:\源代码\Demo合集软件\CommunicationNew-master\Communication_Net45\bin\Debug\Communication.pdb
-E:\源代码\Demo合集软件\CommunicationNew-master\Communication_Net45\bin\Debug\Newtonsoft.Json.dll
-E:\源代码\Demo合集软件\CommunicationNew-master\Communication_Net45\bin\Debug\Newtonsoft.Json.xml
-E:\源代码\Demo合集软件\CommunicationNew-master\Communication_Net45\obj\Debug\Communication_Net45.csproj.CopyComplete

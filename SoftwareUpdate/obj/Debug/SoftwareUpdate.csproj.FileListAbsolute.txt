@@ -24,3 +24,4 @@ E:\源代码\Demo合集软件\CommunicationNew-master\SoftwareUpdate\obj\Debug\S
 E:\源代码\Demo合集软件\CommunicationNew-master\SoftwareUpdate\obj\Debug\SoftwareUpdate.csproj.CoreCompileInputs.cache
 E:\源代码\Demo合集软件\CommunicationNew-master\SoftwareUpdate\obj\Debug\软件自动更新.exe
 E:\源代码\Demo合集软件\CommunicationNew-master\SoftwareUpdate\obj\Debug\软件自动更新.pdb
+E:\源代码\Demo合集软件\CommunicationNew-master\SoftwareUpdate\bin\Debug\软件自动更新.exe.config

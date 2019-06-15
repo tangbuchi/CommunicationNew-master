@@ -38,7 +38,7 @@
     </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Communication, Version=6.2.5.0, Culture=neutral, PublicKeyToken=cdb2261fa039ed67, processorArchitecture=MSIL">
+    <Reference Include="Communication, Version=6.2.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Communication_Net45\bin\Debug\Communication.dll</HintPath>
     </Reference>
@@ -160,6 +160,12 @@
     <Compile Include="FormSerialDebug.Designer.cs">
       <DependentUpon>FormSerialDebug.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormTcpClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTcpClient.Designer.cs">
+      <DependentUpon>FormTcpClient.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormUdp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -255,6 +261,12 @@
     </Compile>
     <Compile Include="PLC\FormLsisFEnet.Designer.cs">
       <DependentUpon>FormLsisFEnet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PLC\FormHongDian.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PLC\FormHongDian.Designer.cs">
+      <DependentUpon>FormHongDian.cs</DependentUpon>
     </Compile>
     <Compile Include="Redis\FormRedisSubscribe.cs">
       <SubType>Form</SubType>
@@ -432,17 +444,13 @@
     <Compile Include="Robot\FormKuka.Designer.cs">
       <DependentUpon>FormKuka.cs</DependentUpon>
     </Compile>
-    <Compile Include="Settings1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings1.settings</DependentUpon>
-    </Compile>
     <Compile Include="DemoControl\UserControlCurve.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="DemoControl\UserControlCurve.Designer.cs">
       <DependentUpon>UserControlCurve.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings1.Designer.cs" />
     <EmbeddedResource Include="Algorithms\FormConnectPool.resx">
       <DependentUpon>FormConnectPool.cs</DependentUpon>
     </EmbeddedResource>
@@ -544,6 +552,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PLC\FormLsisFEnet.resx">
       <DependentUpon>FormLsisFEnet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PLC\FormHongDian.resx">
+      <DependentUpon>FormHongDian.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Redis\FormRedisSubscribe.resx">
       <DependentUpon>FormRedisSubscribe.cs</DependentUpon>
@@ -652,10 +663,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Settings1.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

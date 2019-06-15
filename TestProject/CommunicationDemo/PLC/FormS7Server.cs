@@ -15,24 +15,22 @@ namespace CommunicationDemo
 {
     public partial class FormS7Server : Form
     {
-        public FormS7Server( )
+        public FormS7Server()
         {
-            InitializeComponent( );
+            InitializeComponent();
         }
 
 
-        private void FormSiemens_Load( object sender, EventArgs e )
+        private void FormSiemens_Load(object sender, EventArgs e)
         {
             panel2.Enabled = false;
 
 
-            if(Program.Language == 2)
+            if (Program.Language == 2)
             {
                 Text = "S7 Virtual Server [data support i,q,m,db block read and write, db block only one, whether it is DB1.1 or DB100.1 refers to the same]";
-                
+
                 label4.Text = "Agreement";
-                
-                label20.Text = "Author:Hsl";
                 label3.Text = "port:";
                 button1.Text = "Start Server";
                 button11.Text = "Close Server";
@@ -77,14 +75,14 @@ namespace CommunicationDemo
                 label16.Text = "Client-Online:";
             }
         }
-        
-        
-        
+
+
+
         private System.Windows.Forms.Timer timerSecond;
 
-        private void FormSiemens_FormClosing( object sender, FormClosingEventArgs e )
+        private void FormSiemens_FormClosing(object sender, FormClosingEventArgs e)
         {
-            s7NetServer?.ServerClose( );
+            s7NetServer?.ServerClose();
         }
 
         /// <summary>
@@ -94,15 +92,15 @@ namespace CommunicationDemo
         /// <param name="result"></param>
         /// <param name="address"></param>
         /// <param name="textBox"></param>
-        private void readResultRender<T>( OperateResult<T> result, string address, TextBox textBox )
+        private void readResultRender<T>(OperateResult<T> result, string address, TextBox textBox)
         {
             if (result.IsSuccess)
             {
-                textBox.AppendText( DateTime.Now.ToString( "[HH:mm:ss] " ) + $"[{address}] {result.Content}{Environment.NewLine}" );
+                textBox.AppendText(DateTime.Now.ToString("[HH:mm:ss] ") + $"[{address}] {result.Content}{Environment.NewLine}");
             }
             else
             {
-                MessageBox.Show( result.ToString( ) );
+                MessageBox.Show(result.ToString());
             }
         }
 
@@ -111,9 +109,9 @@ namespace CommunicationDemo
         /// </summary>
         /// <param name="result"></param>
         /// <param name="address"></param>
-        private void writeResultRender( string address )
+        private void writeResultRender(string address)
         {
-            MessageBox.Show( DateTime.Now.ToString( "[HH:mm:ss] " ) + $"[{address}] Write Success" );
+            MessageBox.Show(DateTime.Now.ToString("[HH:mm:ss] ") + $"[{address}] Write Success");
         }
 
 
@@ -122,67 +120,67 @@ namespace CommunicationDemo
 
         private Communication.Profinet.Siemens.SiemensS7Server s7NetServer;
 
-        private void button1_Click( object sender, EventArgs e )
+        private void button1_Click(object sender, EventArgs e)
         {
-            if (!int.TryParse( textBox2.Text, out int port ))
+            if (!int.TryParse(textBox2.Text, out int port))
             {
-                MessageBox.Show( DemoUtils.PortInputWrong );
+                MessageBox.Show(DemoUtils.PortInputWrong);
                 return;
             }
 
-
             try
             {
-
-                s7NetServer = new Communication.Profinet.Siemens.SiemensS7Server( );                       // 实例化对象
-                //s7NetServer.LogNet = new Communication.LogNet.LogNetSingle( "logs.txt" );                  // 配置日志信息
-                //s7NetServer.LogNet.BeforeSaveToFile += LogNet_BeforeSaveToFile;
+                s7NetServer = new Communication.Profinet.Siemens.SiemensS7Server();                       // 实例化对象
                 s7NetServer.OnDataReceived += BusTcpServer_OnDataReceived;
-                
-                s7NetServer.ServerStart( port );
+
+                s7NetServer.ServerStart(port);
 
                 button1.Enabled = false;
                 panel2.Enabled = true;
                 button4.Enabled = true;
                 button11.Enabled = true;
 
-                timerSecond?.Dispose( );
-                timerSecond = new System.Windows.Forms.Timer( );
-                timerSecond.Interval = 1000;
+                timerSecond?.Dispose();
+                timerSecond = new System.Windows.Forms.Timer();
+                timerSecond.Interval = int.MaxValue;//1000
                 timerSecond.Tick += TimerSecond_Tick;
-                timerSecond.Start( );
+                timerSecond.Start();
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
 
-        private void button11_Click( object sender, EventArgs e )
+        private void button11_Click(object sender, EventArgs e)
         {
             // 停止服务
-            s7NetServer?.ServerClose( );
+            s7NetServer?.ServerClose();
             button1.Enabled = true;
             button11.Enabled = false;
         }
 
-        private void TimerSecond_Tick( object sender, EventArgs e )
+        private void TimerSecond_Tick(object sender, EventArgs e)
         {
-            label15.Text = s7NetServer.OnlineCount.ToString( ) ;
+            label15.Text = s7NetServer.OnlineCount.ToString();
         }
-
-        private void BusTcpServer_OnDataReceived( object sender, byte[] receive )
+        /// <summary>
+        /// 接收到的数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="receive"></param>
+        private void BusTcpServer_OnDataReceived(object sender, byte[] receive)
         {
             if (!checkBox1.Checked) return;
 
             if (InvokeRequired)
             {
-                BeginInvoke( new Action<object,byte[]>( BusTcpServer_OnDataReceived ), sender, receive );
+                BeginInvoke(new Action<object, byte[]>(BusTcpServer_OnDataReceived), sender, receive);
                 return;
             }
 
-            textBox1.AppendText( "Received：" + Communication.BasicFramework.SoftBasic.ByteToHexString( receive, ' ' ) + Environment.NewLine );
+            textBox1.AppendText("Received：" + Communication.BasicFramework.SoftBasic.ByteToHexString(receive, ' ') + Environment.NewLine);
         }
 
         /// <summary>
@@ -190,17 +188,17 @@ namespace CommunicationDemo
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void LogNet_BeforeSaveToFile( object sender, Communication.LogNet.CommonEventArgs e )
+        private void LogNet_BeforeSaveToFile(object sender, Communication.LogNet.CommonEventArgs e)
         {
             try
             {
                 if (InvokeRequired)
                 {
-                    Invoke( new Action<object, Communication.LogNet.CommonEventArgs>( LogNet_BeforeSaveToFile ), sender, e );
+                    Invoke(new Action<object, Communication.LogNet.CommonEventArgs>(LogNet_BeforeSaveToFile), sender, e);
                     return;
                 }
 
-                textBox1.AppendText( e.CommonMessage.ToString( ) + Environment.NewLine );
+                textBox1.AppendText(e.CommonMessage.ToString() + Environment.NewLine);
             }
             catch
             {
@@ -215,68 +213,68 @@ namespace CommunicationDemo
         #region 单数据读取测试
 
 
-        private void button_read_bool_Click( object sender, EventArgs e )
+        private void button_read_bool_Click(object sender, EventArgs e)
         {
             // 读取bool变量
-            readResultRender( s7NetServer.ReadBool( textBox3.Text  ), textBox3.Text, textBox4 );
+            readResultRender(s7NetServer.ReadBool(textBox3.Text), textBox3.Text, textBox4);
         }
-        
-        private void button6_Click( object sender, EventArgs e )
+
+        private void button6_Click(object sender, EventArgs e)
         {
             // 读取byte变量
-            readResultRender( s7NetServer.ReadByte( textBox3.Text  ), textBox3.Text, textBox4 );
+            readResultRender(s7NetServer.ReadByte(textBox3.Text), textBox3.Text, textBox4);
         }
 
-        private void button_read_short_Click( object sender, EventArgs e )
+        private void button_read_short_Click(object sender, EventArgs e)
         {
             // 读取short变量
-            readResultRender( s7NetServer.ReadInt16( textBox3.Text ), textBox3.Text, textBox4 );
+            readResultRender(s7NetServer.ReadInt16(textBox3.Text), textBox3.Text, textBox4);
         }
 
-        private void button_read_ushort_Click( object sender, EventArgs e )
+        private void button_read_ushort_Click(object sender, EventArgs e)
         {
             // 读取ushort变量
-            readResultRender( s7NetServer.ReadUInt16( textBox3.Text ), textBox3.Text, textBox4 );
+            readResultRender(s7NetServer.ReadUInt16(textBox3.Text), textBox3.Text, textBox4);
         }
 
-        private void button_read_int_Click( object sender, EventArgs e )
+        private void button_read_int_Click(object sender, EventArgs e)
         {
             // 读取int变量
-            readResultRender( s7NetServer.ReadInt32( textBox3.Text ), textBox3.Text, textBox4 );
+            readResultRender(s7NetServer.ReadInt32(textBox3.Text), textBox3.Text, textBox4);
         }
-        private void button_read_uint_Click( object sender, EventArgs e )
+        private void button_read_uint_Click(object sender, EventArgs e)
         {
             // 读取uint变量
-            readResultRender( s7NetServer.ReadUInt32( textBox3.Text ), textBox3.Text, textBox4 );
+            readResultRender(s7NetServer.ReadUInt32(textBox3.Text), textBox3.Text, textBox4);
         }
-        private void button_read_long_Click( object sender, EventArgs e )
+        private void button_read_long_Click(object sender, EventArgs e)
         {
             // 读取long变量
-            readResultRender( s7NetServer.ReadInt64( textBox3.Text ), textBox3.Text, textBox4 );
+            readResultRender(s7NetServer.ReadInt64(textBox3.Text), textBox3.Text, textBox4);
         }
 
-        private void button_read_ulong_Click( object sender, EventArgs e )
+        private void button_read_ulong_Click(object sender, EventArgs e)
         {
             // 读取ulong变量
-            readResultRender( s7NetServer.ReadUInt64( textBox3.Text ), textBox3.Text, textBox4 );
+            readResultRender(s7NetServer.ReadUInt64(textBox3.Text), textBox3.Text, textBox4);
         }
 
-        private void button_read_float_Click( object sender, EventArgs e )
+        private void button_read_float_Click(object sender, EventArgs e)
         {
             // 读取float变量
-            readResultRender( s7NetServer.ReadFloat( textBox3.Text ), textBox3.Text, textBox4 );
+            readResultRender(s7NetServer.ReadFloat(textBox3.Text), textBox3.Text, textBox4);
         }
 
-        private void button_read_double_Click( object sender, EventArgs e )
+        private void button_read_double_Click(object sender, EventArgs e)
         {
             // 读取double变量
-            readResultRender( s7NetServer.ReadDouble( textBox3.Text ), textBox3.Text, textBox4 );
+            readResultRender(s7NetServer.ReadDouble(textBox3.Text), textBox3.Text, textBox4);
         }
 
-        private void button_read_string_Click( object sender, EventArgs e )
+        private void button_read_string_Click(object sender, EventArgs e)
         {
             // 读取字符串
-            readResultRender( s7NetServer.ReadString( textBox3.Text, ushort.Parse( textBox5.Text ) ), textBox3.Text, textBox4 );
+            readResultRender(s7NetServer.ReadString(textBox3.Text, ushort.Parse(textBox5.Text)), textBox3.Text, textBox4);
         }
 
 
@@ -285,217 +283,217 @@ namespace CommunicationDemo
         #region 单数据写入测试
 
 
-        private void button24_Click( object sender, EventArgs e )
+        private void button24_Click(object sender, EventArgs e)
         {
             // bool写入
             try
             {
-                s7NetServer.Write( textBox8.Text, bool.Parse( textBox7.Text ) );
-                writeResultRender( textBox8.Text );
+                s7NetServer.Write(textBox8.Text, bool.Parse(textBox7.Text));
+                writeResultRender(textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void button7_Click( object sender, EventArgs e )
+        private void button7_Click(object sender, EventArgs e)
         {
             // 离散bool写入
             try
             {
-                s7NetServer.Write( textBox8.Text, byte.Parse( textBox7.Text ) );
-                writeResultRender( textBox8.Text );
+                s7NetServer.Write(textBox8.Text, byte.Parse(textBox7.Text));
+                writeResultRender(textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void button22_Click( object sender, EventArgs e )
+        private void button22_Click(object sender, EventArgs e)
         {
             // short写入
             try
             {
-                s7NetServer.Write( textBox8.Text, short.Parse( textBox7.Text ) );
-                writeResultRender( textBox8.Text );
+                s7NetServer.Write(textBox8.Text, short.Parse(textBox7.Text));
+                writeResultRender(textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void button21_Click( object sender, EventArgs e )
+        private void button21_Click(object sender, EventArgs e)
         {
             // ushort写入
             try
             {
-                s7NetServer.Write(textBox8.Text, ushort.Parse( textBox7.Text ) );
-                writeResultRender( textBox8.Text );
+                s7NetServer.Write(textBox8.Text, ushort.Parse(textBox7.Text));
+                writeResultRender(textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
 
-        private void button20_Click( object sender, EventArgs e )
+        private void button20_Click(object sender, EventArgs e)
         {
             // int写入
             try
             {
-                s7NetServer.Write( textBox8.Text, int.Parse( textBox7.Text ) );
-                writeResultRender( textBox8.Text );
+                s7NetServer.Write(textBox8.Text, int.Parse(textBox7.Text));
+                writeResultRender(textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void button19_Click( object sender, EventArgs e )
+        private void button19_Click(object sender, EventArgs e)
         {
             // uint写入
             try
             {
-                s7NetServer.Write( textBox8.Text , uint.Parse( textBox7.Text ) );
-                writeResultRender( textBox8.Text );
+                s7NetServer.Write(textBox8.Text, uint.Parse(textBox7.Text));
+                writeResultRender(textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void button18_Click( object sender, EventArgs e )
+        private void button18_Click(object sender, EventArgs e)
         {
             // long写入
             try
             {
-                s7NetServer.Write( textBox8.Text, long.Parse( textBox7.Text ) );
-                writeResultRender( textBox8.Text );
+                s7NetServer.Write(textBox8.Text, long.Parse(textBox7.Text));
+                writeResultRender(textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void button17_Click( object sender, EventArgs e )
+        private void button17_Click(object sender, EventArgs e)
         {
             // ulong写入
             try
             {
-                s7NetServer.Write(textBox8.Text , ulong.Parse( textBox7.Text ) );
-                writeResultRender( textBox8.Text );
+                s7NetServer.Write(textBox8.Text, ulong.Parse(textBox7.Text));
+                writeResultRender(textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void button16_Click( object sender, EventArgs e )
+        private void button16_Click(object sender, EventArgs e)
         {
             // float写入
             try
             {
-                s7NetServer.Write( textBox8.Text, float.Parse( textBox7.Text ) );
-                writeResultRender( textBox8.Text );
+                s7NetServer.Write(textBox8.Text, float.Parse(textBox7.Text));
+                writeResultRender(textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void button15_Click( object sender, EventArgs e )
+        private void button15_Click(object sender, EventArgs e)
         {
             // double写入
             try
             {
-                s7NetServer.Write( textBox8.Text, double.Parse( textBox7.Text ) );
-                writeResultRender( textBox8.Text );
+                s7NetServer.Write(textBox8.Text, double.Parse(textBox7.Text));
+                writeResultRender(textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
 
-        private void button14_Click( object sender, EventArgs e )
+        private void button14_Click(object sender, EventArgs e)
         {
             // string写入
             try
             {
-                s7NetServer.Write( textBox8.Text, textBox7.Text );
-                writeResultRender( textBox8.Text );
+                s7NetServer.Write(textBox8.Text, textBox7.Text);
+                writeResultRender(textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
 
 
         #endregion
-        
 
-        private void linkLabel2_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Communication.BasicFramework.FormSupport form = new Communication.BasicFramework.FormSupport( );
-            form.ShowDialog( );
+            Communication.BasicFramework.FormSupport form = new Communication.BasicFramework.FormSupport();
+            form.ShowDialog();
         }
 
-        private void button4_Click( object sender, EventArgs e )
+        private void button4_Click(object sender, EventArgs e)
         {
             // 连接异形客户端
-            using (FormInputAlien form = new FormInputAlien( ))
+            using (FormInputAlien form = new FormInputAlien())
             {
-                if (form.ShowDialog( ) == DialogResult.OK)
+                if (form.ShowDialog() == DialogResult.OK)
                 {
-                    OperateResult connect = s7NetServer.ConnectHslAlientClient( form.IpAddress, form.Port, form.DTU );
+                    OperateResult connect = s7NetServer.ConnectHslAlientClient(form.IpAddress, form.Port, form.DTU);
                     if (connect.IsSuccess)
                     {
-                        MessageBox.Show( Communication.StringResources.Language.ConnectedSuccess );
+                        MessageBox.Show(Communication.StringResources.Language.ConnectedSuccess);
                     }
                     else
                     {
-                        MessageBox.Show( Communication.StringResources.Language.ConnectedFailed + connect.Message );
+                        MessageBox.Show(Communication.StringResources.Language.ConnectedFailed + connect.Message);
                     }
                 }
             }
         }
-        
 
-        private void button9_Click( object sender, EventArgs e )
+
+        private void button9_Click(object sender, EventArgs e)
         {
             // 将服务器的数据池存储起来
             if (s7NetServer != null)
             {
-                s7NetServer.SaveDataPool( "123.txt" );
-                MessageBox.Show( "Save file finish" );
+                s7NetServer.SaveDataPool("123.txt");
+                MessageBox.Show("Save file finish");
             }
         }
 
-        private void button8_Click( object sender, EventArgs e )
+        private void button8_Click(object sender, EventArgs e)
         {
             // 从文件加载服务器的数据池
             if (s7NetServer != null)
             {
-                if (System.IO.File.Exists( "123.txt" ))
+                if (System.IO.File.Exists("123.txt"))
                 {
-                    s7NetServer.LoadDataPool( "123.txt" );
-                    MessageBox.Show( "Load data finish" );
+                    s7NetServer.LoadDataPool("123.txt");
+                    MessageBox.Show("Load data finish");
                 }
                 else
                 {
-                    MessageBox.Show( "File is not exist！" );
+                    MessageBox.Show("File is not exist！");
                 }
             }
         }
@@ -505,20 +503,20 @@ namespace CommunicationDemo
         private string timerAddress = string.Empty;
         private ushort timerValue = 0;
         private System.Windows.Forms.Timer timerWrite = null;
-        private void button10_Click( object sender, EventArgs e )
+        private void button10_Click(object sender, EventArgs e)
         {
             // 定时写
-            timerWrite = new System.Windows.Forms.Timer( );
+            timerWrite = new System.Windows.Forms.Timer();
             timerWrite.Interval = 300;
             timerWrite.Tick += TimerWrite_Tick;
-            timerWrite.Start( );
+            timerWrite.Start();
             timerAddress = textBox8.Text;
             button10.Enabled = false;
         }
 
-        private void TimerWrite_Tick( object sender, EventArgs e )
+        private void TimerWrite_Tick(object sender, EventArgs e)
         {
-            s7NetServer.Write( timerAddress, timerValue );
+            s7NetServer.Write(timerAddress, timerValue);
             timerValue++;
         }
 

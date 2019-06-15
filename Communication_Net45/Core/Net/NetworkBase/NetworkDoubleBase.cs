@@ -23,17 +23,17 @@ namespace Communication.Core.Net
         /// <summary>
         /// 默认的无参构造函数 -> Default no-parameter constructor
         /// </summary>
-        public NetworkDoubleBase( )
+        public NetworkDoubleBase()
         {
-            ByteTransform     = new TTransform( );                                           // 实例化变换类的对象
-            InteractiveLock   = new SimpleHybirdLock( );                                     // 实例化数据访问锁
-            connectionId      = BasicFramework.SoftBasic.GetUniqueStringByGuidAndRandom( );  // 设备的唯一的编号
+            ByteTransform = new TTransform();                                           // 实例化变换类的对象
+            InteractiveLock = new SimpleHybirdLock();                                     // 实例化数据访问锁
+            connectionId = BasicFramework.SoftBasic.GetUniqueStringByGuidAndRandom();  // 设备的唯一的编号
         }
 
         #endregion
 
         #region Private Member
-        
+
         private TTransform byteTransform;                // 数据变换的接口
         private string ipAddress = "127.0.0.1";          // 连接的IP地址
         private int port = 10000;                        // 端口号
@@ -75,7 +75,7 @@ namespace Communication.Core.Net
         /// </remarks>
         public int ConnectTimeOut
         {
-            get{return connectTimeOut;}
+            get { return connectTimeOut; }
             set { if (value >= 0) connectTimeOut = value; }
         }
 
@@ -114,11 +114,11 @@ namespace Communication.Core.Net
             }
             set
             {
-                if (!string.IsNullOrEmpty( value ))
+                if (!string.IsNullOrEmpty(value))
                 {
-                    if (!IPAddress.TryParse( value, out IPAddress address ))
+                    if (!IPAddress.TryParse(value, out IPAddress address))
                     {
-                        throw new Exception( StringResources.Language.IpAddresError );
+                        throw new Exception(StringResources.Language.IpAddresError);
                     }
                     ipAddress = value;
                 }
@@ -183,7 +183,7 @@ namespace Communication.Core.Net
         /// 以下的方式演示了另一种长连接的机制
         /// <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\Core\NetworkDoubleBase.cs" region="SetPersistentConnectionExample" title="SetPersistentConnection示例" />
         /// </example>
-        public void SetPersistentConnection( )
+        public void SetPersistentConnection()
         {
             isPersistentConn = true;
         }
@@ -202,27 +202,27 @@ namespace Communication.Core.Net
         ///   如果想知道是否连接成功，请参照下面的代码。
         ///   <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\Core\NetworkDoubleBase.cs" region="Connect2" title="判断连接结果" />
         /// </example> 
-        public OperateResult ConnectServer( )
+        public OperateResult ConnectServer()
         {
             isPersistentConn = true;
-            OperateResult result = new OperateResult( );
+            OperateResult result = new OperateResult();
 
             // 重新连接之前，先将旧的数据进行清空
-            CoreSocket?.Close( );
+            CoreSocket?.Close();
 
-            OperateResult<Socket> rSocket = CreateSocketAndInitialication( );
+            OperateResult<Socket> rSocket = CreateSocketAndInitialication();
 
             if (!rSocket.IsSuccess)
             {
                 IsSocketError = true;
-                rSocket.Content = null;                 
+                rSocket.Content = null;
                 result.Message = rSocket.Message;
             }
             else
             {
                 CoreSocket = rSocket.Content;
                 result.IsSuccess = true;
-                LogNet?.WriteDebug( ToString( ), StringResources.Language.NetEngineStart );
+                LogNet?.WriteDebug(ToString(), StringResources.Language.NetEngineStart);
             }
 
             return result;
@@ -243,7 +243,7 @@ namespace Communication.Core.Net
         /// <remarks>
         /// 不能和之前的长连接和短连接混用，详细参考 Demo程序 
         /// </remarks>
-        public OperateResult ConnectServer( AlienSession session )
+        public OperateResult ConnectServer(AlienSession session)
         {
             isPersistentConn = true;
             isUseSpecifiedSocket = true;
@@ -251,9 +251,9 @@ namespace Communication.Core.Net
 
             if (session != null)
             {
-                AlienSession?.Socket?.Close( );
+                AlienSession?.Socket?.Close();
 
-                if (string.IsNullOrEmpty( ConnectionId ))
+                if (string.IsNullOrEmpty(ConnectionId))
                 {
                     ConnectionId = session.DTU;
                 }
@@ -263,18 +263,18 @@ namespace Communication.Core.Net
                     CoreSocket = session.Socket;
                     IsSocketError = false;
                     AlienSession = session;
-                    return InitializationOnConnect( session.Socket );
+                    return InitializationOnConnect(session.Socket);
                 }
                 else
                 {
                     IsSocketError = true;
-                    return new OperateResult( );
+                    return new OperateResult();
                 }
             }
             else
             {
                 IsSocketError = true;
-                return new OperateResult( );
+                return new OperateResult();
             }
         }
 
@@ -287,20 +287,20 @@ namespace Communication.Core.Net
         /// 直接关闭连接即可，基本上是不需要进行成功的判定
         /// <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\Core\NetworkDoubleBase.cs" region="ConnectCloseExample" title="关闭连接结果" />
         /// </example>
-        public OperateResult ConnectClose( )
+        public OperateResult ConnectClose()
         {
-            OperateResult result = new OperateResult( );
+            OperateResult result = new OperateResult();
             isPersistentConn = false;
 
-            InteractiveLock.Enter( );
+            InteractiveLock.Enter();
             // 额外操作
-            result = ExtraOnDisconnect( CoreSocket );
+            result = ExtraOnDisconnect(CoreSocket);
             // 关闭信息
-            CoreSocket?.Close( );
+            CoreSocket?.Close();
             CoreSocket = null;
-            InteractiveLock.Leave( );
-            
-            LogNet?.WriteDebug( ToString( ), StringResources.Language.NetEngineClose );
+            InteractiveLock.Leave();
+
+            LogNet?.WriteDebug(ToString(), StringResources.Language.NetEngineClose);
             return result;
         }
 
@@ -317,9 +317,9 @@ namespace Communication.Core.Net
         /// 有些协议不需要握手信号，比如三菱的MC协议，Modbus协议，西门子和欧姆龙就存在握手信息，此处的例子是继承本类后重写的西门子的协议示例
         /// <code lang="cs" source="Communication_Net45\Profinet\Siemens\SiemensS7Net.cs" region="NetworkDoubleBase Override" title="西门子重连示例" />
         /// </example>
-        protected virtual OperateResult InitializationOnConnect( Socket socket )
+        protected virtual OperateResult InitializationOnConnect(Socket socket)
         {
-            return OperateResult.CreateSuccessResult( );
+            return OperateResult.CreateSuccessResult();
         }
 
         /// <summary>
@@ -330,13 +330,13 @@ namespace Communication.Core.Net
         /// 目前暂无相关的示例，组件支持的协议都不用实现这个方法。
         /// </example>
         /// <returns>当断开连接时额外的操作结果</returns>
-        protected virtual OperateResult ExtraOnDisconnect( Socket socket )
+        protected virtual OperateResult ExtraOnDisconnect(Socket socket)
         {
-            return OperateResult.CreateSuccessResult( );
+            return OperateResult.CreateSuccessResult();
         }
 
         #endregion
-        
+
         #region Core Communication
 
         /***************************************************************************************
@@ -353,20 +353,20 @@ namespace Communication.Core.Net
         /// 获取本次操作的可用的网络套接字
         /// </summary>
         /// <returns>是否成功，如果成功，使用这个套接字</returns>
-        private OperateResult<Socket> GetAvailableSocket( )
+        private OperateResult<Socket> GetAvailableSocket()
         {
             if (isPersistentConn)
             {
                 // 如果是异形模式
                 if (isUseSpecifiedSocket)
                 {
-                    if(IsSocketError)
+                    if (IsSocketError)
                     {
-                        return new OperateResult<Socket>( StringResources.Language.ConnectionIsNotAvailable );
+                        return new OperateResult<Socket>(StringResources.Language.ConnectionIsNotAvailable);
                     }
                     else
                     {
-                        return OperateResult.CreateSuccessResult( CoreSocket );
+                        return OperateResult.CreateSuccessResult(CoreSocket);
                     }
                 }
                 else
@@ -374,47 +374,47 @@ namespace Communication.Core.Net
                     // 长连接模式
                     if (IsSocketError || CoreSocket == null)
                     {
-                        OperateResult connect = ConnectServer( );
+                        OperateResult connect = ConnectServer();
                         if (!connect.IsSuccess)
                         {
                             IsSocketError = true;
-                            return OperateResult.CreateFailedResult<Socket>( connect );
+                            return OperateResult.CreateFailedResult<Socket>(connect);
                         }
                         else
                         {
                             IsSocketError = false;
-                            return OperateResult.CreateSuccessResult( CoreSocket );
+                            return OperateResult.CreateSuccessResult(CoreSocket);
                         }
                     }
                     else
                     {
-                        return OperateResult.CreateSuccessResult( CoreSocket );
+                        return OperateResult.CreateSuccessResult(CoreSocket);
                     }
                 }
             }
             else
             {
                 // 短连接模式
-                return CreateSocketAndInitialication( );
+                return CreateSocketAndInitialication();
             }
         }
-        
+
         /// <summary>
         /// 连接并初始化网络套接字
         /// </summary>
         /// <returns>带有socket的结果对象</returns>
-        private OperateResult<Socket> CreateSocketAndInitialication( )
+        private OperateResult<Socket> CreateSocketAndInitialication()
         {
-            OperateResult<Socket> result = CreateSocketAndConnect( new IPEndPoint( IPAddress.Parse( ipAddress ), port ), connectTimeOut );
+            OperateResult<Socket> result = CreateSocketAndConnect(new IPEndPoint(IPAddress.Parse(ipAddress), port), connectTimeOut);
             if (result.IsSuccess)
             {
                 // 初始化
-                OperateResult initi = InitializationOnConnect( result.Content );
+                OperateResult initi = InitializationOnConnect(result.Content);
                 if (!initi.IsSuccess)
                 {
-                    result.Content?.Close( );
+                    result.Content?.Close();
                     result.IsSuccess = initi.IsSuccess;
-                    result.CopyErrorFromOther( initi );
+                    result.CopyErrorFromOther(initi);
                 }
             }
             return result;
@@ -428,7 +428,7 @@ namespace Communication.Core.Net
         {
             return null;
         }
-        
+
         /// <summary>
         /// 在其他指定的套接字上，使用报文来通讯，传入需要发送的消息，返回一条完整的数据指令
         /// </summary>
@@ -442,42 +442,42 @@ namespace Communication.Core.Net
         /// <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\Core\NetworkDoubleBase.cs" region="ReadFromCoreServerExample1" title="ReadFromCoreServer示例" />
         /// </example>
         /// <returns>接收的完整的报文信息</returns>
-        public virtual OperateResult<byte[]> ReadFromCoreServer( Socket socket, byte[] send )
+        public virtual OperateResult<byte[]> ReadFromCoreServer(Socket socket, byte[] send)
         {
-            LogNet?.WriteDebug( ToString( ), StringResources.Language.Send + " : " + BasicFramework.SoftBasic.ByteToHexString( send, ' ' ) );
+            LogNet?.WriteDebug(ToString(), StringResources.Language.Send + " : " + BasicFramework.SoftBasic.ByteToHexString(send, ' '));
 
-            TNetMessage netMessage = new TNetMessage( );
+            TNetMessage netMessage = new TNetMessage();
             netMessage.SendBytes = send;
 
             // send
-            OperateResult sendResult = Send( socket, send );
+            OperateResult sendResult = Send(socket, send);
             if (!sendResult.IsSuccess)
             {
-                socket?.Close( );
-                return OperateResult.CreateFailedResult<byte[]>( sendResult );
+                socket?.Close();
+                return OperateResult.CreateFailedResult<byte[]>(sendResult);
             }
 
-            if (receiveTimeOut < 0) return OperateResult.CreateSuccessResult( new byte[0] );
+            if (receiveTimeOut < 0) return OperateResult.CreateSuccessResult(new byte[0]);
 
             // receive msg
-            OperateResult<byte[]> resultReceive = ReceiveByMessage( socket, receiveTimeOut, netMessage );
+            OperateResult<byte[]> resultReceive = ReceiveByMessage(socket, receiveTimeOut, netMessage);
             if (!resultReceive.IsSuccess)
             {
-                socket?.Close( );
-                return new OperateResult<byte[]>( StringResources.Language.ReceiveDataTimeout + receiveTimeOut );
+                socket?.Close();
+                return new OperateResult<byte[]>(StringResources.Language.ReceiveDataTimeout + receiveTimeOut);
             }
 
-            LogNet?.WriteDebug( ToString( ), StringResources.Language.Receive + " : " + BasicFramework.SoftBasic.ByteToHexString( resultReceive.Content, ' ' ) );
+            LogNet?.WriteDebug(ToString(), StringResources.Language.Receive + " : " + BasicFramework.SoftBasic.ByteToHexString(resultReceive.Content, ' '));
 
             // check
-            if (!netMessage.CheckHeadBytesLegal( Token.ToByteArray( ) ))
+            if (!netMessage.CheckHeadBytesLegal(Token.ToByteArray()))
             {
-                socket?.Close( );
-                return new OperateResult<byte[]>( StringResources.Language.CommandHeadCodeCheckFailed );
+                socket?.Close();
+                return new OperateResult<byte[]>(StringResources.Language.CommandHeadCodeCheckFailed);
             }
 
             // Success
-            return OperateResult.CreateSuccessResult( resultReceive.Content );
+            return OperateResult.CreateSuccessResult(resultReceive.Content);
         }
 
 
@@ -493,24 +493,24 @@ namespace Communication.Core.Net
         /// 此处举例有个modbus服务器，有个特殊的功能码0x09，后面携带子数据0x01即可，发送字节为 0x00 0x00 0x00 0x00 0x00 0x03 0x01 0x09 0x01
         /// <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\Core\NetworkDoubleBase.cs" region="ReadFromCoreServerExample2" title="ReadFromCoreServer示例" />
         /// </example>
-        public OperateResult<byte[]> ReadFromCoreServer( byte[] send )
+        public OperateResult<byte[]> ReadFromCoreServer(byte[] send)
         {
-            var result = new OperateResult<byte[]>( );
+            var result = new OperateResult<byte[]>();
 
-            InteractiveLock.Enter( );
+            InteractiveLock.Enter();
 
             // 获取有用的网络通道，如果没有，就建立新的连接
-            OperateResult<Socket> resultSocket = GetAvailableSocket( );
+            OperateResult<Socket> resultSocket = GetAvailableSocket();
             if (!resultSocket.IsSuccess)
             {
                 IsSocketError = true;
                 if (AlienSession != null) AlienSession.IsStatusOk = false;
-                InteractiveLock.Leave( );
-                result.CopyErrorFromOther( resultSocket );
+                InteractiveLock.Leave();
+                result.CopyErrorFromOther(resultSocket);
                 return result;
             }
 
-            OperateResult<byte[]> read = ReadFromCoreServer( resultSocket.Content, send );
+            OperateResult<byte[]> read = ReadFromCoreServer(resultSocket.Content, send);
 
             if (read.IsSuccess)
             {
@@ -523,14 +523,14 @@ namespace Communication.Core.Net
             {
                 IsSocketError = true;
                 if (AlienSession != null) AlienSession.IsStatusOk = false;
-                result.CopyErrorFromOther( read );
+                result.CopyErrorFromOther(read);
             }
 
-            InteractiveLock.Leave( );
-            if (!isPersistentConn) resultSocket.Content?.Close( );
+            InteractiveLock.Leave();
+            if (!isPersistentConn) resultSocket.Content?.Close();
             return result;
         }
-        
+
         #endregion
 
         #region Object Override
@@ -539,9 +539,9 @@ namespace Communication.Core.Net
         /// 返回表示当前对象的字符串
         /// </summary>
         /// <returns>字符串信息</returns>
-        public override string ToString( )
+        public override string ToString()
         {
-            return $"NetworkDoubleBase<{typeof( TNetMessage )}, {typeof( TTransform )}>";
+            return $"NetworkDoubleBase<{typeof(TNetMessage)}, {typeof(TTransform)}>";
         }
 
 
