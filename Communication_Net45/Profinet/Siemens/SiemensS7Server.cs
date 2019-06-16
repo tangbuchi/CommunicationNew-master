@@ -11,98 +11,10 @@ using Communication.Core.IMessage;
 namespace Communication.Profinet.Siemens
 {
     /// <summary>
-    /// 西门子S7协议的虚拟服务器，支持TCP协议，无视PLC的型号，所以在客户端进行操作操作的时候，选择1200或是1500或是300或是400都是一样的。
+    /// 西门子S7协议的虚拟服务器，支持TCP协议
     /// </summary>
-    /// <remarks>
-    /// 地址支持的列表如下：
-    /// <list type="table">
-    ///   <listheader>
-    ///     <term>地址名称</term>
-    ///     <term>地址代号</term>
-    ///     <term>示例</term>
-    ///     <term>地址进制</term>
-    ///     <term>字操作</term>
-    ///     <term>位操作</term>
-    ///     <term>备注</term>
-    ///   </listheader>
-    ///   <item>
-    ///     <term>中间寄存器</term>
-    ///     <term>M</term>
-    ///     <term>M100,M200</term>
-    ///     <term>10</term>
-    ///     <term>√</term>
-    ///     <term>√</term>
-    ///     <term></term>
-    ///   </item>
-    ///   <item>
-    ///     <term>输入寄存器</term>
-    ///     <term>I</term>
-    ///     <term>I100,I200</term>
-    ///     <term>10</term>
-    ///     <term>√</term>
-    ///     <term>√</term>
-    ///     <term></term>
-    ///   </item>
-    ///   <item>
-    ///     <term>输出寄存器</term>
-    ///     <term>Q</term>
-    ///     <term>Q100,Q200</term>
-    ///     <term>10</term>
-    ///     <term>√</term>
-    ///     <term>√</term>
-    ///     <term></term>
-    ///   </item>
-    ///   <item>
-    ///     <term>DB块寄存器</term>
-    ///     <term>DB</term>
-    ///     <term>DB1.100,DB1.200</term>
-    ///     <term>10</term>
-    ///     <term>√</term>
-    ///     <term>√</term>
-    ///     <term></term>
-    ///   </item>
-    ///   <item>
-    ///     <term>V寄存器</term>
-    ///     <term>V</term>
-    ///     <term>V100,V200</term>
-    ///     <term>10</term>
-    ///     <term>√</term>
-    ///     <term>√</term>
-    ///     <term>V寄存器本质就是DB块1</term>
-    ///   </item>
-    ///   <item>
-    ///     <term>定时器的值</term>
-    ///     <term>T</term>
-    ///     <term>T100,T200</term>
-    ///     <term>10</term>
-    ///     <term>√</term>
-    ///     <term>√</term>
-    ///     <term>未测试通过</term>
-    ///   </item>
-    ///   <item>
-    ///     <term>计数器的值</term>
-    ///     <term>C</term>
-    ///     <term>C100,C200</term>
-    ///     <term>10</term>
-    ///     <term>√</term>
-    ///     <term>√</term>
-    ///     <term>未测试通过</term>
-    ///   </item>
-    /// </list>
-    /// <note type="important">对于200smartPLC的V区，就是DB1.X，例如，V100=DB1.100</note>
-    /// </remarks>
-    /// <example>
-    /// 你可以很快速并且简单的创建一个虚拟的s7服务器
-    /// <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\Profinet\SiemensS7ServerExample.cs" region="UseExample1" title="简单的创建服务器" />
-    /// 当然如果需要高级的服务器，指定日志，限制客户端的IP地址，获取客户端发送的信息，在服务器初始化的时候就要参照下面的代码：
-    /// <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\Profinet\SiemensS7ServerExample.cs" region="UseExample4" title="定制服务器" />
-    /// 服务器创建好之后，我们就可以对服务器进行一些读写的操作了，下面的代码是基础的BCL类型的读写操作。
-    /// <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\Profinet\SiemensS7ServerExample.cs" region="ReadWriteExample" title="基础的读写示例" />
-    /// 高级的对于byte数组类型的数据进行批量化的读写操作如下：   
-    /// <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\Profinet\SiemensS7ServerExample.cs" region="BytesReadWrite" title="字节的读写示例" />
-    /// 更高级操作请参见源代码。
-    /// </example>
     public class SiemensS7Server : NetworkDataServerBase
+
     {
         #region Constructor
 
@@ -254,13 +166,13 @@ namespace Communication.Profinet.Siemens
         {
             // 接收2次的握手协议
             S7Message s7Message = new S7Message();
-            OperateResult<byte[]> read1 = ReceiveByMessage(socket, 5000, s7Message);
+            OperateResult<byte[]> read1 = ReceiveByMessage(socket, int.MaxValue, s7Message);//5000 时间延长
             if (!read1.IsSuccess) return;
 
             OperateResult send1 = Send(socket, SoftBasic.HexStringToBytes("03 00 00 16 11 D0 00 01 00 0C 00 C0 01 0A C1 02 01 02 C2 02 01 00"));
             if (!send1.IsSuccess) return;
 
-            OperateResult<byte[]> read2 = ReceiveByMessage(socket, 5000, s7Message);
+            OperateResult<byte[]> read2 = ReceiveByMessage(socket, int.MaxValue, s7Message);//5000 时间延长
             if (!read1.IsSuccess) return;
 
             OperateResult send2 = Send(socket, SoftBasic.HexStringToBytes("03 00 00 1B 02 F0 80 32 03 00 00 04 00 00 08 00 00 00 00 F0 00 00 01 00 01 00 F0"));
@@ -282,6 +194,10 @@ namespace Communication.Profinet.Siemens
             }
         }
 
+        /// <summary>
+        /// 套接字异步回调
+        /// </summary>
+        /// <param name="ar"></param>
         private void SocketAsyncCallBack(IAsyncResult ar)
         {
             if (ar.AsyncState is AppSession session)
@@ -291,7 +207,7 @@ namespace Communication.Profinet.Siemens
                     int receiveCount = session.WorkSocket.EndReceive(ar);
 
                     S7Message s7Message = new S7Message();
-                    OperateResult<byte[]> read1 = ReceiveByMessage(session.WorkSocket, 5000, s7Message);
+                    OperateResult<byte[]> read1 = ReceiveByMessage(session.WorkSocket, int.MaxValue, s7Message); // 500 时间延长
                     if (!read1.IsSuccess)
                     {
                         LogNet?.WriteDebug(ToString(), string.Format(StringResources.Language.ClientOfflineInfo, session.IpEndPoint));

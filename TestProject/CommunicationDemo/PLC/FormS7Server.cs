@@ -28,7 +28,7 @@ namespace CommunicationDemo
 
             if (Program.Language == 2)
             {
-                Text = "S7 Virtual Server [data support i,q,m,db block read and write, db block only one, whether it is DB1.1 or DB100.1 refers to the same]";
+                Text = "S7 Virtual Server";
 
                 label4.Text = "Agreement";
                 label3.Text = "port:";
@@ -80,6 +80,11 @@ namespace CommunicationDemo
 
         private System.Windows.Forms.Timer timerSecond;
 
+        /// <summary>
+        /// 关闭窗体时执行
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormSiemens_FormClosing(object sender, FormClosingEventArgs e)
         {
             s7NetServer?.ServerClose();
@@ -122,6 +127,7 @@ namespace CommunicationDemo
 
         private void button1_Click(object sender, EventArgs e)
         {
+            // 启动服务
             if (!int.TryParse(textBox2.Text, out int port))
             {
                 MessageBox.Show(DemoUtils.PortInputWrong);
@@ -130,10 +136,10 @@ namespace CommunicationDemo
 
             try
             {
-                s7NetServer = new Communication.Profinet.Siemens.SiemensS7Server();                       // 实例化对象
+                s7NetServer = new Communication.Profinet.Siemens.SiemensS7Server();// 实例化对象
                 s7NetServer.OnDataReceived += BusTcpServer_OnDataReceived;
 
-                s7NetServer.ServerStart(port);
+                s7NetServer.ServerStart(port);// 启动服务器的引擎
 
                 button1.Enabled = false;
                 panel2.Enabled = true;

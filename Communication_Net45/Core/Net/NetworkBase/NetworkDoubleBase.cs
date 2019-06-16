@@ -37,8 +37,8 @@ namespace Communication.Core.Net
         private TTransform byteTransform;                // 数据变换的接口
         private string ipAddress = "127.0.0.1";          // 连接的IP地址
         private int port = 10000;                        // 端口号
-        private int connectTimeOut = 10000;              // 连接超时时间设置
-        private int receiveTimeOut = 10000;              // 数据接收的超时时间
+        private int connectTimeOut = int.MaxValue;              // 连接超时时间设置 10000
+        private int receiveTimeOut = int.MaxValue;              // 数据接收的超时时间 10000
         private bool isPersistentConn = false;           // 是否处于长连接的状态
         private SimpleHybirdLock InteractiveLock;        // 一次正常的交互的互斥锁
         private bool IsSocketError = false;              // 指示长连接的套接字是否处于错误的状态
@@ -477,6 +477,7 @@ namespace Communication.Core.Net
             }
 
             // Success
+            Console.WriteLine($"返回：{BasicFramework.SoftBasic.ByteToHexString(resultReceive.Content, ' ')}");
             return OperateResult.CreateSuccessResult(resultReceive.Content);
         }
 

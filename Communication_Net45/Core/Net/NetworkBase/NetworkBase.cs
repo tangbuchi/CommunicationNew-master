@@ -394,7 +394,7 @@ namespace Communication.Core.Net
                 TimeOut.IsSuccessful = true;
                 return headResult;
             }
-
+            // 剩余指令
             OperateResult<byte[]> contentResult = Receive(socket, contentLength);
             if (!contentResult.IsSuccess)
             {
@@ -457,6 +457,8 @@ namespace Communication.Core.Net
 
                 socket.BeginSend(state.Buffer, state.AlreadyDealLength, state.DataLength - state.AlreadyDealLength,
                     SocketFlags.None, new AsyncCallback(SendCallBack), state);
+
+                Console.WriteLine($"发送：{SoftBasic.ByteToHexString(state.Buffer, ' ')}");
             }
             catch (Exception ex)
             {

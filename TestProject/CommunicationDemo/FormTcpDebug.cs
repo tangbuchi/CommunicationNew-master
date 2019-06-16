@@ -92,7 +92,7 @@ namespace CommunicationDemo
         /// 缓冲区
         /// </summary>
         private byte[] buffer = new byte[2048];
-        private Timer timer;
+        //private Timer timer;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -174,7 +174,7 @@ namespace CommunicationDemo
             {
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Invoke(new Action(() =>
               {
