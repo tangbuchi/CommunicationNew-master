@@ -1149,6 +1149,22 @@
             <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\BasicFramework\SoftBasicExample.cs" region="ByteToBoolArray" title="ByteToBoolArray示例" />
             </example> 
         </member>
+        <member name="M:Communication.BasicFramework.SoftBasic.ByteToSegmentation(System.Byte[])">
+            <summary>
+            从Byte数组中分割DTU号码，长度11位
+            Extracts a bit array from a byte array, length represents the number of digits
+            </summary>
+            <param name="InBytes">原先的字节数组</param>
+            <returns>转换后的bool数组</returns>
+        </member>
+        <member name="M:Communication.BasicFramework.SoftBasic.StringToByteArray(System.String)">
+            <summary>
+            将DTU号码分割成Byte数组，长度11位
+            Extracts a bit array from a byte array, length represents the number of digits
+            </summary>
+            <param name="InBytes">原先的字节数组</param>
+            <returns>转换后的bool数组</returns>
+        </member>
         <member name="M:Communication.BasicFramework.SoftBasic.ByteToBoolArray(System.Byte[])">
             <summary>
             从Byte数组中提取所有的位数组 ->
@@ -4289,6 +4305,50 @@
             </summary>
         </member>
         <member name="P:Communication.Core.IMessage.ModbusTcpMessage.SendBytes">
+            <summary>
+            发送的字节信息
+            </summary>
+        </member>
+        <member name="T:Communication.Core.IMessage.DDPMessage">
+            <summary>
+            西门子S7协议的消息解析规则
+            </summary>
+        </member>
+        <member name="P:Communication.Core.IMessage.DDPMessage.ProtocolHeadBytesLength">
+            <summary>
+            西门子头字节的长度
+            </summary>
+        </member>
+        <member name="P:Communication.Core.IMessage.DDPMessage.HeadBytes">
+            <summary>
+            头子节的数据
+            </summary>
+        </member>
+        <member name="P:Communication.Core.IMessage.DDPMessage.ContentBytes">
+            <summary>
+            内容字节的数据
+            </summary>
+        </member>
+        <member name="M:Communication.Core.IMessage.DDPMessage.CheckHeadBytesLegal(System.Byte[])">
+            <summary>
+            检查头字节是否合法的判断
+            </summary>
+            <param name="token">令牌</param>
+            <returns>是否合法的</returns>
+        </member>
+        <member name="M:Communication.Core.IMessage.DDPMessage.GetContentLengthByHeadBytes">
+            <summary>
+            获取剩余的内容长度
+            </summary>
+            <returns>数据内容长度</returns>
+        </member>
+        <member name="M:Communication.Core.IMessage.DDPMessage.GetHeadBytesIdentity">
+            <summary>
+            获取消息号，此处无效
+            </summary>
+            <returns>消息标识</returns>
+        </member>
+        <member name="P:Communication.Core.IMessage.DDPMessage.SendBytes">
             <summary>
             发送的字节信息
             </summary>
@@ -15264,6 +15324,519 @@
             Get a message to uninstall a registered session
             </summary>
             <returns>字节报文信息 -> BYTE message information </returns>
+        </member>
+        <member name="T:Communication.Profinet.HongDian.HongDianDDPServer">
+            <summary>
+            西门子S7协议的虚拟服务器，支持TCP协议
+            </summary>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPServer.#ctor">
+            <summary>
+            实例化一个S7协议的服务器，支持I，Q，M，DB1.X 数据区块的读写操作
+            </summary>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPServer.Read(System.String,System.UInt16)">
+            <summary>
+            读取自定义的寄存器的值
+            </summary>
+            <param name="address">起始地址，示例："I100"，"M100"</param>
+            <param name="length">数据长度</param>
+            <exception cref="T:System.IndexOutOfRangeException"></exception>
+            <returns>byte数组值</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPServer.Write(System.String,System.Byte[])">
+            <summary>
+            写入自定义的数据到数据内存中去
+            </summary>
+            <param name="address">地址</param>
+            <param name="value">数据值</param>
+            <returns>是否写入成功的结果对象</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPServer.ReadByte(System.String)">
+            <summary>
+            读取指定地址的字节数据
+            </summary>
+            <param name="address">西门子的地址信息</param>
+            <returns>带有成功标志的结果对象</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPServer.Write(System.String,System.Byte)">
+            <summary>
+            将byte数据信息写入到指定的地址当中
+            </summary>
+            <param name="address">西门子的地址信息</param>
+            <param name="value">字节数据信息</param>
+            <returns>是否成功的结果</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPServer.ReadBool(System.String)">
+            <summary>
+            读取指定地址的bool数据对象
+            </summary>
+            <param name="address">西门子的地址信息</param>
+            <returns>带有成功标志的结果对象</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPServer.Write(System.String,System.Boolean)">
+            <summary>
+            往指定的地址里写入bool数据对象
+            </summary>
+            <param name="address">西门子的地址信息</param>
+            <param name="value">值</param>
+            <returns>是否成功的结果</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPServer.ThreadPoolLoginAfterClientCheck(System.Net.Sockets.Socket,System.Net.IPEndPoint)">
+            <summary>
+            当客户端登录后，进行Ip信息的过滤，然后触发本方法，也就是说之后的客户端需要
+            </summary>
+            <param name="socket">网络套接字</param>
+            <param name="endPoint">终端节点</param>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPServer.SocketAsyncCallBack(System.IAsyncResult)">
+            <summary>
+            套接字异步回调
+            </summary>
+            <param name="ar"></param>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPServer.LoadFromBytes(System.Byte[])">
+            <summary>
+            从字节数据加载数据信息
+            </summary>
+            <param name="content">字节数据</param>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPServer.SaveToBytes">
+            <summary>
+            将数据信息存储到字节数组去
+            </summary>
+            <returns>所有的内容</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPServer.ToString">
+            <summary>
+            返回表示当前对象的字符串
+            </summary>
+            <returns>字符串信息</returns>
+        </member>
+        <member name="T:Communication.Profinet.HongDian.HongDianDDPNet">
+            <summary>
+            一个西门子的客户端类，使用S7协议来进行数据交互 ->
+            A Siemens client class that uses the S7 protocol for data interaction
+            </summary>
+            <remarks>
+            地址支持的列表如下：
+            <list type="table">
+              <listheader>
+                <term>地址名称</term>
+                <term>地址代号</term>
+                <term>示例</term>
+                <term>地址进制</term>
+                <term>字操作</term>
+                <term>位操作</term>
+                <term>备注</term>
+              </listheader>
+              <item>
+                <term>中间寄存器</term>
+                <term>M</term>
+                <term>M100,M200</term>
+                <term>10</term>
+                <term>√</term>
+                <term>√</term>
+                <term></term>
+              </item>
+              <item>
+                <term>输入寄存器</term>
+                <term>I</term>
+                <term>I100,I200</term>
+                <term>10</term>
+                <term>√</term>
+                <term>√</term>
+                <term></term>
+              </item>
+              <item>
+                <term>输出寄存器</term>
+                <term>Q</term>
+                <term>Q100,Q200</term>
+                <term>10</term>
+                <term>√</term>
+                <term>√</term>
+                <term></term>
+              </item>
+              <item>
+                <term>DB块寄存器</term>
+                <term>DB</term>
+                <term>DB1.100,DB1.200</term>
+                <term>10</term>
+                <term>√</term>
+                <term>√</term>
+                <term></term>
+              </item>
+              <item>
+                <term>V寄存器</term>
+                <term>V</term>
+                <term>V100,V200</term>
+                <term>10</term>
+                <term>√</term>
+                <term>√</term>
+                <term>V寄存器本质就是DB块1</term>
+              </item>
+              <item>
+                <term>定时器的值</term>
+                <term>T</term>
+                <term>T100,T200</term>
+                <term>10</term>
+                <term>√</term>
+                <term>√</term>
+                <term>未测试通过</term>
+              </item>
+              <item>
+                <term>计数器的值</term>
+                <term>C</term>
+                <term>C100,C200</term>
+                <term>10</term>
+                <term>√</term>
+                <term>√</term>
+                <term>未测试通过</term>
+              </item>
+            </list>
+            <note type="important">对于200smartPLC的V区，就是DB1.X，例如，V100=DB1.100</note>
+            </remarks>
+            <example>
+            <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\Profinet\SiemensS7Net.cs" region="Usage" title="简单的短连接使用" />
+            <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\Profinet\SiemensS7Net.cs" region="Usage2" title="简单的长连接使用" />
+            </example>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.#ctor(Communication.Profinet.HongDian.HongDianDTUS)">
+            <summary>
+            实例化一个西门子的S7协议的通讯对象 ->
+            Instantiate a communication object for a Siemens S7 protocol
+            </summary>
+            <param name="siemens">指定西门子的型号</param>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.#ctor(Communication.Profinet.HongDian.HongDianDTUS,System.String)">
+            <summary>
+            实例化一个西门子的S7协议的通讯对象并指定Ip地址 ->
+            Instantiate a communication object for a Siemens S7 protocol and specify an IP address
+            </summary>
+            <param name="siemens">指定西门子的型号</param>
+            <param name="ipAddress">Ip地址</param>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.Initialization(Communication.Profinet.HongDian.HongDianDTUS,System.String)">
+            <summary>
+            初始化方法 -> Initialize method
+            </summary>
+            <param name="siemens">指定西门子的型号 -> Designation of Siemens</param>
+            <param name="ipAddress">Ip地址 -> IpAddress</param>
+        </member>
+        <member name="P:Communication.Profinet.HongDian.HongDianDDPNet.Slot">
+            <summary>
+            PLC的槽号，针对S7-400的PLC设置的
+            </summary>
+        </member>
+        <member name="P:Communication.Profinet.HongDian.HongDianDDPNet.Rack">
+            <summary>
+            PLC的机架号，针对S7-400的PLC设置的
+            </summary>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.InitializationOnConnect(System.Net.Sockets.Socket)">
+            <summary>
+            连接上服务器后需要进行的二次握手操作 -> Two handshake actions required after connecting to the server
+            </summary>
+            <param name="socket">网络套接字 -> Network sockets</param>
+            <returns>是否初始化成功，依据具体的协议进行重写 ->
+            Whether the initialization succeeds and is rewritten according to the specific protocol</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.ReadOrderNumber">
+            <summary>
+            从PLC读取订货号信息 -> Reading order number information from PLC
+            </summary>
+            <returns>CPU的订货号信息 -> Order number information for the CPU</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.HotStart">
+            <summary>
+            对PLC进行热启动
+            </summary>
+            <returns>是否启动成功的结果对象</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.ColdStart">
+            <summary>
+            对PLC进行冷启动
+            </summary>
+            <returns>是否启动成功的结果对象</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.Stop">
+            <summary>
+            对PLC进行停止
+            </summary>
+            <returns>是否启动成功的结果对象</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.Read(System.String,System.UInt16)">
+            <summary>
+            从PLC读取数据，地址格式为I100，Q100，DB20.100，M100，T100，C100以字节为单位 ->
+            Read data from PLC, address format I100，Q100，DB20.100，M100，T100，C100 in bytes
+            </summary>
+            <param name="address">起始地址，格式为I100，M100，Q100，DB20.100 ->
+            Starting address, formatted as I100,M100,Q100,DB20.100</param>
+            <param name="length">读取的数量，以字节为单位 -> The number of reads, in bytes</param>
+            <returns>是否读取成功的结果对象 -> Whether to read the successful result object</returns>
+            <remarks>
+            <note type="important">对于200smartPLC的V区，就是DB1.X，例如，V100=DB1.100</note>
+            </remarks>
+            <example>
+            假设起始地址为M100，M100存储了温度，100.6℃值为1006，M102存储了压力，1.23Mpa值为123，M104，M105，M106，M107存储了产量计数，读取如下：
+            <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\Profinet\SiemensS7Net.cs" region="ReadExample2" title="Read示例" />
+            以下是读取不同类型数据的示例
+            <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\Profinet\SiemensS7Net.cs" region="ReadExample1" title="Read示例" />
+            </example>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.ReadBitFromPLC(System.String)">
+            <summary>
+            从PLC读取数据，地址格式为I100，Q100，DB20.100，M100，以位为单位 ->
+            Read the data from the PLC, the address format is I100，Q100，DB20.100，M100, in bits units
+            </summary>
+            <param name="address">起始地址，格式为I100，M100，Q100，DB20.100 ->
+            Starting address, formatted as I100,M100,Q100,DB20.100</param>
+            <returns>是否读取成功的结果对象 -> Whether to read the successful result object</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.Read(System.String[],System.UInt16[])">
+            <summary>
+            一次性从PLC获取所有的数据，按照先后顺序返回一个统一的Buffer，需要按照顺序处理，两个数组长度必须一致 ->
+            One-time from the PLC to obtain all the data, in order to return a unified buffer, need to be processed sequentially, two array length must be consistent
+            </summary>
+            <param name="address">起始地址，格式为I100，M100，Q100，DB20.100 ->
+            Starting address, formatted as I100,M100,Q100,DB20.100</param>
+            <param name="length">数据长度数组 -> Array of data Lengths</param>
+            <returns>是否读取成功的结果对象 -> Whether to read the successful result object</returns>
+            <exception cref="T:System.NullReferenceException"></exception>
+            <remarks>
+            <note type="warning">批量读取的长度有限制，最大为19个地址</note>
+            </remarks>
+            <example>
+            参照<see cref="M:Communication.Profinet.HongDian.HongDianDDPNet.Read(System.String,System.UInt16)"/>
+            </example>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.ReadBool(System.String)">
+            <summary>
+            读取指定地址的bool数据，地址格式为I100，M100，Q100，DB20.100 -> 
+            reads bool data for the specified address in the format I100，M100，Q100，DB20.100
+            </summary>
+            <param name="address">起始地址，格式为I100，M100，Q100，DB20.100 ->
+            Starting address, formatted as I100,M100,Q100,DB20.100</param>
+            <returns>是否读取成功的结果对象 -> Whether to read the successful result object</returns>
+            <remarks>
+            <note type="important">
+            对于200smartPLC的V区，就是DB1.X，例如，V100=DB1.100
+            </note>
+            </remarks>
+            <example>
+            假设读取M100.0的位是否通断
+            <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\Profinet\SiemensS7Net.cs" region="ReadBool" title="ReadBool示例" />
+            </example>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.ReadByte(System.String)">
+            <summary>
+            读取指定地址的byte数据，地址格式I100，M100，Q100，DB20.100 ->
+            Reads the byte data of the specified address, the address format I100,Q100,DB20.100,M100
+            </summary>
+            <param name="address">起始地址，格式为I100，M100，Q100，DB20.100 ->
+            Starting address, formatted as I100,M100,Q100,DB20.100</param>
+            <returns>是否读取成功的结果对象 -> Whether to read the successful result object</returns>
+            <example>参考<see cref="M:Communication.Profinet.HongDian.HongDianDDPNet.Read(System.String,System.UInt16)"/>的注释</example>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.WriteBase(System.Byte[])">
+            <summary>
+            基础的写入数据的操作支持 -> Operational support for the underlying write data
+            </summary>
+            <param name="entireValue">完整的字节数据 -> Full byte data</param>
+            <returns>是否写入成功的结果对象 -> Whether to write a successful result object</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.Write(System.String,System.Byte[])">
+            <summary>
+            将数据写入到PLC数据，地址格式为I100，Q100，DB20.100，M100，以字节为单位 ->
+            Writes data to the PLC data, in the address format I100,Q100,DB20.100,M100, in bytes
+            </summary>
+            <param name="address">起始地址，格式为I100，M100，Q100，DB20.100 ->
+            Starting address, formatted as I100,M100,Q100,DB20.100</param>
+            <param name="value">写入的原始数据 -> Raw data written to</param>
+            <returns>是否写入成功的结果对象 -> Whether to write a successful result object</returns>
+            <example>
+            假设起始地址为M100，M100,M101存储了温度，100.6℃值为1006，M102,M103存储了压力，1.23Mpa值为123，M104-M107存储了产量计数，写入如下：
+            <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\Profinet\SiemensS7Net.cs" region="WriteExample2" title="Write示例" />
+            以下是写入不同类型数据的示例
+            <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\Profinet\SiemensS7Net.cs" region="WriteExample1" title="Write示例" />
+            </example>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.Write(System.String,System.Boolean)">
+            <summary>
+            写入PLC的一个位，例如"M100.6"，"I100.7"，"Q100.0"，"DB20.100.0"，如果只写了"M100"默认为"M100.0" ->
+            Write a bit of PLC, for example  "M100.6",  "I100.7",  "Q100.0",  "DB20.100.0", if only write  "M100" defaults to  "M100.0"
+            </summary>
+            <param name="address">起始地址，格式为"M100.6",  "I100.7",  "Q100.0",  "DB20.100.0" ->
+            Start address, format  "M100.6",  "I100.7",  "Q100.0",  "DB20.100.0"</param>
+            <param name="value">写入的数据，True或是False -> Writes the data, either True or False</param>
+            <returns>是否写入成功的结果对象 -> Whether to write a successful result object</returns>
+            <example>
+            假设写入M100.0的位是否通断
+            <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\Profinet\SiemensS7Net.cs" region="WriteBool" title="WriteBool示例" />
+            </example>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.Write(System.String,System.Boolean[])">
+            <summary>
+            向PLC中写入bool数组，比如你写入M100,那么data[0]对应M100.0 ->
+            Write the bool array to the PLC, for example, if you write M100, then data[0] corresponds to M100.0
+            </summary>
+            <param name="address">起始地址，格式为I100，M100，Q100，DB20.100 -> Starting address, formatted as I100,mM100,Q100,DB20.100</param>
+            <param name="values">要写入的bool数组，长度为8的倍数 -> The bool array to write, a multiple of 8 in length</param>
+            <returns>是否写入成功的结果对象 -> Whether to write a successful result object</returns>
+            <remarks>
+            <note type="warning">
+            批量写入bool数组存在一定的风险，原因是只能批量写入长度为8的倍数的数组，否则会影响其他的位的数据，请谨慎使用。
+            </note>
+            </remarks>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.Write(System.String,System.Byte)">
+            <summary>
+            向PLC中写入byte数据，返回值说明 -> Write byte data to the PLC, return value description
+            </summary>
+            <param name="address">起始地址，格式为I100，M100，Q100，DB20.100 -> Starting address, formatted as I100,mM100,Q100,DB20.100</param>
+            <param name="value">byte数据 -> Byte data</param>
+            <returns>是否写入成功的结果对象 -> Whether to write a successful result object</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.Write(System.String,System.String)">
+            <summary>
+            向设备中写入字符串，编码格式为ASCII
+            </summary>
+            <param name="address">数据地址</param>
+            <param name="value">字符串数据</param>
+            <returns>是否写入成功的结果对象</returns>
+            <example>
+            以下为三菱的连接对象示例，其他的设备读写情况参照下面的代码：
+            <code lang="cs" source="Communication_Net45.Test\Documentation\Samples\Core\NetworkDeviceBase.cs" region="WriteString" title="String类型示例" />
+            </example>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.ReadString(System.String)">
+            <summary>
+            读取西门子的地址的字符串信息，这个信息是和西门子绑定在一起，长度随西门子的信息动态变化的
+            </summary>
+            <param name="address">数据地址，具体的格式需要参照类的说明文档</param>
+            <returns>带有是否成功的字符串结果类对象</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.ToString">
+            <summary>
+            返回表示当前对象的字符串 -> Returns a String representing the current object
+            </summary>
+            <returns>字符串信息 -> String information</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.CalculateAddressStarted(System.String)">
+            <summary>
+            计算特殊的地址信息 -> Calculate Special Address information
+            </summary>
+            <param name="address">字符串地址 -> String address</param>
+            <returns>实际值 -> Actual value</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.AnalysisAddress(System.String)">
+            <summary>
+            解析数据地址，解析出地址类型，起始地址，DB块的地址 ->
+            Parse data address, parse out address type, start address, db block address
+            </summary>
+            <param name="address">起始地址，例如M100，I0，Q0，DB2.100 ->
+            Start address, such as M100,I0,Q0,DB2.100</param>
+            <returns>解析数据地址，解析出地址类型，起始地址，DB块的地址 ->
+            Parse data address, parse out address type, start address, db block address</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.BuildReadCommand(System.String,System.UInt16)">
+            <summary>
+            生成一个读取字数据指令头的通用方法 ->
+            A general method for generating a command header to read a Word data
+            </summary>
+            <param name="address">起始地址，例如M100，I0，Q0，DB2.100 ->
+            Start address, such as M100,I0,Q0,DB2.100</param>
+            <param name="length">读取数据长度 -> Read Data length</param>
+            <returns>包含结果对象的报文 -> Message containing the result object</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.BuildReadCommand(Communication.OperateResult{System.Byte,System.Int32,System.UInt16}[],System.UInt16[])">
+            <summary>
+            生成一个读取字数据指令头的通用方法 ->
+            A general method for generating a command header to read a Word data
+            </summary>
+            <param name="address">起始地址，例如M100，I0，Q0，DB2.100 ->
+            Start address, such as M100,I0,Q0,DB2.100</param>
+            <param name="length">读取数据长度 -> Read Data length</param>
+            <returns>包含结果对象的报文 -> Message containing the result object</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.BuildBitReadCommand(System.String)">
+            <summary>
+            生成一个位读取数据指令头的通用方法 ->
+            A general method for generating a bit-read-Data instruction header
+            </summary>
+            <param name="address">起始地址，例如M100.0，I0.1，Q0.1，DB2.100.2 ->
+            Start address, such as M100.0,I0.1,Q0.1,DB2.100.2
+            </param>
+            <returns>包含结果对象的报文 -> Message containing the result object</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.BuildWriteByteCommand(System.String,System.Byte[])">
+            <summary>
+            生成一个写入字节数据的指令 -> Generate an instruction to write byte data
+            </summary>
+            <param name="address">起始地址，示例M100,I100,Q100,DB1.100 -> Start Address, example M100,I100,Q100,DB1.100</param>
+            <param name="data">原始的字节数据 -> Raw byte data</param>
+            <returns>包含结果对象的报文 -> Message containing the result object</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.BuildWriteByteCommand(Communication.OperateResult{System.Byte,System.Int32,System.UInt16},System.Byte[])">
+            <summary>
+            生成一个写入字节数据的指令 -> Generate an instruction to write byte data
+            </summary>
+            <param name="analysis">起始地址，示例M100,I100,Q100,DB1.100 -> Start Address, example M100,I100,Q100,DB1.100</param>
+            <param name="data">原始的字节数据 -> Raw byte data</param>
+            <returns>包含结果对象的报文 -> Message containing the result object</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.BuildWriteBitCommand(System.String,System.Boolean)">
+            <summary>
+            生成一个写入位数据的指令 -> Generate an instruction to write bit data
+            </summary>
+            <param name="address">起始地址，示例M100,I100,Q100,DB1.100 -> Start Address, example M100,I100,Q100,DB1.100</param>
+            <param name="data">是否通断 -> Power on or off</param>
+            <returns>包含结果对象的报文 -> Message containing the result object</returns>
+        </member>
+        <member name="M:Communication.Profinet.HongDian.HongDianDDPNet.BuildDDPReadCommand(Communication.OperateResult{System.Byte,System.Int32,System.UInt16}[],System.UInt16[])">
+            <summary>
+            生成一个DDP协议注册包应答的方法 ->
+            A general method for generating a command header to read a Word data
+            </summary>
+            <param name="address">起始地址，例如M100，I0，Q0，DB2.100 ->
+            Start address, such as M100,I0,Q0,DB2.100</param>
+            <param name="length">读取数据长度 -> Read Data length</param>
+            <returns>包含结果对象的报文 -> Message containing the result object</returns>
+        </member>
+        <member name="T:Communication.Profinet.HongDian.HongDianDTUS">
+            <summary>
+            西门子的PLC类型，目前支持的访问类型
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.HongDian.HongDianDTUS.S1200">
+            <summary>
+            1200系列
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.HongDian.HongDianDTUS.S300">
+            <summary>
+            300系列
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.HongDian.HongDianDTUS.S400">
+            <summary>
+            400系列
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.HongDian.HongDianDTUS.S1500">
+            <summary>
+            1500系列PLC
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.HongDian.HongDianDTUS.S200Smart">
+            <summary>
+            200的smart系列
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.HongDian.HongDianDTUS.S200">
+            <summary>
+            200系统，需要额外配置以太网模块
+            </summary>
         </member>
         <member name="T:Communication.Profinet.Keyence.KeyenceDataType">
             <summary>

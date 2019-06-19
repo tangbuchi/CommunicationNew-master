@@ -801,6 +801,42 @@ namespace Communication.BasicFramework
             return buffer;
         }
 
+
+        /// <summary>
+        /// 从Byte数组中分割DTU号码，长度11位
+        /// Extracts a bit array from a byte array, length represents the number of digits
+        /// </summary>
+        /// <param name="InBytes">原先的字节数组</param>
+        /// <returns>转换后的bool数组</returns>
+        public static string ByteToSegmentation(byte[] InBytes)
+        {
+            byte[] bufferArray = new byte[11];
+            Array.ConstrainedCopy(InBytes, 4, bufferArray, 0, 11);
+
+            if (!(bufferArray.Length == 11)) return null;
+            String buffer = "";
+            for (int i = 0; i < bufferArray.Length; i++)
+            {
+                buffer += Convert.ToString(bufferArray[i], 16).Substring(1, 1);
+            }
+
+            return buffer;
+        }
+        /// <summary>
+        /// 将DTU号码分割成Byte数组，长度11位
+        /// Extracts a bit array from a byte array, length represents the number of digits
+        /// </summary>
+        /// <param name="InBytes">原先的字节数组</param>
+        /// <returns>转换后的bool数组</returns>
+        public static byte[] StringToByteArray(string InBytes)
+        {
+            char[] buffer = InBytes.ToCharArray();
+            if (!(InBytes.Length == 11)) return null;
+            return Encoding.Default.GetBytes(buffer);
+        }
+
+        
+
         /// <summary>
         /// 从Byte数组中提取所有的位数组 ->
         /// Extracts a bit array from a byte array, length represents the number of digits

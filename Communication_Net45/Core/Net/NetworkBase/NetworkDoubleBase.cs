@@ -477,7 +477,7 @@ namespace Communication.Core.Net
             }
 
             // Success
-            Console.WriteLine($"返回：{BasicFramework.SoftBasic.ByteToHexString(resultReceive.Content, ' ')}");
+            Console.WriteLine($"返回：{Communication.BasicFramework.SoftBasic.ByteToHexString(resultReceive.Content, ' ')}");
             return OperateResult.CreateSuccessResult(resultReceive.Content);
         }
 

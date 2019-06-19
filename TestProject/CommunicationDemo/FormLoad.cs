@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -882,6 +883,27 @@ namespace CommunicationDemo
             Hide();
             System.Threading.Thread.Sleep(200);
             using (FormUdp form = new FormUdp())
+            {
+                form.ShowDialog();
+            }
+            System.Threading.Thread.Sleep(200);
+            Show();
+        }
+
+        private void button61_Click(object sender, EventArgs e)
+        {
+            byte[] byteabc = Communication.BasicFramework.SoftBasic.HexStringToBytes("31 33 39 30 30 30 31 32 33 38 35");
+
+            string str = Communication.BasicFramework.SoftBasic.ByteToSegmentation(byteabc);
+
+            byte[] strstr = Communication.BasicFramework.SoftBasic.StringToByteArray(str);
+        }
+
+        private void button62_Click(object sender, EventArgs e)
+        {
+            Hide();
+            System.Threading.Thread.Sleep(200);
+            using (FormDDPServer form = new FormDDPServer())
             {
                 form.ShowDialog();
             }

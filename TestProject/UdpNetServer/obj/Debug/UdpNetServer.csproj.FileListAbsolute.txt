@@ -51,7 +51,6 @@ E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\UdpNetServer\b
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\UdpNetServer\bin\Debug\Communication.dll
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\UdpNetServer\bin\Debug\Newtonsoft.Json.dll
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\UdpNetServer\bin\Debug\Communication.pdb
-E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\UdpNetServer\bin\Debug\Communication.xml
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\UdpNetServer\bin\Debug\Newtonsoft.Json.xml
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\UdpNetServer\obj\Debug\UdpNetServer.csprojAssemblyReference.cache
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\UdpNetServer\obj\Debug\UdpNetServer.FormUdpNetServer.resources
@@ -61,3 +60,4 @@ E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\UdpNetServer\o
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\UdpNetServer\obj\Debug\UdpNetServer.csproj.CopyComplete
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\UdpNetServer\obj\Debug\UdpNetServer.exe
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\UdpNetServer\obj\Debug\UdpNetServer.pdb
+E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\UdpNetServer\bin\Debug\Communication.xml

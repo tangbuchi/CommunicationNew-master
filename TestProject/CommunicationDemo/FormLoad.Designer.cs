@@ -106,7 +106,9 @@
             this.button55 = new System.Windows.Forms.Button();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.button65 = new System.Windows.Forms.Button();
+            this.button61 = new System.Windows.Forms.Button();
             this.button60 = new System.Windows.Forms.Button();
+            this.button62 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1030,6 +1032,8 @@
             // groupBox15
             // 
             this.groupBox15.Controls.Add(this.button65);
+            this.groupBox15.Controls.Add(this.button62);
+            this.groupBox15.Controls.Add(this.button61);
             this.groupBox15.Controls.Add(this.button60);
             this.groupBox15.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox15.Location = new System.Drawing.Point(971, 29);
@@ -1052,6 +1056,17 @@
             this.button65.UseVisualStyleBackColor = true;
             this.button65.Click += new System.EventHandler(this.button65_Click);
             // 
+            // button61
+            // 
+            this.button61.Location = new System.Drawing.Point(18, 104);
+            this.button61.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button61.Name = "button61";
+            this.button61.Size = new System.Drawing.Size(150, 32);
+            this.button61.TabIndex = 1;
+            this.button61.Text = "Test";
+            this.button61.UseVisualStyleBackColor = true;
+            this.button61.Click += new System.EventHandler(this.button61_Click);
+            // 
             // button60
             // 
             this.button60.Location = new System.Drawing.Point(18, 64);
@@ -1062,6 +1077,17 @@
             this.button60.Text = "Udp(Udp)";
             this.button60.UseVisualStyleBackColor = true;
             this.button60.Click += new System.EventHandler(this.button60_Click);
+            // 
+            // button62
+            // 
+            this.button62.Location = new System.Drawing.Point(18, 144);
+            this.button62.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button62.Name = "button62";
+            this.button62.Size = new System.Drawing.Size(150, 32);
+            this.button62.TabIndex = 1;
+            this.button62.Text = "DSC Server";
+            this.button62.UseVisualStyleBackColor = true;
+            this.button62.Click += new System.EventHandler(this.button62_Click);
             // 
             // FormLoad
             // 
@@ -1195,6 +1221,8 @@
         private System.Windows.Forms.GroupBox groupBox15;
         private System.Windows.Forms.Button button65;
         private System.Windows.Forms.Button button60;
+        private System.Windows.Forms.Button button61;
+        private System.Windows.Forms.Button button62;
     }
 }
 
