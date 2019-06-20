@@ -7,8 +7,8 @@
     <ProjectGuid>{4FADD98F-9C73-4D2F-9AC1-CF8993265D8E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>软件自动更新</RootNamespace>
-    <AssemblyName>软件自动更新</AssemblyName>
+    <RootNamespace>SoftwareUpdate</RootNamespace>
+    <AssemblyName>SoftwareUpdate</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using System.Net;
 using Microsoft.Win32;
 
-namespace 软件自动更新
+namespace SoftwareUpdate
 {
     /// <summary>
     /// 软件的更新类

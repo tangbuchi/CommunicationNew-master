@@ -1157,14 +1157,6 @@
             <param name="InBytes">原先的字节数组</param>
             <returns>转换后的bool数组</returns>
         </member>
-        <member name="M:Communication.BasicFramework.SoftBasic.StringToByteArray(System.String)">
-            <summary>
-            将DTU号码分割成Byte数组，长度11位
-            Extracts a bit array from a byte array, length represents the number of digits
-            </summary>
-            <param name="InBytes">原先的字节数组</param>
-            <returns>转换后的bool数组</returns>
-        </member>
         <member name="M:Communication.BasicFramework.SoftBasic.ByteToBoolArray(System.Byte[])">
             <summary>
             从Byte数组中提取所有的位数组 ->
@@ -7695,6 +7687,51 @@
             获取本对象的字符串表示形式
             </summary>
             <returns>字符串信息</returns>
+        </member>
+        <member name="T:Communication.Core.Net.DTUOperatingData">
+            <summary>
+            异形客户端的异步对象
+            </summary>
+        </member>
+        <member name="M:Communication.Core.Net.DTUOperatingData.#ctor">
+            <summary>
+            DTU模块的运行参数
+            </summary>
+        </member>
+        <member name="P:Communication.Core.Net.DTUOperatingData.Socket">
+            <summary>
+            网络套接字
+            </summary>
+        </member>
+        <member name="P:Communication.Core.Net.DTUOperatingData.IsStatusOk">
+            <summary>
+            指示当前的网络状态
+            </summary>
+        </member>
+        <member name="P:Communication.Core.Net.DTUOperatingData.TerminalNumber">
+            <summary>
+            终端模块号码
+            </summary>
+        </member>
+        <member name="P:Communication.Core.Net.DTUOperatingData.UpdateTime">
+            <summary>
+            接收到数据包的时间
+            </summary>
+        </member>
+        <member name="P:Communication.Core.Net.DTUOperatingData.DataBuffer">
+            <summary>
+            缓存接收到的数据
+            </summary>
+        </member>
+        <member name="P:Communication.Core.Net.DTUOperatingData.DataLength">
+            <summary>
+            接收到的数据包长度
+            </summary>
+        </member>
+        <member name="P:Communication.Core.Net.DTUOperatingData.DataType">
+            <summary>
+            接收到的数据包类型
+            </summary>
         </member>
         <member name="T:Communication.Core.Net.AlienSession">
             <summary>

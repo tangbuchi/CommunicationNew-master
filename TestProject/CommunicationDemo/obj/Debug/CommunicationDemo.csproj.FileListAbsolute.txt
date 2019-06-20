@@ -316,7 +316,6 @@ E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationD
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\bin\Debug\CommunicationDemo.pdb
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\bin\Debug\Communication.dll
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\bin\Debug\Communication.pdb
-E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\bin\Debug\Communication.xml
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.Algorithms.FormConnectPool.resources
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.Algorithms.FourierTransform.resources
 E:\源代码\Demo合集软件\CommunicationNew-master\TestProject\CommunicationDemo\obj\Debug\CommunicationDemo.FormBasicControl.resources

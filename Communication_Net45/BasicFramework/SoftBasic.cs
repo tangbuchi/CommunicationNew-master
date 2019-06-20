@@ -810,32 +810,27 @@ namespace Communication.BasicFramework
         /// <returns>转换后的bool数组</returns>
         public static string ByteToSegmentation(byte[] InBytes)
         {
-            byte[] bufferArray = new byte[11];
-            Array.ConstrainedCopy(InBytes, 4, bufferArray, 0, 11);
-
-            if (!(bufferArray.Length == 11)) return null;
-            String buffer = "";
-            for (int i = 0; i < bufferArray.Length; i++)
+            if (InBytes[0] == 0x7B)
             {
-                buffer += Convert.ToString(bufferArray[i], 16).Substring(1, 1);
+                byte[] bufferArray = new byte[11];
+                Array.ConstrainedCopy(InBytes, 4, bufferArray, 0, 11);
+                // 第一种方法
+                string buffer = Encoding.ASCII.GetString(bufferArray, 0, 11).Trim();
+
+                // 第二种方法
+                //if (!(bufferArray.Length == 11)) return null;
+                //String buffer = "";
+                //for (int i = 0; i < bufferArray.Length; i++)
+                //{
+                //    buffer += Convert.ToString(bufferArray[i], 16).Substring(1, 1);
+                //}
+
+                return buffer;
             }
-
-            return buffer;
-        }
-        /// <summary>
-        /// 将DTU号码分割成Byte数组，长度11位
-        /// Extracts a bit array from a byte array, length represents the number of digits
-        /// </summary>
-        /// <param name="InBytes">原先的字节数组</param>
-        /// <returns>转换后的bool数组</returns>
-        public static byte[] StringToByteArray(string InBytes)
-        {
-            char[] buffer = InBytes.ToCharArray();
-            if (!(InBytes.Length == 11)) return null;
-            return Encoding.Default.GetBytes(buffer);
+            return null;
         }
 
-        
+
 
         /// <summary>
         /// 从Byte数组中提取所有的位数组 ->

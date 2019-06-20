@@ -1,4 +1,4 @@
-﻿namespace 软件自动更新
+﻿namespace SoftwareUpdate
 {
     partial class Form2
     {
@@ -196,7 +196,7 @@
             this.MinimumSize = new System.Drawing.Size(464, 174);
             this.Name = "Form2";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "更新软件";
+            this.Text = "SoftwareUpdate";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
             this.Load += new System.EventHandler(this.Form2_Load);
             this.Shown += new System.EventHandler(this.Form2_Shown);

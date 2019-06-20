@@ -170,8 +170,8 @@ namespace Communication.Profinet.HongDian
             if (!read.IsSuccess) return;
 
             string str = SoftBasic.ByteToSegmentation(read.Content);
-            OperateResult send = Send(socket, SoftBasic.HexStringToBytes("03 00 00 16 11 D0 00 01 00 0C 00 C0 01 0A C1 02 01 02 C2 02 01 00"));
-            if (!send.IsSuccess) return;
+            //OperateResult send = Send(socket, SoftBasic.HexStringToBytes(""));
+            //if (!send.IsSuccess) return;
 
             // 开始接收数据信息
             AppSession appSession = new AppSession();

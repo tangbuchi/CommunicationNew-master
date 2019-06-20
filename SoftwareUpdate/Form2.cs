@@ -11,7 +11,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.IO;
 
-namespace 软件自动更新
+namespace SoftwareUpdate
 {
     public partial class Form2 : Form
     {
