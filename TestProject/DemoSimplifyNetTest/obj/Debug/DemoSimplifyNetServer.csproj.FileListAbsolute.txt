@@ -45,3 +45,4 @@ E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoSimplifyNetTest\obj\Debug\DemoSimplifyNetServer.csproj.CopyComplete
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoSimplifyNetTest\obj\Debug\SimplifyNetTest.exe
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoSimplifyNetTest\obj\Debug\SimplifyNetTest.pdb
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoSimplifyNetTest\bin\Debug\Communication.xml

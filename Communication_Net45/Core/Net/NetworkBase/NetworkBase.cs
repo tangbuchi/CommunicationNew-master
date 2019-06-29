@@ -175,7 +175,6 @@ namespace Communication.Core.Net
                 return new OperateResult<byte[]>(ex.Message);
             }
 
-
             try
             {
                 state.WaitDone = receiveDone;
@@ -184,7 +183,7 @@ namespace Communication.Core.Net
                 // Begin receiving the data from the remote device.
                 socket.BeginReceive(state.Buffer, state.AlreadyDealLength,
                     state.DataLength - state.AlreadyDealLength, SocketFlags.None,
-                    new AsyncCallback(ReceiveCallback), state);
+                    new AsyncCallback(ReceiveCallback), state); // 接收数据异步返回的方法
             }
             catch (Exception ex)
             {
@@ -195,14 +194,9 @@ namespace Communication.Core.Net
                 socket?.Close();
                 return result;
             }
-
-
-
             // 等待接收完成，或是发生异常
             receiveDone.WaitOne();
             receiveDone.Close();
-
-
 
             // 接收数据失败
             if (state.IsError)
@@ -211,7 +205,6 @@ namespace Communication.Core.Net
                 result.Message = state.ErrerMsg;
                 return result;
             }
-
 
             // 远程关闭了连接
             if (state.IsClose)
@@ -222,7 +215,6 @@ namespace Communication.Core.Net
                 return result;
             }
 
-
             // 正常接收到数据
             result.Content = state.Buffer;
             result.IsSuccess = true;
@@ -231,7 +223,10 @@ namespace Communication.Core.Net
             return result;
         }
 
-
+        /// <summary>
+        /// 接收数据异步返回的方法
+        /// </summary>
+        /// <param name="ar"></param>
         private void ReceiveCallback(IAsyncResult ar)
         {
             if (ar.AsyncState is StateObject state)
@@ -456,7 +451,7 @@ namespace Communication.Core.Net
                 state.Buffer = data;
 
                 socket.BeginSend(state.Buffer, state.AlreadyDealLength, state.DataLength - state.AlreadyDealLength,
-                    SocketFlags.None, new AsyncCallback(SendCallBack), state);
+                    SocketFlags.None, new AsyncCallback(SendCallBack), state);// 发送数据异步返回的方法
 
                 Console.WriteLine($"发送：{SoftBasic.ByteToHexString(state.Buffer, ' ')}");
             }

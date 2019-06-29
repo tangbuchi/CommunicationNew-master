@@ -45,3 +45,4 @@ E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoUdpNetServer\obj\Debug\DemoUdpNetServer.csproj.CopyComplete
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoUdpNetServer\obj\Debug\UdpNetServer.exe
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoUdpNetServer\obj\Debug\UdpNetServer.pdb
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoUdpNetServer\bin\Debug\Communication.xml

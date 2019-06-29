@@ -158,7 +158,7 @@ namespace Communication.Profinet.Siemens
         #region NetServer Override
 
         /// <summary>
-        /// 当客户端登录后，进行Ip信息的过滤，然后触发本方法，也就是说之后的客户端需要
+        /// 当客户端登录后，进行Ip信息的过滤，然后触发本方法，也就是说之后的客户端需要，接收2次的握手协议
         /// </summary>
         /// <param name="socket">网络套接字</param>
         /// <param name="endPoint">终端节点</param>
@@ -166,13 +166,13 @@ namespace Communication.Profinet.Siemens
         {
             // 接收2次的握手协议
             S7Message s7Message = new S7Message();
-            OperateResult<byte[]> read1 = ReceiveByMessage(socket, int.MaxValue, s7Message);//5000 时间延长
+            OperateResult<byte[]> read1 = ReceiveByMessage(socket, int.MaxValue, s7Message);//5000 时间延长，接收一条指令
             if (!read1.IsSuccess) return;
 
             OperateResult send1 = Send(socket, SoftBasic.HexStringToBytes("03 00 00 16 11 D0 00 01 00 0C 00 C0 01 0A C1 02 01 02 C2 02 01 00"));
             if (!send1.IsSuccess) return;
 
-            OperateResult<byte[]> read2 = ReceiveByMessage(socket, int.MaxValue, s7Message);//5000 时间延长
+            OperateResult<byte[]> read2 = ReceiveByMessage(socket, int.MaxValue, s7Message);//5000 时间延长，接收一条指令
             if (!read1.IsSuccess) return;
 
             OperateResult send2 = Send(socket, SoftBasic.HexStringToBytes("03 00 00 1B 02 F0 80 32 03 00 00 04 00 00 08 00 00 00 00 F0 00 00 01 00 01 00 F0"));

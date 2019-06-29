@@ -45,3 +45,4 @@ E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoComplexNetServer\obj\Debug\DemoComplexNetServer.csproj.CopyComplete
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoComplexNetServer\obj\Debug\ComplexNetServer.exe
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoComplexNetServer\obj\Debug\ComplexNetServer.pdb
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoComplexNetServer\bin\Debug\Communication.xml

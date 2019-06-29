@@ -59,7 +59,7 @@ namespace Communication.Core.Net
                 {
                     // 在原始套接字上调用EndAccept方法，返回新的套接字
                     client = server_socket.EndAccept(iar);
-                    ThreadPool.QueueUserWorkItem(new WaitCallback(ThreadPoolLogin), client);//将方法排入队列以便执行
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(ThreadPoolLogin), client);//将方法排入队列以便执行  用于登录的回调方法
                 }
                 catch (ObjectDisposedException)
                 {
@@ -136,7 +136,7 @@ namespace Communication.Core.Net
                 CoreSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 CoreSocket.Bind(new IPEndPoint(IPAddress.Any, port));
                 CoreSocket.Listen(500);//单次允许最后请求500个，足够小型系统应用了
-                CoreSocket.BeginAccept(new AsyncCallback(AsyncAcceptCallback), CoreSocket);
+                CoreSocket.BeginAccept(new AsyncCallback(AsyncAcceptCallback), CoreSocket); //开始一个异步操作来接受一个传入的连接尝试
                 IsStarted = true;
                 Port = port;
 

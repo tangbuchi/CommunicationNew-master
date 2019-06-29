@@ -45,3 +45,4 @@ E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoFileNetServer\obj\Debug\DemoFileNetServer.csproj.CopyComplete
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoFileNetServer\obj\Debug\FileNetServer.exe
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoFileNetServer\obj\Debug\FileNetServer.pdb
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoFileNetServer\bin\Debug\Communication.xml
