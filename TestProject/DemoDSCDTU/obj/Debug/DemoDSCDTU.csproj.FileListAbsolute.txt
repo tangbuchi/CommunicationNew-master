@@ -1,0 +1,13 @@
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDSCDTU\bin\Debug\DSCDTU.exe.config
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDSCDTU\bin\Debug\DSCDTU.exe
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDSCDTU\bin\Debug\DSCDTU.pdb
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDSCDTU\obj\Debug\DemoDSCDTU.csprojAssemblyReference.cache
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDSCDTU\obj\Debug\DSCDTU.FormDTUAbout.resources
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDSCDTU\obj\Debug\DSCDTU.FormDTUConfig.resources
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDSCDTU\obj\Debug\DSCDTU.FormDTUMain.resources
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDSCDTU\obj\Debug\DSCDTU.FormDTUSetting.resources
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDSCDTU\obj\Debug\DSCDTU.FormDTUSelParam.resources
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDSCDTU\obj\Debug\DemoDSCDTU.csproj.GenerateResource.cache
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDSCDTU\obj\Debug\DemoDSCDTU.csproj.CoreCompileInputs.cache
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDSCDTU\obj\Debug\DSCDTU.exe
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDSCDTU\obj\Debug\DSCDTU.pdb

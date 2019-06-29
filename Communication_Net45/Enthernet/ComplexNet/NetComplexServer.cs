@@ -292,7 +292,7 @@ namespace Communication.Enthernet
         /// <param name="str">发送的文本</param>
         public void Send( AppSession session, NetHandle customer, string str )
         {
-            SendBytes( session, HslProtocol.CommandBytes( customer, Token, str ) );
+            SendBytes( session, InsideProtocol.CommandBytes( customer, Token, str ) );
         }
         /// <summary>
         /// 服务器端用于发送字节的方法
@@ -302,7 +302,7 @@ namespace Communication.Enthernet
         /// <param name="bytes">实际发送的数据</param>
         public void Send( AppSession session, NetHandle customer, byte[] bytes )
         {
-            SendBytes( session, HslProtocol.CommandBytes( customer, Token, bytes ) );
+            SendBytes( session, InsideProtocol.CommandBytes( customer, Token, bytes ) );
         }
 
         private void SendBytes( AppSession session, byte[] content )
@@ -386,22 +386,22 @@ namespace Communication.Enthernet
         /// <param name="content">数据内容</param>
         internal override void DataProcessingCenter( AppSession session, int protocol, int customer, byte[] content )
         {
-            if (protocol == HslProtocol.ProtocolCheckSecends)
+            if (protocol == InsideProtocol.ProtocolCheckSecends)
             {
                 BitConverter.GetBytes( DateTime.Now.Ticks ).CopyTo( content, 8 );
-                SendBytes( session, HslProtocol.CommandBytes( HslProtocol.ProtocolCheckSecends, customer, Token, content ) );
+                SendBytes( session, InsideProtocol.CommandBytes( InsideProtocol.ProtocolCheckSecends, customer, Token, content ) );
                 session.HeartTime = DateTime.Now;
             }
-            else if (protocol == HslProtocol.ProtocolClientQuit)
+            else if (protocol == InsideProtocol.ProtocolClientQuit)
             {
                 TcpStateDownLine( session, true );
             }
-            else if (protocol == HslProtocol.ProtocolUserBytes)
+            else if (protocol == InsideProtocol.ProtocolUserBytes)
             {
                 //接收到字节数据
                 AcceptByte?.Invoke( session, customer, content );
             }
-            else if (protocol == HslProtocol.ProtocolUserString)
+            else if (protocol == InsideProtocol.ProtocolUserString)
             {
                 //接收到文本数据
                 string str = Encoding.Unicode.GetString( content );

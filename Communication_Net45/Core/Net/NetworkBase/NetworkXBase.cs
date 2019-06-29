@@ -146,7 +146,7 @@ namespace Communication.Core.Net
                     // 校验令牌
                     if (CheckRemoteToken( head ))
                     {
-                        Content = HslProtocol.CommandAnalysis( head, Content );
+                        Content = InsideProtocol.CommandAnalysis( head, Content );
                         int protocol = BitConverter.ToInt32( head, 0 );
                         int customer = BitConverter.ToInt32( head, 4 );
                         // 转移到数据中心处理
@@ -352,7 +352,7 @@ namespace Communication.Core.Net
         protected OperateResult SendBaseAndCheckReceive( Socket socket, int headcode, int customer, byte[] send )
         {
             // 数据处理
-            send = HslProtocol.CommandBytes( headcode, customer, Token, send );
+            send = InsideProtocol.CommandBytes( headcode, customer, Token, send );
             
             // 发送数据
             OperateResult sendResult = Send( socket, send );
@@ -382,7 +382,7 @@ namespace Communication.Core.Net
         /// <returns>是否发送成功</returns>
         protected OperateResult SendBytesAndCheckReceive( Socket socket, int customer, byte[] send )
         {
-            return SendBaseAndCheckReceive( socket, HslProtocol.ProtocolUserBytes, customer, send );
+            return SendBaseAndCheckReceive( socket, InsideProtocol.ProtocolUserBytes, customer, send );
         }
 
 
@@ -397,7 +397,7 @@ namespace Communication.Core.Net
         {
             byte[] data = string.IsNullOrEmpty( send ) ? null : Encoding.Unicode.GetBytes( send );
 
-            return SendBaseAndCheckReceive( socket, HslProtocol.ProtocolUserString, customer, data );
+            return SendBaseAndCheckReceive( socket, InsideProtocol.ProtocolUserString, customer, data );
         }
 
 
@@ -541,7 +541,7 @@ namespace Communication.Core.Net
             if (timeout > 0) ThreadPool.QueueUserWorkItem( new WaitCallback( ThreadPoolCheckTimeOut ), TimeOut );
             
             // 接收头指令
-            OperateResult<byte[]> headResult = Receive( socket, HslProtocol.HeadByteLength );
+            OperateResult<byte[]> headResult = Receive( socket, InsideProtocol.HeadByteLength );
             if (!headResult.IsSuccess)
             {
                 TimeOut.IsSuccessful = true;
@@ -556,18 +556,18 @@ namespace Communication.Core.Net
                 return new OperateResult<byte[], byte[]>( StringResources.Language.TokenCheckFailed );
             }
 
-            int contentLength = BitConverter.ToInt32( headResult.Content, HslProtocol.HeadByteLength - 4 );
+            int contentLength = BitConverter.ToInt32( headResult.Content, InsideProtocol.HeadByteLength - 4 );
             // 接收内容
             OperateResult<byte[]> contentResult = Receive( socket, contentLength );
             if (!contentResult.IsSuccess) return OperateResult.CreateFailedResult<byte[], byte[]>( contentResult );
 
             // 返回成功信息
-            OperateResult checkResult = SendLong( socket, HslProtocol.HeadByteLength + contentLength );
+            OperateResult checkResult = SendLong( socket, InsideProtocol.HeadByteLength + contentLength );
             if(!checkResult.IsSuccess) return OperateResult.CreateFailedResult<byte[], byte[]>( checkResult );
 
             byte[] head = headResult.Content;
             byte[] content = contentResult.Content;
-            content = HslProtocol.CommandAnalysis( head, content );
+            content = InsideProtocol.CommandAnalysis( head, content );
             return OperateResult.CreateSuccessResult( head, content );
         }
 
@@ -582,7 +582,7 @@ namespace Communication.Core.Net
             if (!receive.IsSuccess) return OperateResult.CreateFailedResult<int, string>( receive );
 
             // 检查是否是字符串信息
-            if (BitConverter.ToInt32( receive.Content1, 0 ) != HslProtocol.ProtocolUserString)
+            if (BitConverter.ToInt32( receive.Content1, 0 ) != InsideProtocol.ProtocolUserString)
             {
                 LogNet?.WriteError( ToString( ), StringResources.Language.CommandHeadCodeCheckFailed );
                 socket?.Close( );
@@ -607,7 +607,7 @@ namespace Communication.Core.Net
             if (!receive.IsSuccess) return OperateResult.CreateFailedResult<int, byte[]>( receive );
 
             // 检查是否是字节信息
-            if (BitConverter.ToInt32( receive.Content1, 0 ) != HslProtocol.ProtocolUserBytes)
+            if (BitConverter.ToInt32( receive.Content1, 0 ) != InsideProtocol.ProtocolUserBytes)
             {
                 LogNet?.WriteError( ToString( ), StringResources.Language.CommandHeadCodeCheckFailed );
                 socket?.Close( );

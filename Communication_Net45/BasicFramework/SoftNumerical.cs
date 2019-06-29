@@ -51,7 +51,7 @@ namespace Communication.BasicFramework
             FileSavePath = fileSavePath;
             LoadByFile( );
 
-            AsyncCoordinator = new HslAsyncCoordinator( ( ) =>
+            AsyncCoordinator = new InsideAsyncCoordinator( ( ) =>
                {
                    if (!string.IsNullOrEmpty( FileSavePath ))
                    {
@@ -171,7 +171,7 @@ namespace Communication.BasicFramework
         /// <summary>
         /// 高性能存储块
         /// </summary>
-        private HslAsyncCoordinator AsyncCoordinator = null;
+        private InsideAsyncCoordinator AsyncCoordinator = null;
 
 
 

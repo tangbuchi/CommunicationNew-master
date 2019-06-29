@@ -345,7 +345,7 @@ namespace Communication.Enthernet
         {
             System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(m =>
             {
-                PushSendAsync(appSession, HslProtocol.CommandBytes(0, Token, content));
+                PushSendAsync(appSession, InsideProtocol.CommandBytes(0, Token, content));
             }), null);
         }
 

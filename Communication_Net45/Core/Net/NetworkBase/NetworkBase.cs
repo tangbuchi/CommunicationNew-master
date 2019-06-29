@@ -635,7 +635,7 @@ namespace Communication.Core.Net
         /// </example>
         protected OperateResult<Socket> CreateSocketAndConnect(IPEndPoint endPoint, int timeOut)
         {
-            if (UseSynchronousNet)
+            if (UseSynchronousNet)//使用同步网络
             {
                 var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 try

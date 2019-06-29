@@ -3024,37 +3024,37 @@
             使用代码编辑器修改此方法的内容。
             </summary>
         </member>
-        <member name="T:Communication.Controls.HslCurveItem">
+        <member name="T:Communication.Controls.InsideCurveItem">
             <summary>
             曲线数据对象
             </summary>
         </member>
-        <member name="M:Communication.Controls.HslCurveItem.#ctor">
+        <member name="M:Communication.Controls.InsideCurveItem.#ctor">
             <summary>
             实例化一个对象
             </summary>
         </member>
-        <member name="F:Communication.Controls.HslCurveItem.Data">
+        <member name="F:Communication.Controls.InsideCurveItem.Data">
             <summary>
             数据
             </summary>
         </member>
-        <member name="P:Communication.Controls.HslCurveItem.LineThickness">
+        <member name="P:Communication.Controls.InsideCurveItem.LineThickness">
             <summary>
             线条的宽度
             </summary>
         </member>
-        <member name="P:Communication.Controls.HslCurveItem.LineColor">
+        <member name="P:Communication.Controls.InsideCurveItem.LineColor">
             <summary>
             曲线颜色
             </summary>
         </member>
-        <member name="P:Communication.Controls.HslCurveItem.IsLeftFrame">
+        <member name="P:Communication.Controls.InsideCurveItem.IsLeftFrame">
             <summary>
             是否左侧参考系，True为左侧，False为右侧
             </summary>
         </member>
-        <member name="P:Communication.Controls.HslCurveItem.Visible">
+        <member name="P:Communication.Controls.InsideCurveItem.Visible">
             <summary>
             本曲线是否显示出来，默认为显示
             </summary>
@@ -7037,7 +7037,7 @@
             关闭服务器的引擎
             </summary>
         </member>
-        <member name="M:Communication.Core.Net.NetworkServerBase.ConnectHslAlientClient(System.String,System.Int32,System.String)">
+        <member name="M:Communication.Core.Net.NetworkServerBase.ConnectAlientClient(System.String,System.Int32,System.String)">
             <summary>
             创建一个指定的异形客户端连接，使用内部协议来发送注册包
             </summary>
@@ -8156,60 +8156,60 @@
             <param name="change">修改数据的算法</param>
             <returns></returns>
         </member>
-        <member name="T:Communication.Core.HslAsyncCoordinator">
+        <member name="T:Communication.Core.InsideAsyncCoordinator">
             <summary>
             一个用于高性能，乐观并发模型控制操作的类，允许一个方法(隔离方法)的安全单次执行
             </summary>
         </member>
-        <member name="M:Communication.Core.HslAsyncCoordinator.#ctor(System.Action)">
+        <member name="M:Communication.Core.InsideAsyncCoordinator.#ctor(System.Action)">
             <summary>
             实例化一个对象，需要传入隔离执行的方法
             </summary>
             <param name="operater">隔离执行的方法</param>
         </member>
-        <member name="F:Communication.Core.HslAsyncCoordinator.OperaterStatus">
+        <member name="F:Communication.Core.InsideAsyncCoordinator.OperaterStatus">
             <summary>
             操作状态，0是未操作，1是操作中
             </summary>
         </member>
-        <member name="F:Communication.Core.HslAsyncCoordinator.Target">
+        <member name="F:Communication.Core.InsideAsyncCoordinator.Target">
             <summary>
             需要操作的次数
             </summary>
         </member>
-        <member name="M:Communication.Core.HslAsyncCoordinator.StartOperaterInfomation">
+        <member name="M:Communication.Core.InsideAsyncCoordinator.StartOperaterInfomation">
             <summary>
             启动线程池执行隔离方法
             </summary>
         </member>
-        <member name="T:Communication.Core.HslReadWriteLock">
+        <member name="T:Communication.Core.InsideReadWriteLock">
             <summary>
             一个高性能的读写锁，支持写锁定，读灵活，读时写锁定，写时读锁定
             </summary>
         </member>
-        <member name="M:Communication.Core.HslReadWriteLock.ToString">
+        <member name="M:Communication.Core.InsideReadWriteLock.ToString">
             <summary>
             返回本对象的描述字符串
             </summary>
             <returns>对象的描述字符串</returns>
         </member>
-        <member name="M:Communication.Core.HslReadWriteLock.#ctor">
+        <member name="M:Communication.Core.InsideReadWriteLock.#ctor">
             <summary>
             实例化一个读写锁的对象
             </summary>
         </member>
-        <member name="M:Communication.Core.HslReadWriteLock.Dispose">
+        <member name="M:Communication.Core.InsideReadWriteLock.Dispose">
             <summary>
             释放资源
             </summary>
         </member>
-        <member name="M:Communication.Core.HslReadWriteLock.Enter(System.Boolean)">
+        <member name="M:Communication.Core.InsideReadWriteLock.Enter(System.Boolean)">
             <summary>
             根据读写情况请求锁
             </summary>
             <param name="exclusive">True为写请求，False为读请求</param>
         </member>
-        <member name="M:Communication.Core.HslReadWriteLock.Leave">
+        <member name="M:Communication.Core.InsideReadWriteLock.Leave">
             <summary>
             释放锁，将根据锁状态自动区分读写锁
             </summary>
@@ -9572,117 +9572,117 @@
             </summary>
             <returns>返回当前对象的哈希值</returns>
         </member>
-        <member name="T:Communication.HslProtocol">
+        <member name="T:Communication.InsideProtocol">
             <summary>
             用于本程序集访问通信的暗号说明
             </summary>
         </member>
-        <member name="F:Communication.HslProtocol.HeadByteLength">
+        <member name="F:Communication.InsideProtocol.HeadByteLength">
             <summary>
             规定所有的网络传输指令头都为32字节
             </summary>
         </member>
-        <member name="F:Communication.HslProtocol.ProtocolBufferSize">
+        <member name="F:Communication.InsideProtocol.ProtocolBufferSize">
             <summary>
             所有网络通信中的缓冲池数据信息
             </summary>
         </member>
-        <member name="F:Communication.HslProtocol.ProtocolCheckSecends">
+        <member name="F:Communication.InsideProtocol.ProtocolCheckSecends">
             <summary>
             用于心跳程序的暗号信息
             </summary>
         </member>
-        <member name="F:Communication.HslProtocol.ProtocolClientQuit">
+        <member name="F:Communication.InsideProtocol.ProtocolClientQuit">
             <summary>
             客户端退出消息
             </summary>
         </member>
-        <member name="F:Communication.HslProtocol.ProtocolClientRefuseLogin">
+        <member name="F:Communication.InsideProtocol.ProtocolClientRefuseLogin">
             <summary>
             因为客户端达到上限而拒绝登录
             </summary>
         </member>
-        <member name="F:Communication.HslProtocol.ProtocolClientAllowLogin">
+        <member name="F:Communication.InsideProtocol.ProtocolClientAllowLogin">
             <summary>
             允许客户端登录到服务器
             </summary>
         </member>
-        <member name="F:Communication.HslProtocol.ProtocolUserString">
+        <member name="F:Communication.InsideProtocol.ProtocolUserString">
             <summary>
             说明发送的只是文本信息
             </summary>
         </member>
-        <member name="F:Communication.HslProtocol.ProtocolUserBytes">
+        <member name="F:Communication.InsideProtocol.ProtocolUserBytes">
             <summary>
             发送的数据就是普通的字节数组
             </summary>
         </member>
-        <member name="F:Communication.HslProtocol.ProtocolUserBitmap">
+        <member name="F:Communication.InsideProtocol.ProtocolUserBitmap">
             <summary>
             发送的数据就是普通的图片数据
             </summary>
         </member>
-        <member name="F:Communication.HslProtocol.ProtocolUserException">
+        <member name="F:Communication.InsideProtocol.ProtocolUserException">
             <summary>
             发送的数据是一条异常的数据，字符串为异常消息
             </summary>
         </member>
-        <member name="F:Communication.HslProtocol.ProtocolFileDownload">
+        <member name="F:Communication.InsideProtocol.ProtocolFileDownload">
             <summary>
             请求文件下载的暗号
             </summary>
         </member>
-        <member name="F:Communication.HslProtocol.ProtocolFileUpload">
+        <member name="F:Communication.InsideProtocol.ProtocolFileUpload">
             <summary>
             请求文件上传的暗号
             </summary>
         </member>
-        <member name="F:Communication.HslProtocol.ProtocolFileDelete">
+        <member name="F:Communication.InsideProtocol.ProtocolFileDelete">
             <summary>
             请求删除文件的暗号
             </summary>
         </member>
-        <member name="F:Communication.HslProtocol.ProtocolFileCheckRight">
+        <member name="F:Communication.InsideProtocol.ProtocolFileCheckRight">
             <summary>
             文件校验成功
             </summary>
         </member>
-        <member name="F:Communication.HslProtocol.ProtocolFileCheckError">
+        <member name="F:Communication.InsideProtocol.ProtocolFileCheckError">
             <summary>
             文件校验失败
             </summary>
         </member>
-        <member name="F:Communication.HslProtocol.ProtocolFileSaveError">
+        <member name="F:Communication.InsideProtocol.ProtocolFileSaveError">
             <summary>
             文件保存失败
             </summary>
         </member>
-        <member name="F:Communication.HslProtocol.ProtocolFileDirectoryFiles">
+        <member name="F:Communication.InsideProtocol.ProtocolFileDirectoryFiles">
             <summary>
             请求文件列表的暗号
             </summary>
         </member>
-        <member name="F:Communication.HslProtocol.ProtocolFileDirectories">
+        <member name="F:Communication.InsideProtocol.ProtocolFileDirectories">
             <summary>
             请求子文件的列表暗号
             </summary>
         </member>
-        <member name="F:Communication.HslProtocol.ProtocolProgressReport">
+        <member name="F:Communication.InsideProtocol.ProtocolProgressReport">
             <summary>
             进度返回暗号
             </summary>
         </member>
-        <member name="F:Communication.HslProtocol.ProtocolNoZipped">
+        <member name="F:Communication.InsideProtocol.ProtocolNoZipped">
             <summary>
             不压缩数据字节
             </summary>
         </member>
-        <member name="F:Communication.HslProtocol.ProtocolZipped">
+        <member name="F:Communication.InsideProtocol.ProtocolZipped">
             <summary>
             压缩数据字节
             </summary>
         </member>
-        <member name="M:Communication.HslProtocol.CommandBytes(System.Int32,System.Int32,System.Guid,System.Byte[])">
+        <member name="M:Communication.InsideProtocol.CommandBytes(System.Int32,System.Int32,System.Guid,System.Byte[])">
             <summary>
             生成终极传送指令的方法，所有的数据均通过该方法出来
             </summary>
@@ -9692,7 +9692,7 @@
             <param name="data">字节数据</param>
             <returns>包装后的数据信息</returns>
         </member>
-        <member name="M:Communication.HslProtocol.CommandAnalysis(System.Byte[],System.Byte[])">
+        <member name="M:Communication.InsideProtocol.CommandAnalysis(System.Byte[],System.Byte[])">
             <summary>
             解析接收到数据，先解压缩后进行解密
             </summary>
@@ -9700,7 +9700,7 @@
             <param name="content">指令的内容</param>
             <return>真实的数据内容</return>
         </member>
-        <member name="M:Communication.HslProtocol.CommandBytes(System.Int32,System.Guid,System.Byte[])">
+        <member name="M:Communication.InsideProtocol.CommandBytes(System.Int32,System.Guid,System.Byte[])">
             <summary>
             获取发送字节数据的实际数据，带指令头
             </summary>
@@ -9709,7 +9709,7 @@
             <param name="data">字节信息</param>
             <returns>包装后的指令信息</returns>
         </member>
-        <member name="M:Communication.HslProtocol.CommandBytes(System.Int32,System.Guid,System.String)">
+        <member name="M:Communication.InsideProtocol.CommandBytes(System.Int32,System.Guid,System.String)">
             <summary>
             获取发送字节数据的实际数据，带指令头
             </summary>
@@ -9718,14 +9718,14 @@
             <param name="data">字符串数据信息</param>
             <returns>包装后的指令信息</returns>
         </member>
-        <member name="M:Communication.HslSecurity.ByteEncrypt(System.Byte[])">
+        <member name="M:Communication.InsideSecurity.ByteEncrypt(System.Byte[])">
             <summary>
             加密方法，只对当前的程序集开放
             </summary>
             <param name="enBytes">等待加密的数据</param>
             <returns>加密后的字节数据</returns>
         </member>
-        <member name="M:Communication.HslSecurity.ByteDecrypt(System.Byte[])">
+        <member name="M:Communication.InsideSecurity.ByteDecrypt(System.Byte[])">
             <summary>
             解密方法，只对当前的程序集开放
             </summary>

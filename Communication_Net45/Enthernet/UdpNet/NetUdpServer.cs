@@ -75,26 +75,26 @@ namespace Communication.Enthernet
                     // 马上开始重新接收，提供性能保障
                     RefreshReceive( );
                     // 处理数据
-                    if (received >= HslProtocol.HeadByteLength)
+                    if (received >= InsideProtocol.HeadByteLength)
                     {
                         // 检测令牌
                         if (CheckRemoteToken( session.BytesContent ))
                         {
                             session.IpEndPoint = (IPEndPoint)session.UdpEndPoint;
-                            int contentLength = BitConverter.ToInt32( session.BytesContent, HslProtocol.HeadByteLength - 4 );
-                            if (contentLength == received - HslProtocol.HeadByteLength)
+                            int contentLength = BitConverter.ToInt32( session.BytesContent, InsideProtocol.HeadByteLength - 4 );
+                            if (contentLength == received - InsideProtocol.HeadByteLength)
                             {
-                                byte[] head = new byte[HslProtocol.HeadByteLength];
+                                byte[] head = new byte[InsideProtocol.HeadByteLength];
                                 byte[] content = new byte[contentLength];
 
-                                Array.Copy( session.BytesContent, 0, head, 0, HslProtocol.HeadByteLength );
+                                Array.Copy( session.BytesContent, 0, head, 0, InsideProtocol.HeadByteLength );
                                 if (contentLength > 0)
                                 {
                                     Array.Copy( session.BytesContent, 32, content, 0, contentLength );
                                 }
 
                                 // 解析内容
-                                content = HslProtocol.CommandAnalysis( head, content );
+                                content = InsideProtocol.CommandAnalysis( head, content );
 
                                 int protocol = BitConverter.ToInt32( head, 0 );
                                 int customer = BitConverter.ToInt32( head, 4 );
@@ -223,11 +223,11 @@ namespace Communication.Enthernet
         /// <param name="content"></param>
         internal override void DataProcessingCenter( AppSession receive, int protocol, int customer, byte[] content )
         {
-            if (protocol == HslProtocol.ProtocolUserBytes)
+            if (protocol == InsideProtocol.ProtocolUserBytes)
             {
                 AcceptByte?.Invoke( receive, customer, content );
             }
-            else if (protocol == HslProtocol.ProtocolUserString)
+            else if (protocol == InsideProtocol.ProtocolUserString)
             {
                 // 接收到文本数据
                 string str = Encoding.Unicode.GetString( content );
@@ -243,7 +243,7 @@ namespace Communication.Enthernet
         /// <param name="str">实际发送的字符串数据</param>
         public void SendMessage( AppSession session, int customer, string str )
         {
-            SendBytesAsync( session, HslProtocol.CommandBytes( customer, Token, str ) );
+            SendBytesAsync( session, InsideProtocol.CommandBytes( customer, Token, str ) );
         }
         /// <summary>
         /// 向指定的通信对象发送字节数据
@@ -253,7 +253,7 @@ namespace Communication.Enthernet
         /// <param name="bytes">实际的数据</param>
         public void SendMessage( AppSession session, int customer, byte[] bytes )
         {
-            SendBytesAsync( session, HslProtocol.CommandBytes( customer, Token, bytes ) );
+            SendBytesAsync( session, InsideProtocol.CommandBytes( customer, Token, bytes ) );
         }
 
         private new void SendBytesAsync( AppSession session, byte[] data )

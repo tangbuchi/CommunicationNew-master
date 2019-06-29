@@ -39,7 +39,7 @@ namespace Communication.Controls
             InitializeComponent( );
             DoubleBuffered = true;
             random = new Random( );
-            data_list = new Dictionary<string, HslCurveItem>( );
+            data_list = new Dictionary<string, InsideCurveItem>( );
             auxiliary_lines = new List<AuxiliaryLine>( );
 
             format_left = new StringFormat
@@ -104,7 +104,7 @@ namespace Communication.Controls
 
         #region Data Member
 
-        Dictionary<string, HslCurveItem> data_list = null;  // 等待显示的实际数据
+        Dictionary<string, InsideCurveItem> data_list = null;  // 等待显示的实际数据
         private string[] data_text = null;                  // 等待显示的横轴信息
 
         #endregion
@@ -435,7 +435,7 @@ namespace Communication.Controls
             else
             {
                 if (data == null) data = new float[] { };
-                data_list.Add( key, new HslCurveItem( )
+                data_list.Add( key, new InsideCurveItem( )
                 {
                     Data = data,
                     LineThickness = thickness,
@@ -496,7 +496,7 @@ namespace Communication.Controls
 
             if (data_list.ContainsKey( key ))
             {
-                HslCurveItem curve = data_list[key];
+                InsideCurveItem curve = data_list[key];
                 if (curve.Data != null)
                 {
                     if (value_IsAbscissaStrech)
@@ -593,7 +593,7 @@ namespace Communication.Controls
         {
             if (data_list.ContainsKey( key ))
             {
-                HslCurveItem curve = data_list[key];
+                InsideCurveItem curve = data_list[key];
                 curve.Visible = visible;
                 Invalidate( );
             }
@@ -610,7 +610,7 @@ namespace Communication.Controls
             {
                 if (data_list.ContainsKey( key ))
                 {
-                    HslCurveItem curve = data_list[key];
+                    InsideCurveItem curve = data_list[key];
                     curve.Visible = visible;
                 }
             }
@@ -1065,12 +1065,12 @@ namespace Communication.Controls
     /// <summary>
     /// 曲线数据对象
     /// </summary>
-    internal class HslCurveItem
+    internal class InsideCurveItem
     {
         /// <summary>
         /// 实例化一个对象
         /// </summary>
-        public HslCurveItem( )
+        public InsideCurveItem( )
         {
             LineThickness = 1.0f;
             IsLeftFrame = true;

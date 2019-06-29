@@ -99,7 +99,7 @@ namespace Communication.Enthernet
 
 
             // 发送操作指令
-            OperateResult sendString = SendStringAndCheckReceive( socketResult.Content, HslProtocol.ProtocolFileDelete, fileName );
+            OperateResult sendString = SendStringAndCheckReceive( socketResult.Content, InsideProtocol.ProtocolFileDelete, fileName );
             if (!sendString.IsSuccess) return sendString;
 
             // 发送文件名以及三级分类信息
@@ -147,7 +147,7 @@ namespace Communication.Enthernet
             if (!socketResult.IsSuccess) return socketResult;
 
             // 发送操作指令
-            OperateResult sendString = SendStringAndCheckReceive( socketResult.Content, HslProtocol.ProtocolFileDownload, fileName );
+            OperateResult sendString = SendStringAndCheckReceive( socketResult.Content, InsideProtocol.ProtocolFileDownload, fileName );
             if (!sendString.IsSuccess) return sendString;
 
             // 发送三级分类
@@ -207,7 +207,7 @@ namespace Communication.Enthernet
             string fileUpload,
             Action<long, long> processReport )
         {
-            // HslReadWriteLock readWriteLock = new HslReadWriteLock( );
+           
             
 
             // 创建套接字并连接服务器
@@ -215,7 +215,7 @@ namespace Communication.Enthernet
             if (!socketResult.IsSuccess) return socketResult;
             
             // 上传操作暗号的文件名
-            OperateResult sendString = SendStringAndCheckReceive( socketResult.Content, HslProtocol.ProtocolFileUpload, serverName );
+            OperateResult sendString = SendStringAndCheckReceive( socketResult.Content, InsideProtocol.ProtocolFileUpload, serverName );
             if (!sendString.IsSuccess) return sendString;
             
             // 发送三级分类

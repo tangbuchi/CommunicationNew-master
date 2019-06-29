@@ -72,7 +72,7 @@ namespace Communication.Enthernet
 
                 // 操作分流
 
-                if (customer == HslProtocol.ProtocolFileDownload)
+                if (customer == InsideProtocol.ProtocolFileDownload)
                 {
                     string fullFileName = ReturnAbsoluteFileName( Factory, Group, Identify, fileName );
 
@@ -89,7 +89,7 @@ namespace Communication.Enthernet
                         LogNet?.WriteInfo( ToString( ), StringResources.Language.FileDownloadSuccess + ":" + relativeName );
                     }
                 }
-                else if (customer == HslProtocol.ProtocolFileUpload)
+                else if (customer == InsideProtocol.ProtocolFileUpload)
                 {
                     string tempFileName = FilesDirectoryPathTemp + "\\" + CreateRandomFileName( );
 
@@ -134,7 +134,7 @@ namespace Communication.Enthernet
                         LogNet?.WriteInfo( ToString( ), StringResources.Language.FileUploadFailed + ":" + relativeName + " " + StringResources.Language.TextDescription + receiveFile.Message );
                     }
                 }
-                else if (customer == HslProtocol.ProtocolFileDelete)
+                else if (customer == InsideProtocol.ProtocolFileDelete)
                 {
                     string fullFileName = ReturnAbsoluteFileName( Factory, Group, Identify, fileName );
 
@@ -152,7 +152,7 @@ namespace Communication.Enthernet
 
                     if (deleteResult) LogNet?.WriteInfo( ToString( ), StringResources.Language.FileDeleteSuccess + ":" + relativeName );
                 }
-                else if (customer == HslProtocol.ProtocolFileDirectoryFiles)
+                else if (customer == InsideProtocol.ProtocolFileDirectoryFiles)
                 {
                     List<GroupFileItem> fileNames = new List<GroupFileItem>( );
                     foreach (var m in GetDirectoryFiles( Factory, Group, Identify ))
@@ -168,13 +168,13 @@ namespace Communication.Enthernet
                     Newtonsoft.Json.Linq.JArray jArray = Newtonsoft.Json.Linq.JArray.FromObject( fileNames.ToArray( ) );
                     if (SendStringAndCheckReceive(
                         socket,
-                        HslProtocol.ProtocolFileDirectoryFiles,
+                        InsideProtocol.ProtocolFileDirectoryFiles,
                         jArray.ToString( )).IsSuccess)
                     {
                             socket?.Close( );
                     }
                 }
-                else if (customer == HslProtocol.ProtocolFileDirectories)
+                else if (customer == InsideProtocol.ProtocolFileDirectories)
                 {
                     List<string> folders = new List<string>( );
                     foreach (var m in GetDirectories( Factory, Group, Identify ))
@@ -186,7 +186,7 @@ namespace Communication.Enthernet
                     Newtonsoft.Json.Linq.JArray jArray = Newtonsoft.Json.Linq.JArray.FromObject( folders.ToArray( ) );
                     if (SendStringAndCheckReceive(
                         socket,
-                        HslProtocol.ProtocolFileDirectoryFiles,
+                        InsideProtocol.ProtocolFileDirectoryFiles,
                         jArray.ToString( ) ).IsSuccess)
                     {
                             socket?.Close( );

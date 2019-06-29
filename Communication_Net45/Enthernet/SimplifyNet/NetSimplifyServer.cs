@@ -66,7 +66,7 @@ namespace Communication.Enthernet
         /// <param name="str">实际发送的字符串数据</param>
         public void SendMessage( AppSession session, int customer, string str )
         {
-            SendBytesAsync( session, HslProtocol.CommandBytes( customer, Token, str ) );
+            SendBytesAsync( session, InsideProtocol.CommandBytes( customer, Token, str ) );
         }
         /// <summary>
         /// 向指定的通信对象发送字节数据
@@ -76,7 +76,7 @@ namespace Communication.Enthernet
         /// <param name="bytes">实际的数据</param>
         public void SendMessage( AppSession session, int customer, byte[] bytes )
         {
-            SendBytesAsync( session, HslProtocol.CommandBytes( customer, Token, bytes ) );
+            SendBytesAsync( session, InsideProtocol.CommandBytes( customer, Token, bytes ) );
         }
 
 
@@ -154,18 +154,18 @@ namespace Communication.Enthernet
         internal override void DataProcessingCenter( AppSession session, int protocol, int customer, byte[] content )
         {
             //接收数据完成，进行事件通知，优先进行解密操作
-            if (protocol == HslProtocol.ProtocolCheckSecends)
+            if (protocol == InsideProtocol.ProtocolCheckSecends)
             {
                 // 初始化时候的测试消息
                 session.HeartTime = DateTime.Now;
                 SendMessage( session, customer, content );
             }
-            else if (protocol == HslProtocol.ProtocolUserBytes)
+            else if (protocol == InsideProtocol.ProtocolUserBytes)
             {
                 // 字节数据
                 OnReceivedBytesEvent( session, customer, content );
             }
-            else if (protocol == HslProtocol.ProtocolUserString)
+            else if (protocol == InsideProtocol.ProtocolUserString)
             {
                 // 字符串数据
                 OnReceiveStringEvent( session, customer, Encoding.Unicode.GetString( content ) );

@@ -96,7 +96,7 @@ namespace Communication_Net45.Test.Documentation.Samples.Modbus
         {
             // 异形连接，modbus服务器运行在本地，客户端运行在云端，客户端需要对服务器进行读写
             // 更多的信息请点击
-            Communication.OperateResult connect = modbusServer.ConnectHslAlientClient( "127.0.0.1", 12345, "12345678901" );
+            Communication.OperateResult connect = modbusServer.ConnectAlientClient( "127.0.0.1", 12345, "12345678901" );
             if (connect.IsSuccess)
             {
                 Console.WriteLine( "success!" );

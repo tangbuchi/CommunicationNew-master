@@ -72,8 +72,7 @@
             // 
             this.toolStripStatusLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(248, 17);
-            this.toolStripStatusLabel1.Text = "本日志查看器由Communication提供支持";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
             // 
             // userButton1
             // 

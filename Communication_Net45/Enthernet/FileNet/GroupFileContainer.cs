@@ -224,7 +224,7 @@ namespace Communication.Enthernet
                 m_files = new List<GroupFileItem>( );
             }
 
-            coordinatorCacheJsonArray = new HslAsyncCoordinator( CacheJsonArrayContent );
+            coordinatorCacheJsonArray = new InsideAsyncCoordinator( CacheJsonArrayContent );
 
             CacheJsonArrayContent( );
         }
@@ -238,7 +238,7 @@ namespace Communication.Enthernet
         private string m_JsonArrayContent = "[]";                         // 缓存数据
         private int m_filesCount = 0;                                     // 文件数量
         private SimpleHybirdLock hybirdLock = new SimpleHybirdLock( );     // 简单混合锁
-        private HslAsyncCoordinator coordinatorCacheJsonArray;            // 乐观并发模型
+        private InsideAsyncCoordinator coordinatorCacheJsonArray;            // 乐观并发模型
         private List<GroupFileItem> m_files;                              // 文件队列
         private string m_filePath;                                        // 文件路径
 

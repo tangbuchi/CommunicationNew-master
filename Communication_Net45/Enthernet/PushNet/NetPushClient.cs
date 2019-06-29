@@ -46,7 +46,7 @@ namespace Communication.Enthernet
 
         internal override void DataProcessingCenter( AppSession session, int protocol, int customer, byte[] content )
         {
-            if(protocol == HslProtocol.ProtocolUserString)
+            if(protocol == InsideProtocol.ProtocolUserString)
             {
                 action?.Invoke( this, Encoding.Unicode.GetString( content ) );
                 OnReceived?.Invoke( this, Encoding.Unicode.GetString( content ) );

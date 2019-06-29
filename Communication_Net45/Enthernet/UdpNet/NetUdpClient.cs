@@ -32,7 +32,7 @@ namespace Communication.Enthernet
         /// <returns>带返回消息的结果对象</returns>
         public OperateResult<string> ReadFromServer(NetHandle customer, string send = null)
         {
-            var read = ReadFromServerBaseInstructionsFirstEnDe(HslProtocol.CommandBytes(customer, Token, send));
+            var read = ReadFromServerBaseInstructionsFirstEnDe(InsideProtocol.CommandBytes(customer, Token, send));
             if (!read.IsSuccess) return OperateResult.CreateFailedResult<string>(read);
 
             return OperateResult.CreateSuccessResult(Encoding.Unicode.GetString(read.Content));
@@ -47,7 +47,7 @@ namespace Communication.Enthernet
         /// <returns>带返回消息的结果对象</returns>
         public OperateResult<byte[]> ReadFromServer(NetHandle customer, byte[] send)
         {
-            return ReadFromServerBaseInstructionsFirstEnDe(HslProtocol.CommandBytes(customer, Token, send));
+            return ReadFromServerBaseInstructionsFirstEnDe(InsideProtocol.CommandBytes(customer, Token, send));
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Communication.Enthernet
         /// <returns>带返回消息的结果对象</returns>
         public OperateResult<NetHandle, string> ReadCustomerFromServer(NetHandle customer, string send = null)
         {
-            var read = ReadCustomerFromServerBaseInstructionsFirstEnDe(HslProtocol.CommandBytes(customer, Token, send));
+            var read = ReadCustomerFromServerBaseInstructionsFirstEnDe(InsideProtocol.CommandBytes(customer, Token, send));
             if (!read.IsSuccess) return OperateResult.CreateFailedResult<NetHandle, string>(read);
 
             return OperateResult.CreateSuccessResult(read.Content1, Encoding.Unicode.GetString(read.Content2));
@@ -72,7 +72,7 @@ namespace Communication.Enthernet
         /// <returns>带返回消息的结果对象</returns>
         public OperateResult<NetHandle, byte[]> ReadCustomerFromServer(NetHandle customer, byte[] send)
         {
-            return ReadCustomerFromServerBaseInstructionsFirstEnDe(HslProtocol.CommandBytes(customer, Token, send));
+            return ReadCustomerFromServerBaseInstructionsFirstEnDe(InsideProtocol.CommandBytes(customer, Token, send));
         }
         #endregion
 
@@ -118,14 +118,14 @@ namespace Communication.Enthernet
             if (!read.IsSuccess) return OperateResult.CreateFailedResult<NetHandle, byte[]>(read);
 
             // 提炼数据信息
-            byte[] headBytes = new byte[HslProtocol.HeadByteLength]; 
-            byte[] contentBytes = new byte[read.Content.Length - HslProtocol.HeadByteLength];
+            byte[] headBytes = new byte[InsideProtocol.HeadByteLength]; 
+            byte[] contentBytes = new byte[read.Content.Length - InsideProtocol.HeadByteLength];
 
-            Array.Copy(read.Content, 0, headBytes, 0, HslProtocol.HeadByteLength);
-            if (contentBytes.Length > 0) Array.Copy(read.Content, HslProtocol.HeadByteLength, contentBytes, 0, read.Content.Length - HslProtocol.HeadByteLength);
+            Array.Copy(read.Content, 0, headBytes, 0, InsideProtocol.HeadByteLength);
+            if (contentBytes.Length > 0) Array.Copy(read.Content, InsideProtocol.HeadByteLength, contentBytes, 0, read.Content.Length - InsideProtocol.HeadByteLength);
 
             int customer = BitConverter.ToInt32(headBytes, 4);
-            contentBytes = HslProtocol.CommandAnalysis(headBytes, contentBytes);
+            contentBytes = InsideProtocol.CommandAnalysis(headBytes, contentBytes);
 
             return OperateResult.CreateSuccessResult((NetHandle)customer, contentBytes);
         }

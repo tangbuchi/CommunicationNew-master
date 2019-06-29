@@ -25,3 +25,13 @@ E:\源代码\Demo合集软件\CommunicationNew-master\SoftwareUpdate\obj\Debug\S
 E:\源代码\Demo合集软件\CommunicationNew-master\SoftwareUpdate\obj\Debug\SoftwareUpdate.Properties.Resources.resources
 E:\源代码\Demo合集软件\CommunicationNew-master\SoftwareUpdate\obj\Debug\SoftwareUpdate.exe
 E:\源代码\Demo合集软件\CommunicationNew-master\SoftwareUpdate\obj\Debug\SoftwareUpdate.pdb
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\SoftwareUpdate\bin\Debug\SoftwareUpdate.exe.config
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\SoftwareUpdate\bin\Debug\SoftwareUpdate.exe
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\SoftwareUpdate\bin\Debug\SoftwareUpdate.pdb
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\SoftwareUpdate\obj\Debug\SoftwareUpdate.csprojAssemblyReference.cache
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\SoftwareUpdate\obj\Debug\SoftwareUpdate.Form2.resources
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\SoftwareUpdate\obj\Debug\SoftwareUpdate.Properties.Resources.resources
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\SoftwareUpdate\obj\Debug\SoftwareUpdate.csproj.GenerateResource.cache
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\SoftwareUpdate\obj\Debug\SoftwareUpdate.csproj.CoreCompileInputs.cache
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\SoftwareUpdate\obj\Debug\SoftwareUpdate.exe
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\SoftwareUpdate\obj\Debug\SoftwareUpdate.pdb

@@ -19,7 +19,7 @@ namespace Communication
     /// <summary>
     /// 用于本程序集访问通信的暗号说明
     /// </summary>
-    internal class HslProtocol
+    internal class InsideProtocol
     {
         /// <summary>
         /// 规定所有的网络传输指令头都为32字节
@@ -143,7 +143,7 @@ namespace Communication
             else
             {
                 // 加密
-                data = HslSecurity.ByteEncrypt(data);
+                data = InsideSecurity.ByteEncrypt(data);
                 if (data.Length > 102400)
                 {
                     // 100K以上的数据，进行数据压缩
@@ -183,7 +183,7 @@ namespace Communication
                     content = SoftZipped.Decompress(content);
                 }
                 // 进行解密
-                return HslSecurity.ByteDecrypt(content);
+                return InsideSecurity.ByteDecrypt(content);
             }
             else
             {

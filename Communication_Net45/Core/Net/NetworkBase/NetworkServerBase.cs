@@ -195,7 +195,7 @@ namespace Communication.Core.Net
         /// <param name="port">端口号</param>
         /// <param name="dtuId">设备唯一ID号，最长11</param>
         /// <returns>是否成功连接</returns>
-        public OperateResult ConnectHslAlientClient(string ipAddress, int port, string dtuId)
+        public OperateResult ConnectAlientClient(string ipAddress, int port, string dtuId)
         {
             if (dtuId.Length > 11) dtuId = dtuId.Substring(11);
             byte[] sendBytes = new byte[28];

@@ -128,7 +128,7 @@ namespace Communication.Enthernet
         {
             IsQuie = true;
             if (IsClientStart)
-                SendBytes( session, HslProtocol.CommandBytes( HslProtocol.ProtocolClientQuit, 0, Token, null ) );
+                SendBytes( session, InsideProtocol.CommandBytes( InsideProtocol.ProtocolClientQuit, 0, Token, null ) );
 
             IsClientStart = false;          // 关闭客户端
             thread_heart_check = null;
@@ -314,7 +314,7 @@ namespace Communication.Enthernet
         {
             if (IsClientStart)
             {
-                SendBytes( session, HslProtocol.CommandBytes( customer, Token, str ) );
+                SendBytes( session, InsideProtocol.CommandBytes( customer, Token, str ) );
             }
         }
 
@@ -327,7 +327,7 @@ namespace Communication.Enthernet
         {
             if (IsClientStart)
             {
-                SendBytes( session, HslProtocol.CommandBytes( customer, Token, bytes ) );
+                SendBytes( session, InsideProtocol.CommandBytes( customer, Token, bytes ) );
             }
         }
 
@@ -349,7 +349,7 @@ namespace Communication.Enthernet
         /// <param name="content">数据内容</param>
         internal override void DataProcessingCenter( AppSession session, int protocol, int customer, byte[] content )
         {
-            if (protocol == HslProtocol.ProtocolCheckSecends)
+            if (protocol == InsideProtocol.ProtocolCheckSecends)
             {
                 DateTime dt = new DateTime( BitConverter.ToInt64( content, 0 ) );
                 ServerTime = new DateTime( BitConverter.ToInt64( content, 8 ) );
@@ -357,16 +357,16 @@ namespace Communication.Enthernet
                 this.session.HeartTime = DateTime.Now;
                 // MessageAlerts?.Invoke("心跳时间：" + DateTime.Now.ToString());
             }
-            else if (protocol == HslProtocol.ProtocolClientQuit)
+            else if (protocol == InsideProtocol.ProtocolClientQuit)
             {
                 // 申请了退出
             }
-            else if (protocol == HslProtocol.ProtocolUserBytes)
+            else if (protocol == InsideProtocol.ProtocolUserBytes)
             {
                 // 接收到字节数据
                 AcceptByte?.Invoke( this.session, customer, content );
             }
-            else if (protocol == HslProtocol.ProtocolUserString)
+            else if (protocol == InsideProtocol.ProtocolUserString)
             {
                 // 接收到文本数据
                 string str = Encoding.Unicode.GetString( content );
@@ -392,7 +392,7 @@ namespace Communication.Enthernet
                 {
                     byte[] send = new byte[16];
                     BitConverter.GetBytes( DateTime.Now.Ticks ).CopyTo( send, 0 );
-                    SendBytes( session, HslProtocol.CommandBytes( HslProtocol.ProtocolCheckSecends, 0, Token, send ) );
+                    SendBytes( session, InsideProtocol.CommandBytes( InsideProtocol.ProtocolCheckSecends, 0, Token, send ) );
                     double timeSpan = (DateTime.Now - session.HeartTime).TotalSeconds;
                     if (timeSpan > 1 * 8)//8次没有收到失去联系
                     {

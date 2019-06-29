@@ -28,11 +28,11 @@ namespace Communication.LogNet
         /// </summary>
         public LogNetBase()
         {
-            m_fileSaveLock = new SimpleHybirdLock( );
-            m_simpleHybirdLock = new SimpleHybirdLock( );
-            m_WaitForSave = new Queue<CommonMessageItem>( );
-            filtrateKeyword = new List<string>( );
-            filtrateLock = new SimpleHybirdLock( );
+            m_fileSaveLock = new SimpleHybirdLock();
+            m_simpleHybirdLock = new SimpleHybirdLock();
+            m_WaitForSave = new Queue<CommonMessageItem>();
+            filtrateKeyword = new List<string>();
+            filtrateLock = new SimpleHybirdLock();
         }
 
         #endregion
@@ -40,8 +40,8 @@ namespace Communication.LogNet
         #region Private Member
 
         private CommonMessageDegree m_messageDegree = CommonMessageDegree.DEBUG;                     // 默认的存储规则
-        private Queue<CommonMessageItem> m_WaitForSave ;                                          // 待存储数据的缓存
-        private SimpleHybirdLock m_simpleHybirdLock ;                                          // 缓存列表的锁
+        private Queue<CommonMessageItem> m_WaitForSave;                                          // 待存储数据的缓存
+        private SimpleHybirdLock m_simpleHybirdLock;                                          // 缓存列表的锁
         private int m_SaveStatus = 0;                                                          // 存储状态
         private List<string> filtrateKeyword;                                                  // 需要过滤的存储对象
         private SimpleHybirdLock filtrateLock;                                                 // 过滤列表的锁
@@ -56,7 +56,7 @@ namespace Communication.LogNet
         protected SimpleHybirdLock m_fileSaveLock;                                             // 文件的锁
 
         #endregion
-        
+
         #region Event Handle
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Communication.LogNet
         /// </summary>
         public int LogSaveMode { get; protected set; }
 
-        
+
         #endregion
 
         #region Log Method
@@ -89,7 +89,7 @@ namespace Communication.LogNet
         /// <param name="text"></param>
         public void WriteDebug(string text)
         {
-            WriteDebug( string.Empty, text );
+            WriteDebug(string.Empty, text);
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace Communication.LogNet
         /// <param name="text">文本内容</param>
         public void WriteDebug(string keyWord, string text)
         {
-            RecordMessage( CommonMessageDegree.DEBUG, keyWord, text );
+            RecordMessage(CommonMessageDegree.DEBUG, keyWord, text);
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace Communication.LogNet
         /// <param name="text">文本内容</param>
         public void WriteInfo(string text)
         {
-            WriteInfo( string.Empty, text );
+            WriteInfo(string.Empty, text);
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace Communication.LogNet
         /// <param name="text">文本内容</param>
         public void WriteInfo(string keyWord, string text)
         {
-            RecordMessage( CommonMessageDegree.INFO, keyWord, text );
+            RecordMessage(CommonMessageDegree.INFO, keyWord, text);
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace Communication.LogNet
         /// <param name="text">文本内容</param>
         public void WriteWarn(string text)
         {
-            WriteWarn( string.Empty, text );
+            WriteWarn(string.Empty, text);
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace Communication.LogNet
         /// <param name="text">文本内容</param>
         public void WriteWarn(string keyWord, string text)
         {
-            RecordMessage( CommonMessageDegree.WARN, keyWord, text );
+            RecordMessage(CommonMessageDegree.WARN, keyWord, text);
         }
 
 
@@ -147,7 +147,7 @@ namespace Communication.LogNet
         /// <param name="text">文本内容</param>
         public void WriteError(string text)
         {
-            WriteError( string.Empty, text );
+            WriteError(string.Empty, text);
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace Communication.LogNet
         /// <param name="text">文本内容</param>
         public void WriteError(string keyWord, string text)
         {
-            RecordMessage( CommonMessageDegree.ERROR, keyWord, text );
+            RecordMessage(CommonMessageDegree.ERROR, keyWord, text);
         }
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace Communication.LogNet
         /// <param name="text">文本内容</param>
         public void WriteFatal(string text)
         {
-            WriteFatal( string.Empty, text );
+            WriteFatal(string.Empty, text);
         }
 
 
@@ -177,7 +177,7 @@ namespace Communication.LogNet
         /// <param name="text">文本内容</param>
         public void WriteFatal(string keyWord, string text)
         {
-            RecordMessage( CommonMessageDegree.FATAL, keyWord, text );
+            RecordMessage(CommonMessageDegree.FATAL, keyWord, text);
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace Communication.LogNet
         /// <param name="ex">异常信息</param>
         public void WriteException(string keyWord, Exception ex)
         {
-            WriteException( keyWord, string.Empty, ex );
+            WriteException(keyWord, string.Empty, ex);
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace Communication.LogNet
         /// <param name="ex">异常</param>
         public void WriteException(string keyWord, string text, Exception ex)
         {
-            RecordMessage( CommonMessageDegree.FATAL, keyWord, LogNetManagment.GetSaveStringFromException( text, ex ) );
+            RecordMessage(CommonMessageDegree.FATAL, keyWord, LogNetManagment.GetSaveStringFromException(text, ex));
         }
 
         /// <summary>
@@ -207,9 +207,9 @@ namespace Communication.LogNet
         /// <param name="degree">消息的等级</param>
         /// <param name="keyWord">关键字</param>
         /// <param name="text">文本</param>
-        public void RecordMessage( CommonMessageDegree degree, string keyWord, string text )
+        public void RecordMessage(CommonMessageDegree degree, string keyWord, string text)
         {
-            WriteToFile( degree, keyWord, text );
+            WriteToFile(degree, keyWord, text);
         }
 
         /// <summary>
@@ -266,7 +266,7 @@ namespace Communication.LogNet
             RecordMessage(CommonMessageDegree.None, string.Empty, stringBuilder.ToString());
             //ThreadPool.QueueUserWorkItem(new WaitCallback(ThreadPoolSaveText), stringBuilder.ToString());
         }
-        
+
         /// <summary>
         /// 写入一条任意字符
         /// </summary>
@@ -275,7 +275,7 @@ namespace Communication.LogNet
         {
             RecordMessage(CommonMessageDegree.None, string.Empty, text);
         }
-        
+
         /// <summary>
         /// 写入一条换行符
         /// </summary>
@@ -304,26 +304,26 @@ namespace Communication.LogNet
         /// <param name="keyWord">关键字</param>
         public void FiltrateKeyword(string keyWord)
         {
-            filtrateLock.Enter( );
+            filtrateLock.Enter();
             if (!filtrateKeyword.Contains(keyWord))
             {
-                filtrateKeyword.Add( keyWord );
+                filtrateKeyword.Add(keyWord);
             }
-            filtrateLock.Leave( );
+            filtrateLock.Leave();
         }
 
         #endregion
 
         #region File Write
 
-        private void WriteToFile( CommonMessageDegree degree, string keyWord, string text )
+        private void WriteToFile(CommonMessageDegree degree, string keyWord, string text)
         {
             // 过滤事件
             if (degree <= m_messageDegree)
             {
                 // 需要记录数据
-                CommonMessageItem item = GetCommonMessageItem( degree, keyWord, text );
-                AddItemToCache( item );
+                CommonMessageItem item = GetCommonMessageItem(degree, keyWord, text);
+                AddItemToCache(item);
             }
         }
 
@@ -383,13 +383,13 @@ namespace Communication.LogNet
                     while (current != null)
                     {
                         // 触发事件
-                        OnBeforeSaveToFile( new CommonEventArgs( ) { CommonMessage = current } );
+                        OnBeforeSaveToFile(new CommonEventArgs() { CommonMessage = current });
 
                         // 检查是否需要真的进行存储
                         bool isSave = true;
-                        filtrateLock.Enter( );
-                        isSave = !filtrateKeyword.Contains( current.KeyWord );
-                        filtrateLock.Leave( );
+                        filtrateLock.Enter();
+                        isSave = !filtrateKeyword.Contains(current.KeyWord);
+                        filtrateLock.Leave();
 
                         // 检查是否被设置为强制不存储
                         if (current.Cancel) isSave = false;
@@ -397,8 +397,8 @@ namespace Communication.LogNet
                         // 如果需要存储的就过滤掉
                         if (isSave)
                         {
-                            sw.Write( CommonMessageFormate( current ) );
-                            sw.Write( Environment.NewLine );
+                            sw.Write(CommonMessageFormate(current));
+                            sw.Write(Environment.NewLine);
                         }
 
                         current = GetAndRemoveLogItem();
@@ -406,12 +406,12 @@ namespace Communication.LogNet
                 }
                 catch (Exception ex)
                 {
-                    AddItemToCache( current );
-                    AddItemToCache( new CommonMessageItem( )
+                    AddItemToCache(current);
+                    AddItemToCache(new CommonMessageItem()
                     {
                         Degree = CommonMessageDegree.FATAL,
                         Text = LogNetManagment.GetSaveStringFromException("LogNetSelf", ex),
-                    } );
+                    });
                 }
                 finally
                 {
@@ -430,25 +430,25 @@ namespace Communication.LogNet
             }
         }
 
-        private string CommonMessageFormate( CommonMessageItem CommonMessage )
+        private string CommonMessageFormate(CommonMessageItem CommonMessage)
         {
-            StringBuilder stringBuilder = new StringBuilder( );
+            StringBuilder stringBuilder = new StringBuilder();
             if (CommonMessage.Degree != CommonMessageDegree.None)
             {
-                stringBuilder.Append( "\u0002" );
-                stringBuilder.Append( "[" );
-                stringBuilder.Append( LogNetManagment.GetDegreeDescription( CommonMessage.Degree ) );
-                stringBuilder.Append( "] " );
+                stringBuilder.Append("\u0002");
+                stringBuilder.Append("[");
+                stringBuilder.Append(LogNetManagment.GetDegreeDescription(CommonMessage.Degree));
+                stringBuilder.Append("] ");
 
-                stringBuilder.Append( CommonMessage.Time.ToString( "yyyy-MM-dd HH:mm:ss.fff" ) );
-                stringBuilder.Append( " thread:[" );
-                stringBuilder.Append( CommonMessage.ThreadId.ToString( "D2" ) );
-                stringBuilder.Append( "] " );
+                stringBuilder.Append(CommonMessage.Time.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                stringBuilder.Append(" thread:[");
+                stringBuilder.Append(CommonMessage.ThreadId.ToString("D2"));
+                stringBuilder.Append("] ");
 
-                if (!string.IsNullOrEmpty( CommonMessage.KeyWord ))
+                if (!string.IsNullOrEmpty(CommonMessage.KeyWord))
                 {
-                    stringBuilder.Append( CommonMessage.KeyWord );
-                    stringBuilder.Append( " : " );
+                    stringBuilder.Append(CommonMessage.KeyWord);
+                    stringBuilder.Append(" : ");
                 }
             }
             stringBuilder.Append(CommonMessage.Text);
@@ -496,7 +496,7 @@ namespace Communication.LogNet
 
         #region Helper Method
 
-        
+
         /// <summary>
         /// 获取要存储的文件的名称
         /// </summary>
@@ -534,10 +534,10 @@ namespace Communication.LogNet
         {
             return new CommonMessageItem()
             {
-                KeyWord      = keyWord,
-                Degree       = degree,
-                Text         = text,
-                ThreadId     = Thread.CurrentThread.ManagedThreadId,
+                KeyWord = keyWord,
+                Degree = degree,
+                Text = text,
+                ThreadId = Thread.CurrentThread.ManagedThreadId,
             };
         }
 

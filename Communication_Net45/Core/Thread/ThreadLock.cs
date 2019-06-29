@@ -124,13 +124,13 @@ namespace Communication.Core
     /// <summary>
     /// 一个用于高性能，乐观并发模型控制操作的类，允许一个方法(隔离方法)的安全单次执行
     /// </summary>
-    public sealed class HslAsyncCoordinator
+    public sealed class InsideAsyncCoordinator
     {
         /// <summary>
         /// 实例化一个对象，需要传入隔离执行的方法
         /// </summary>
         /// <param name="operater">隔离执行的方法</param>
-        public HslAsyncCoordinator(Action operater)
+        public InsideAsyncCoordinator(Action operater)
         {
             action = operater;
         }
@@ -189,7 +189,7 @@ namespace Communication.Core
     /// <summary>
     /// 一个高性能的读写锁，支持写锁定，读灵活，读时写锁定，写时读锁定
     /// </summary>
-    public sealed class HslReadWriteLock : IDisposable
+    public sealed class InsideReadWriteLock : IDisposable
     {
         #region Lock State Management
 #if false
@@ -287,7 +287,7 @@ namespace Communication.Core
         /// <summary>
         /// 实例化一个读写锁的对象
         /// </summary>
-        public HslReadWriteLock() : base() { }
+        public InsideReadWriteLock() : base() { }
 
         #endregion
 
@@ -312,7 +312,7 @@ namespace Communication.Core
         }
 
         // TODO: 仅当以上 Dispose(bool disposing) 拥有用于释放未托管资源的代码时才替代终结器。
-        // ~HslReadWriteLock() {
+        // ~ReadWriteLock() {
         //   // 请勿更改此代码。将清理代码放入以上 Dispose(bool disposing) 中。
         //   Dispose(false);
         // }

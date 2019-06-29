@@ -195,7 +195,7 @@ namespace Communication.Enthernet
 
                 string relativeName = ReturnRelativeFileName( Factory, Group, Identify, fileName );
 
-                if (customer == HslProtocol.ProtocolFileDownload)
+                if (customer == InsideProtocol.ProtocolFileDownload)
                 {
                     // 先获取文件的真实名称
                     string guidName = TransformFactFileName( Factory, Group, Identify, fileName );
@@ -219,7 +219,7 @@ namespace Communication.Enthernet
                     // 关闭连接
                     socket?.Close( );
                 }
-                else if (customer == HslProtocol.ProtocolFileUpload)
+                else if (customer == InsideProtocol.ProtocolFileUpload)
                 {
                     string fullFileName = ReturnAbsoluteFileName( Factory, Group, Identify, fileName );
                     // 上传文件
@@ -253,7 +253,7 @@ namespace Communication.Enthernet
                         LogNet?.WriteInfo( ToString( ), StringResources.Language.FileUploadFailed + ":" + relativeName );
                     }
                 }
-                else if (customer == HslProtocol.ProtocolFileDelete)
+                else if (customer == InsideProtocol.ProtocolFileDelete)
                 {
                     string fullFileName = ReturnAbsoluteFileName( Factory, Group, Identify, fileName );
 
@@ -275,19 +275,19 @@ namespace Communication.Enthernet
 
                     LogNet?.WriteInfo( ToString( ), StringResources.Language.FileDeleteSuccess + ":" + relativeName );
                 }
-                else if (customer == HslProtocol.ProtocolFileDirectoryFiles)
+                else if (customer == InsideProtocol.ProtocolFileDirectoryFiles)
                 {
                     GroupFileContainer fileManagment = GetGroupFromFilePath( ReturnAbsoluteFilePath( Factory, Group, Identify ) );
 
                     if (SendStringAndCheckReceive(
                         socket,
-                        HslProtocol.ProtocolFileDirectoryFiles,
+                        InsideProtocol.ProtocolFileDirectoryFiles,
                         fileManagment.JsonArrayContent ).IsSuccess)
                     {
                         socket?.Close( );
                     }
                 }
-                else if (customer == HslProtocol.ProtocolFileDirectories)
+                else if (customer == InsideProtocol.ProtocolFileDirectories)
                 {
                     List<string> folders = new List<string>( );
                     foreach (var m in GetDirectories( Factory, Group, Identify ))
@@ -299,7 +299,7 @@ namespace Communication.Enthernet
                     Newtonsoft.Json.Linq.JArray jArray = Newtonsoft.Json.Linq.JArray.FromObject( folders.ToArray( ) );
                     if (SendStringAndCheckReceive(
                         socket,
-                        HslProtocol.ProtocolFileDirectoryFiles,
+                        InsideProtocol.ProtocolFileDirectoryFiles,
                         jArray.ToString( ) ).IsSuccess)
                     {
                         socket?.Close( );

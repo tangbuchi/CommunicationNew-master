@@ -372,7 +372,7 @@ namespace Communication.Enthernet
         {
             return DownloadStringArrays(
                 out fileNames,
-                HslProtocol.ProtocolFileDirectoryFiles,
+                InsideProtocol.ProtocolFileDirectoryFiles,
                 factory,
                 group,
                 id
@@ -411,7 +411,7 @@ namespace Communication.Enthernet
         {
             return DownloadStringArrays(
                 out folders,
-                HslProtocol.ProtocolFileDirectories,
+                InsideProtocol.ProtocolFileDirectories,
                 factory,
                 group,
                 id );
