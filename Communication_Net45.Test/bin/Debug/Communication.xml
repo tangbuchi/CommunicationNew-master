@@ -17069,6 +17069,51 @@
             It is determined to be the XGK/I/R series through a reserved area
             </summary>
         </member>
+        <member name="F:Communication.Profinet.LSIS.LSCpuInfo.XGK">
+            <summary>
+            XGK系列
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.LSIS.LSCpuInfo.XGI">
+            <summary>
+            XGI系列
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.LSIS.LSCpuInfo.XGR">
+            <summary>
+            XGR系列
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.LSIS.LSCpuInfo.XGB_MK">
+            <summary>
+            XGB_MK系列
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.LSIS.LSCpuInfo.XGB_IEC">
+            <summary>
+            XGB_IEC系列
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.LSIS.LSCpuStatus.RUN">
+            <summary>
+            运行
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.LSIS.LSCpuStatus.STOP">
+            <summary>
+            停止
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.LSIS.LSCpuStatus.ERROR">
+            <summary>
+            错误
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.LSIS.LSCpuStatus.DEBUG">
+            <summary>
+            调试
+            </summary>
+        </member>
         <member name="T:Communication.Profinet.LSIS.LSisServer">
             <summary>
             LSisServer

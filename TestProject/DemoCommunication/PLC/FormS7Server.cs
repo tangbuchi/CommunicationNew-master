@@ -186,7 +186,8 @@ namespace CommunicationDemo
                 return;
             }
 
-            textBox1.AppendText("Received：" + Communication.BasicFramework.SoftBasic.ByteToHexString(receive, ' ') + Environment.NewLine);
+            textBox1.AppendText("接收：" + Communication.BasicFramework.SoftBasic.ByteToHexString(receive, ' ') + Environment.NewLine);
+            Console.WriteLine($"接收：{Communication.BasicFramework.SoftBasic.ByteToHexString(receive, ' ')}");
         }
 
         /// <summary>

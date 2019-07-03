@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using Communication.Core.IMessage;
+using System.Threading;
 
 namespace Communication.Profinet.Siemens
 {
@@ -166,13 +167,15 @@ namespace Communication.Profinet.Siemens
         {
             // 接收2次的握手协议
             S7Message s7Message = new S7Message();
-            OperateResult<byte[]> read1 = ReceiveByMessage(socket, int.MaxValue, s7Message);//5000 时间延长，接收一条指令
+            OperateResult<byte[]> read1 = ReceiveByMessage(socket, int.MaxValue, s7Message);//5000 时间延长，先接收第一条握手协议
+            Console.WriteLine($"接收：{Communication.BasicFramework.SoftBasic.ByteToHexString(read1.Content, ' ')}");
             if (!read1.IsSuccess) return;
 
             OperateResult send1 = Send(socket, SoftBasic.HexStringToBytes("03 00 00 16 11 D0 00 01 00 0C 00 C0 01 0A C1 02 01 02 C2 02 01 00"));
             if (!send1.IsSuccess) return;
 
-            OperateResult<byte[]> read2 = ReceiveByMessage(socket, int.MaxValue, s7Message);//5000 时间延长，接收一条指令
+            OperateResult<byte[]> read2 = ReceiveByMessage(socket, int.MaxValue, s7Message);//5000 时间延长，再接收第二条握手协议
+            Console.WriteLine($"接收：{Communication.BasicFramework.SoftBasic.ByteToHexString(read2.Content, ' ')}");
             if (!read1.IsSuccess) return;
 
             OperateResult send2 = Send(socket, SoftBasic.HexStringToBytes("03 00 00 1B 02 F0 80 32 03 00 00 04 00 00 08 00 00 00 00 F0 00 00 01 00 01 00 F0"));
@@ -184,7 +187,7 @@ namespace Communication.Profinet.Siemens
             appSession.WorkSocket = socket;
             try
             {
-                socket.BeginReceive(new byte[0], 0, 0, SocketFlags.None, new AsyncCallback(SocketAsyncCallBack), appSession);
+                socket.BeginReceive(new byte[0], 0, 0, SocketFlags.None, new AsyncCallback(SocketAsyncCallBack), appSession);// 套接字异步回调
                 AddClient(appSession);
             }
             catch
@@ -200,6 +203,7 @@ namespace Communication.Profinet.Siemens
         /// <param name="ar"></param>
         private void SocketAsyncCallBack(IAsyncResult ar)
         {
+            Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId.ToString("00")} SocketAsyncCallBack");
             if (ar.AsyncState is AppSession session)
             {
                 try

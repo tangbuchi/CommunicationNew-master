@@ -51,6 +51,7 @@ namespace Communication.Core.Net
         /// <param name="iar"></param>
         protected void AsyncAcceptCallback(IAsyncResult iar)
         {
+            Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId.ToString("00")} AsyncAcceptCallback");
             //还原传入的原始套接字
             if (iar.AsyncState is Socket server_socket) // 异步状态
             {

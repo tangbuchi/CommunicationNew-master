@@ -229,6 +229,7 @@ namespace Communication.Core.Net
         /// <param name="ar"></param>
         private void ReceiveCallback(IAsyncResult ar)
         {
+            Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId.ToString("00")} ReceiveCallback");
             if (ar.AsyncState is StateObject state)
             {
                 try
@@ -490,6 +491,7 @@ namespace Communication.Core.Net
         /// <param name="ar">异步对象</param>
         private void SendCallBack(IAsyncResult ar)
         {
+            Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId.ToString("00")} SendCallBack");
             if (ar.AsyncState is StateObject state)
             {
                 try
@@ -682,7 +684,7 @@ namespace Communication.Core.Net
                 {
                     state.WaitDone = connectDone;
                     state.WorkSocket = socket;
-                    socket.BeginConnect(endPoint, new AsyncCallback(ConnectCallBack), state);
+                    socket.BeginConnect(endPoint, new AsyncCallback(ConnectCallBack), state);// 当连接的结果返回
                 }
                 catch (Exception ex)
                 {
@@ -726,6 +728,7 @@ namespace Communication.Core.Net
         /// <param name="ar">异步对象</param>
         private void ConnectCallBack(IAsyncResult ar)
         {
+            Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId.ToString("00")} ConnectCallBack");
             if (ar.AsyncState is StateObject state)
             {
                 try

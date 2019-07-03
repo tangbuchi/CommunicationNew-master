@@ -477,6 +477,12 @@ namespace Communication.Profinet.LSIS
             if (IsStarted) RaiseDataReceived(receive);
             
         }
+
+        /// <summary>
+        /// to bytes
+        /// </summary>
+        /// <param name="hex"></param>
+        /// <returns></returns>
         public byte[] HexToBytes(string hex)
         {
             if (hex == null)

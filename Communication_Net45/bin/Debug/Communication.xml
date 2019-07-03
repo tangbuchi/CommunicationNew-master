@@ -17069,6 +17069,56 @@
             It is determined to be the XGK/I/R series through a reserved area
             </summary>
         </member>
+        <member name="F:Communication.Profinet.LSIS.LSCpuInfo.XGK">
+            <summary>
+            XGK系列
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.LSIS.LSCpuInfo.XGI">
+            <summary>
+            XGI系列
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.LSIS.LSCpuInfo.XGR">
+            <summary>
+            XGR系列
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.LSIS.LSCpuInfo.XGB_MK">
+            <summary>
+            XGB_MK系列
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.LSIS.LSCpuInfo.XGB_IEC">
+            <summary>
+            XGB_IEC系列
+            </summary>
+        </member>
+        <member name="T:Communication.Profinet.LSIS.LSCpuStatus">
+            <summary>
+            CPU状态
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.LSIS.LSCpuStatus.RUN">
+            <summary>
+            运行
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.LSIS.LSCpuStatus.STOP">
+            <summary>
+            停止
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.LSIS.LSCpuStatus.ERROR">
+            <summary>
+            错误
+            </summary>
+        </member>
+        <member name="F:Communication.Profinet.LSIS.LSCpuStatus.DEBUG">
+            <summary>
+            调试
+            </summary>
+        </member>
         <member name="T:Communication.Profinet.LSIS.LSisServer">
             <summary>
             LSisServer
@@ -17175,6 +17225,13 @@
             </summary>
             <param name="sender">串口对象</param>
             <param name="e">消息</param>
+        </member>
+        <member name="M:Communication.Profinet.LSIS.LSisServer.HexToBytes(System.String)">
+            <summary>
+            to bytes
+            </summary>
+            <param name="hex"></param>
+            <returns></returns>
         </member>
         <member name="M:Communication.Profinet.LSIS.LSisServer.ToString">
             <summary>
