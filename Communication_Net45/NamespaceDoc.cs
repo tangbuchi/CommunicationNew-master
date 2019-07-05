@@ -6,8 +6,11 @@ using Communication.Core;
 
 namespace Communication
 {
-  
-    [System.Runtime.CompilerServices.CompilerGeneratedAttribute( )]
+    /// <summary>
+    /// 命名空间文档
+    /// </summary>
+    [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+
     public class NamespaceDoc
     {
 

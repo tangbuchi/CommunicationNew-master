@@ -14951,6 +14951,11 @@
             新的值
             </summary>
         </member>
+        <member name="T:Communication.NamespaceDoc">
+            <summary>
+            命名空间文档
+            </summary>
+        </member>
         <member name="T:Communication.Profinet.AllenBradley.AllenBradleyHelper">
             <summary>
             AB PLC的辅助类，用来辅助生成基本的指令信息
@@ -17094,6 +17099,11 @@
             XGB_IEC系列
             </summary>
         </member>
+        <member name="T:Communication.Profinet.LSIS.LSCpuStatus">
+            <summary>
+            CPU状态
+            </summary>
+        </member>
         <member name="F:Communication.Profinet.LSIS.LSCpuStatus.RUN">
             <summary>
             运行
@@ -17220,6 +17230,13 @@
             </summary>
             <param name="sender">串口对象</param>
             <param name="e">消息</param>
+        </member>
+        <member name="M:Communication.Profinet.LSIS.LSisServer.HexToBytes(System.String)">
+            <summary>
+            to bytes
+            </summary>
+            <param name="hex"></param>
+            <returns></returns>
         </member>
         <member name="M:Communication.Profinet.LSIS.LSisServer.ToString">
             <summary>

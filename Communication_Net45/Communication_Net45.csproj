@@ -399,47 +399,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="imgaes\qrcode_for_gh_319218678954_258.jpg" />
-    <None Include="imgaes\mm_facetoface_collect_qrcode_1525331158525.png" />
-    <None Include="imgaes\WindowsForm_817_16x.png" />
-    <None Include="imgaes\WebFormTemplate_11274_16x_color.png" />
-    <None Include="imgaes\WebForm%28ASPX%29_815_16x.png" />
-    <None Include="imgaes\VirtualMachine.png" />
-    <None Include="imgaes\UseCaseDiagramFile_usecasediagram_13447_16x.png" />
-    <None Include="imgaes\usbcontroller.png" />
-    <None Include="imgaes\TreeView_713.png" />
-    <None Include="imgaes\Textfile_818_16x.png" />
-    <None Include="imgaes\Tag_7213.png" />
-    <None Include="imgaes\Table_748.png" />
-    <None Include="imgaes\TabControl_707.png" />
-    <None Include="imgaes\Structure_507.png" />
-    <None Include="imgaes\Soundfile_461.png" />
-    <None Include="imgaes\PropertyIcon.png" />
-    <None Include="imgaes\Module_648.png" />
-    <None Include="imgaes\Method_636.png" />
-    <None Include="imgaes\ListView_687.png" />
-    <None Include="imgaes\lightningBolt_16xLG.png" />
-    <None Include="imgaes\grid_Data_16xLG.png" />
-    <None Include="imgaes\glasses_16xLG.png" />
-    <None Include="imgaes\Event_594_exp.png" />
-    <None Include="imgaes\Event_594.png" />
-    <None Include="imgaes\Enum_582.png" />
-    <None Include="imgaes\docview_xaml_on_16x16.png" />
-    <None Include="imgaes\Delegate_8339.png" />
-    <None Include="imgaes\Copy_6524.png" />
-    <None Include="imgaes\Cloud_16xLG.png" />
-    <None Include="imgaes\ClassIcon.png" />
-    <None Include="imgaes\Class_489.png" />
-    <None Include="imgaes\brackets_Square_16xMD.png" />
-    <None Include="imgaes\AudioRecording.png" />
-    <None Include="imgaes\asset_progressBar_24x24_on.png" />
-    <None Include="imgaes\alipay.png" />
-    <None Include="imgaes\AddressViewer.png" />
-    <None Include="imgaes\Activity_16xLG.png" />
-    <None Include="imgaes\abstr11.png" />
-    <None Include="imgaes\abstr1.png" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="imgaes\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

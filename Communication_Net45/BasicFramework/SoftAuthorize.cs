@@ -249,7 +249,7 @@ namespace Communication.BasicFramework
 
 
         #endregion
-        
+
         #region HWID
         private class HWID
         {
