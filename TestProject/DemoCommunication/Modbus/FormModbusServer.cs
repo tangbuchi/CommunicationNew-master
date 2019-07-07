@@ -15,26 +15,26 @@ namespace CommunicationDemo
 {
     public partial class FormModbusServer : Form
     {
-        public FormModbusServer( )
+        public FormModbusServer()
         {
-            InitializeComponent( );
+            InitializeComponent();
         }
 
 
 
-        private void linkLabel1_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try
             {
-                System.Diagnostics.Process.Start( linkLabel1.Text );
+                System.Diagnostics.Process.Start(linkLabel1.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void FormSiemens_Load( object sender, EventArgs e )
+        private void FormSiemens_Load(object sender, EventArgs e)
         {
             panel2.Enabled = false;
 
@@ -43,7 +43,7 @@ namespace CommunicationDemo
             comboBox2.SelectedIndexChanged += ComboBox2_SelectedIndexChanged;
             checkBox3.CheckedChanged += CheckBox3_CheckedChanged;
 
-            if(Program.Language == 2)
+            if (Program.Language == 2)
             {
                 Text = "Modbus Virtual Server[supports TCP and RTU, support coil and register reading and writing, input register read, discrete input read]";
                 label2.Text = "blogs:";
@@ -106,7 +106,7 @@ namespace CommunicationDemo
             }
         }
 
-        private void ComboBox2_SelectedIndexChanged( object sender, EventArgs e )
+        private void ComboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (busTcpServer != null)
             {
@@ -121,19 +121,19 @@ namespace CommunicationDemo
             }
         }
 
-        private void CheckBox3_CheckedChanged( object sender, EventArgs e )
+        private void CheckBox3_CheckedChanged(object sender, EventArgs e)
         {
             if (busTcpServer != null)
             {
                 busTcpServer.IsStringReverse = checkBox3.Checked;
             }
         }
-        
+
         private System.Windows.Forms.Timer timerSecond;
 
-        private void FormSiemens_FormClosing( object sender, FormClosingEventArgs e )
+        private void FormSiemens_FormClosing(object sender, FormClosingEventArgs e)
         {
-            busTcpServer?.ServerClose( );
+            busTcpServer?.ServerClose();
         }
 
         /// <summary>
@@ -143,9 +143,9 @@ namespace CommunicationDemo
         /// <param name="result"></param>
         /// <param name="address"></param>
         /// <param name="textBox"></param>
-        private void readResultRender<T>( T result, string address, TextBox textBox )
+        private void readResultRender<T>(T result, string address, TextBox textBox)
         {
-            textBox.AppendText( DateTime.Now.ToString( "[HH:mm:ss] " ) + $"[{address}] {result}{Environment.NewLine}" );
+            textBox.AppendText(DateTime.Now.ToString("[HH:mm:ss] ") + $"[{address}] {result}{Environment.NewLine}");
         }
 
         /// <summary>
@@ -153,9 +153,9 @@ namespace CommunicationDemo
         /// </summary>
         /// <param name="result"></param>
         /// <param name="address"></param>
-        private void writeResultRender( string address )
+        private void writeResultRender(string address)
         {
-            MessageBox.Show( DateTime.Now.ToString( "[HH:mm:ss] " ) + $"[{address}] Write Success" );
+            MessageBox.Show(DateTime.Now.ToString("[HH:mm:ss] ") + $"[{address}] Write Success");
         }
 
 
@@ -164,11 +164,11 @@ namespace CommunicationDemo
 
         private Communication.ModBus.ModbusTcpServer busTcpServer;
 
-        private void button1_Click( object sender, EventArgs e )
+        private void button1_Click(object sender, EventArgs e)
         {
-            if (!int.TryParse( textBox2.Text, out int port ))
+            if (!int.TryParse(textBox2.Text, out int port))
             {
-                MessageBox.Show( DemoUtils.PortInputWrong );
+                MessageBox.Show(DemoUtils.PortInputWrong);
                 return;
             }
 
@@ -176,57 +176,57 @@ namespace CommunicationDemo
             try
             {
 
-                busTcpServer = new Communication.ModBus.ModbusTcpServer( );                       // 实例化对象
-                busTcpServer.LogNet = new Communication.LogNet.LogNetSingle( "logs.txt" );        // 配置日志信息
+                busTcpServer = new Communication.ModBus.ModbusTcpServer();                       // 实例化对象
+                busTcpServer.LogNet = new Communication.LogNet.LogNetSingle("logs.txt");        // 配置日志信息
                 busTcpServer.LogNet.BeforeSaveToFile += LogNet_BeforeSaveToFile;
                 busTcpServer.OnDataReceived += BusTcpServer_OnDataReceived;
 
-                ComboBox2_SelectedIndexChanged( null, new EventArgs( ) );
+                ComboBox2_SelectedIndexChanged(null, new EventArgs());
                 busTcpServer.IsStringReverse = checkBox3.Checked;
-                busTcpServer.ServerStart( port );
+                busTcpServer.ServerStart(port);
 
                 button1.Enabled = false;
                 panel2.Enabled = true;
                 button4.Enabled = true;
                 button11.Enabled = true;
 
-                timerSecond?.Dispose( );
-                timerSecond = new System.Windows.Forms.Timer( );
+                timerSecond?.Dispose();
+                timerSecond = new System.Windows.Forms.Timer();
                 timerSecond.Interval = 1000;
                 timerSecond.Tick += TimerSecond_Tick;
-                timerSecond.Start( );
+                timerSecond.Start();
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
 
-        private void button11_Click( object sender, EventArgs e )
+        private void button11_Click(object sender, EventArgs e)
         {
             // 停止服务
-            busTcpServer?.ServerClose( );
+            busTcpServer?.ServerClose();
             button1.Enabled = true;
             button11.Enabled = false;
         }
 
-        private void TimerSecond_Tick( object sender, EventArgs e )
+        private void TimerSecond_Tick(object sender, EventArgs e)
         {
-            label15.Text = busTcpServer.OnlineCount.ToString( ) ;
+            label15.Text = busTcpServer.OnlineCount.ToString();
         }
 
-        private void BusTcpServer_OnDataReceived( object sender, byte[] modbus )
+        private void BusTcpServer_OnDataReceived(object sender, byte[] modbus)
         {
             if (!checkBox1.Checked) return;
 
             if (InvokeRequired)
             {
-                BeginInvoke( new Action<object,byte[]>( BusTcpServer_OnDataReceived ), sender, modbus );
+                BeginInvoke(new Action<object, byte[]>(BusTcpServer_OnDataReceived), sender, modbus);
                 return;
             }
 
-            textBox1.AppendText( "Received：" + Communication.BasicFramework.SoftBasic.ByteToHexString( modbus, ' ' ) + Environment.NewLine );
+            textBox1.AppendText("Received：" + Communication.BasicFramework.SoftBasic.ByteToHexString(modbus, ' ') + Environment.NewLine);
         }
 
         /// <summary>
@@ -234,17 +234,17 @@ namespace CommunicationDemo
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void LogNet_BeforeSaveToFile( object sender, Communication.LogNet.CommonEventArgs e )
+        private void LogNet_BeforeSaveToFile(object sender, Communication.LogNet.CommonEventArgs e)
         {
             try
             {
                 if (InvokeRequired)
                 {
-                    Invoke( new Action<object, Communication.LogNet.CommonEventArgs>( LogNet_BeforeSaveToFile ), sender, e );
+                    Invoke(new Action<object, Communication.LogNet.CommonEventArgs>(LogNet_BeforeSaveToFile), sender, e);
                     return;
                 }
 
-                textBox1.AppendText( e.CommonMessage.ToString( ) + Environment.NewLine );
+                textBox1.AppendText(e.CommonMessage.ToString() + Environment.NewLine);
             }
             catch
             {
@@ -259,68 +259,68 @@ namespace CommunicationDemo
         #region 单数据读取测试
 
 
-        private void button_read_bool_Click( object sender, EventArgs e )
+        private void button_read_bool_Click(object sender, EventArgs e)
         {
             // 读取线圈bool变量
-            readResultRender( busTcpServer.ReadCoil( textBox3.Text  ), textBox3.Text, textBox4 );
+            readResultRender(busTcpServer.ReadCoil(textBox3.Text), textBox3.Text, textBox4);
         }
-        
-        private void button6_Click( object sender, EventArgs e )
+
+        private void button6_Click(object sender, EventArgs e)
         {
             // 读取离散bool变量
-            readResultRender( busTcpServer.ReadDiscrete( textBox3.Text  ), textBox3.Text, textBox4 );
+            readResultRender(busTcpServer.ReadDiscrete(textBox3.Text), textBox3.Text, textBox4);
         }
 
-        private void button_read_short_Click( object sender, EventArgs e )
+        private void button_read_short_Click(object sender, EventArgs e)
         {
             // 读取short变量
-            DemoUtils.ReadResultRender( busTcpServer.ReadInt16( textBox3.Text ), textBox3.Text, textBox4 );
+            DemoUtils.ReadResultRender(busTcpServer.ReadInt16(textBox3.Text), textBox3.Text, textBox4);
         }
 
-        private void button_read_ushort_Click( object sender, EventArgs e )
+        private void button_read_ushort_Click(object sender, EventArgs e)
         {
             // 读取ushort变量
-            DemoUtils.ReadResultRender( busTcpServer.ReadUInt16( textBox3.Text ), textBox3.Text, textBox4 );
+            DemoUtils.ReadResultRender(busTcpServer.ReadUInt16(textBox3.Text), textBox3.Text, textBox4);
         }
 
-        private void button_read_int_Click( object sender, EventArgs e )
+        private void button_read_int_Click(object sender, EventArgs e)
         {
             // 读取int变量
-            DemoUtils.ReadResultRender( busTcpServer.ReadInt32( textBox3.Text ), textBox3.Text, textBox4 );
+            DemoUtils.ReadResultRender(busTcpServer.ReadInt32(textBox3.Text), textBox3.Text, textBox4);
         }
-        private void button_read_uint_Click( object sender, EventArgs e )
+        private void button_read_uint_Click(object sender, EventArgs e)
         {
             // 读取uint变量
-            DemoUtils.ReadResultRender( busTcpServer.ReadUInt32( textBox3.Text ), textBox3.Text, textBox4 );
+            DemoUtils.ReadResultRender(busTcpServer.ReadUInt32(textBox3.Text), textBox3.Text, textBox4);
         }
-        private void button_read_long_Click( object sender, EventArgs e )
+        private void button_read_long_Click(object sender, EventArgs e)
         {
             // 读取long变量
-            DemoUtils.ReadResultRender( busTcpServer.ReadInt64( textBox3.Text ), textBox3.Text, textBox4 );
+            DemoUtils.ReadResultRender(busTcpServer.ReadInt64(textBox3.Text), textBox3.Text, textBox4);
         }
 
-        private void button_read_ulong_Click( object sender, EventArgs e )
+        private void button_read_ulong_Click(object sender, EventArgs e)
         {
             // 读取ulong变量
-            DemoUtils.ReadResultRender( busTcpServer.ReadUInt64( textBox3.Text ), textBox3.Text, textBox4 );
+            DemoUtils.ReadResultRender(busTcpServer.ReadUInt64(textBox3.Text), textBox3.Text, textBox4);
         }
 
-        private void button_read_float_Click( object sender, EventArgs e )
+        private void button_read_float_Click(object sender, EventArgs e)
         {
             // 读取float变量
-            DemoUtils.ReadResultRender( busTcpServer.ReadFloat( textBox3.Text ), textBox3.Text, textBox4 );
+            DemoUtils.ReadResultRender(busTcpServer.ReadFloat(textBox3.Text), textBox3.Text, textBox4);
         }
 
-        private void button_read_double_Click( object sender, EventArgs e )
+        private void button_read_double_Click(object sender, EventArgs e)
         {
             // 读取double变量
-            DemoUtils.ReadResultRender( busTcpServer.ReadDouble( textBox3.Text ), textBox3.Text, textBox4 );
+            DemoUtils.ReadResultRender(busTcpServer.ReadDouble(textBox3.Text), textBox3.Text, textBox4);
         }
 
-        private void button_read_string_Click( object sender, EventArgs e )
+        private void button_read_string_Click(object sender, EventArgs e)
         {
             // 读取字符串
-            DemoUtils.ReadResultRender( busTcpServer.ReadString( textBox3.Text, ushort.Parse( textBox5.Text ) ), textBox3.Text, textBox4 );
+            DemoUtils.ReadResultRender(busTcpServer.ReadString(textBox3.Text, ushort.Parse(textBox5.Text)), textBox3.Text, textBox4);
         }
 
 
@@ -329,150 +329,150 @@ namespace CommunicationDemo
         #region 单数据写入测试
 
 
-        private void button24_Click( object sender, EventArgs e )
+        private void button24_Click(object sender, EventArgs e)
         {
             // bool写入
             try
             {
-                busTcpServer.WriteCoil( textBox8.Text, bool.Parse( textBox7.Text ) );
-                writeResultRender( textBox8.Text );
+                busTcpServer.WriteCoil(textBox8.Text, bool.Parse(textBox7.Text));
+                writeResultRender(textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void button7_Click( object sender, EventArgs e )
+        private void button7_Click(object sender, EventArgs e)
         {
             // 离散bool写入
             try
             {
-                busTcpServer.WriteDiscrete( textBox8.Text, bool.Parse( textBox7.Text ) );
-                writeResultRender( textBox8.Text );
+                busTcpServer.WriteDiscrete(textBox8.Text, bool.Parse(textBox7.Text));
+                writeResultRender(textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void button22_Click( object sender, EventArgs e )
+        private void button22_Click(object sender, EventArgs e)
         {
             // short写入
             try
             {
-                DemoUtils.WriteResultRender( busTcpServer.Write( textBox8.Text, short.Parse( textBox7.Text ) ), textBox8.Text );
+                DemoUtils.WriteResultRender(busTcpServer.Write(textBox8.Text, short.Parse(textBox7.Text)), textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void button21_Click( object sender, EventArgs e )
+        private void button21_Click(object sender, EventArgs e)
         {
             // ushort写入
             try
             {
-                DemoUtils.WriteResultRender( busTcpServer.Write( textBox8.Text, ushort.Parse( textBox7.Text ) ), textBox8.Text );
+                DemoUtils.WriteResultRender(busTcpServer.Write(textBox8.Text, ushort.Parse(textBox7.Text)), textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
 
-        private void button20_Click( object sender, EventArgs e )
+        private void button20_Click(object sender, EventArgs e)
         {
             // int写入
             try
             {
-                DemoUtils.WriteResultRender( busTcpServer.Write( textBox8.Text, int.Parse( textBox7.Text ) ), textBox8.Text );
+                DemoUtils.WriteResultRender(busTcpServer.Write(textBox8.Text, int.Parse(textBox7.Text)), textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void button19_Click( object sender, EventArgs e )
+        private void button19_Click(object sender, EventArgs e)
         {
             // uint写入
             try
             {
-                DemoUtils.WriteResultRender( busTcpServer.Write( textBox8.Text, uint.Parse( textBox7.Text ) ), textBox8.Text );
+                DemoUtils.WriteResultRender(busTcpServer.Write(textBox8.Text, uint.Parse(textBox7.Text)), textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void button18_Click( object sender, EventArgs e )
+        private void button18_Click(object sender, EventArgs e)
         {
             // long写入
             try
             {
-                DemoUtils.WriteResultRender( busTcpServer.Write( textBox8.Text, long.Parse( textBox7.Text ) ), textBox8.Text );
+                DemoUtils.WriteResultRender(busTcpServer.Write(textBox8.Text, long.Parse(textBox7.Text)), textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void button17_Click( object sender, EventArgs e )
+        private void button17_Click(object sender, EventArgs e)
         {
             // ulong写入
             try
             {
-                DemoUtils.WriteResultRender( busTcpServer.Write( textBox8.Text, ulong.Parse( textBox7.Text ) ), textBox8.Text );
+                DemoUtils.WriteResultRender(busTcpServer.Write(textBox8.Text, ulong.Parse(textBox7.Text)), textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void button16_Click( object sender, EventArgs e )
+        private void button16_Click(object sender, EventArgs e)
         {
             // float写入
             try
             {
-                DemoUtils.WriteResultRender( busTcpServer.Write( textBox8.Text, float.Parse( textBox7.Text ) ), textBox8.Text );
+                DemoUtils.WriteResultRender(busTcpServer.Write(textBox8.Text, float.Parse(textBox7.Text)), textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void button15_Click( object sender, EventArgs e )
+        private void button15_Click(object sender, EventArgs e)
         {
             // double写入
             try
             {
-                DemoUtils.WriteResultRender( busTcpServer.Write( textBox8.Text, double.Parse( textBox7.Text ) ), textBox8.Text );
+                DemoUtils.WriteResultRender(busTcpServer.Write(textBox8.Text, double.Parse(textBox7.Text)), textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
 
-        private void button14_Click( object sender, EventArgs e )
+        private void button14_Click(object sender, EventArgs e)
         {
             // string写入
             try
             {
-                DemoUtils.WriteResultRender( busTcpServer.Write( textBox8.Text, textBox7.Text ), textBox8.Text );
+                DemoUtils.WriteResultRender(busTcpServer.Write(textBox8.Text, textBox7.Text), textBox8.Text);
             }
             catch (Exception ex)
             {
-                MessageBox.Show( ex.Message );
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -480,145 +480,145 @@ namespace CommunicationDemo
 
         #endregion
 
-        private void button2_Click( object sender, EventArgs e )
+        private void button2_Click(object sender, EventArgs e)
         {
             // 点击数据监视
-            ModBusMonitorAddress monitorAddress = new ModBusMonitorAddress( );
-            monitorAddress.Address = ushort.Parse( textBox6.Text );
+            ModBusMonitorAddress monitorAddress = new ModBusMonitorAddress();
+            monitorAddress.Address = ushort.Parse(textBox6.Text);
             monitorAddress.OnChange += MonitorAddress_OnChange;
             monitorAddress.OnWrite += MonitorAddress_OnWrite;
-            busTcpServer.AddSubcription( monitorAddress );
+            busTcpServer.AddSubcription(monitorAddress);
             button2.Enabled = false;
         }
 
-        private void MonitorAddress_OnWrite( ModBusMonitorAddress monitor, short value )
+        private void MonitorAddress_OnWrite(ModBusMonitorAddress monitor, short value)
         {
             // 当有客户端写入时就触发
         }
 
-        private void MonitorAddress_OnChange( ModBusMonitorAddress monitor, short befor, short after )
+        private void MonitorAddress_OnChange(ModBusMonitorAddress monitor, short befor, short after)
         {
             // 当该地址的值更改的时候触发
             if (InvokeRequired)
             {
-                BeginInvoke( new Action<ModBusMonitorAddress, short, short>( MonitorAddress_OnChange ), monitor, befor, after );
+                BeginInvoke(new Action<ModBusMonitorAddress, short, short>(MonitorAddress_OnChange), monitor, befor, after);
                 return;
             }
 
-            textBox9.Text = after.ToString( );
+            textBox9.Text = after.ToString();
 
-            label11.Text = "w-time：" + DateTime.Now.ToString( ) + " before：" + befor + " after：" + after;
+            label11.Text = "w-time：" + DateTime.Now.ToString() + " before：" + befor + " after：" + after;
         }
 
-        private void linkLabel2_LinkClicked( object sender, LinkLabelLinkClickedEventArgs e )
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Communication.BasicFramework.FormSupport form = new Communication.BasicFramework.FormSupport( );
-            form.ShowDialog( );
+            Communication.BasicFramework.FormSupport form = new Communication.BasicFramework.FormSupport();
+            form.ShowDialog();
         }
 
-        private void button3_Click( object sender, EventArgs e )
+        private void button3_Click(object sender, EventArgs e)
         {
             if (busTcpServer == null)
             {
-                MessageBox.Show( "Must Start Server！" );
+                MessageBox.Show("Must Start Server！");
                 return;
             }
             // 信任客户端配置
-            using (FormTrustedClient form = new FormTrustedClient( busTcpServer ))
+            using (FormTrustedClient form = new FormTrustedClient(busTcpServer))
             {
-                form.ShowDialog( );
+                form.ShowDialog();
             }
         }
 
 
-        private void Test1( )
+        private void Test1()
         {
-            bool Coil100 = busTcpServer.ReadCoil( "100" );                  // 读线圈100的值
-            bool[] Coil100_109 = busTcpServer.ReadCoil( "100", 10 );        // 读线圈数组
-            short Short100 = busTcpServer.ReadInt16( "100" ).Content;               // 读取寄存器值
-            ushort UShort100 = busTcpServer.ReadUInt16( "100" ).Content;            // 读取寄存器ushort值
-            int Int100 = busTcpServer.ReadInt32( "100" ).Content;                   // 读取寄存器int值
-            uint UInt100 = busTcpServer.ReadUInt32( "100" ).Content;                // 读取寄存器uint值
-            float Float100 = busTcpServer.ReadFloat( "100" ).Content;               // 读取寄存器Float值
-            long Long100 = busTcpServer.ReadInt64( "100" ).Content;                 // 读取寄存器long值
-            ulong ULong100 = busTcpServer.ReadUInt64( "100" ).Content;              // 读取寄存器ulong值
-            double Double100 = busTcpServer.ReadDouble( "100" ).Content;            // 读取寄存器double值
+            bool Coil100 = busTcpServer.ReadCoil("100");                  // 读线圈100的值
+            bool[] Coil100_109 = busTcpServer.ReadCoil("100", 10);        // 读线圈数组
+            short Short100 = busTcpServer.ReadInt16("100").Content;               // 读取寄存器值
+            ushort UShort100 = busTcpServer.ReadUInt16("100").Content;            // 读取寄存器ushort值
+            int Int100 = busTcpServer.ReadInt32("100").Content;                   // 读取寄存器int值
+            uint UInt100 = busTcpServer.ReadUInt32("100").Content;                // 读取寄存器uint值
+            float Float100 = busTcpServer.ReadFloat("100").Content;               // 读取寄存器Float值
+            long Long100 = busTcpServer.ReadInt64("100").Content;                 // 读取寄存器long值
+            ulong ULong100 = busTcpServer.ReadUInt64("100").Content;              // 读取寄存器ulong值
+            double Double100 = busTcpServer.ReadDouble("100").Content;            // 读取寄存器double值
 
-            busTcpServer.WriteCoil( "100", true );                          // 写线圈的通断
-            busTcpServer.Write( "100", (short)5 );                          // 写入short值
-            busTcpServer.Write( "100", (ushort)45678 );                     // 写入ushort值
-            busTcpServer.Write( "100", 12345667 );                          // 写入int值
-            busTcpServer.Write( "100", (uint)12312312 );                    // 写入uint值
-            busTcpServer.Write( "100", 123.456f );                          // 写入float值
-            busTcpServer.Write( "100", 1231231231233L );                    // 写入long值
-            busTcpServer.Write( "100", 1212312313UL );                      // 写入ulong值
-            busTcpServer.Write( "100", 123.456d );                          // 写入double值
+            busTcpServer.WriteCoil("100", true);                          // 写线圈的通断
+            busTcpServer.Write("100", (short)5);                          // 写入short值
+            busTcpServer.Write("100", (ushort)45678);                     // 写入ushort值
+            busTcpServer.Write("100", 12345667);                          // 写入int值
+            busTcpServer.Write("100", (uint)12312312);                    // 写入uint值
+            busTcpServer.Write("100", 123.456f);                          // 写入float值
+            busTcpServer.Write("100", 1231231231233L);                    // 写入long值
+            busTcpServer.Write("100", 1212312313UL);                      // 写入ulong值
+            busTcpServer.Write("100", 123.456d);                          // 写入double值
         }
 
-        private void button4_Click( object sender, EventArgs e )
+        private void button4_Click(object sender, EventArgs e)
         {
             // 连接异形客户端
-            using (FormInputAlien form = new FormInputAlien( ))
+            using (FormInputAlien form = new FormInputAlien())
             {
-                if (form.ShowDialog( ) == DialogResult.OK)
+                if (form.ShowDialog() == DialogResult.OK)
                 {
-                    OperateResult connect = busTcpServer.ConnectAlientClient( form.IpAddress, form.Port, form.DTU );
+                    OperateResult connect = busTcpServer.ConnectAlientClient(form.IpAddress, form.Port, form.DTU);
                     if (connect.IsSuccess)
                     {
-                        MessageBox.Show( Communication.StringResources.Language.ConnectedSuccess );
+                        MessageBox.Show(Communication.StringResources.Language.ConnectedSuccess);
                     }
                     else
                     {
-                        MessageBox.Show( Communication.StringResources.Language.ConnectedFailed + connect.Message );
+                        MessageBox.Show(Communication.StringResources.Language.ConnectedFailed + connect.Message);
                     }
                 }
             }
         }
 
-        private void button5_Click( object sender, EventArgs e )
+        private void button5_Click(object sender, EventArgs e)
         {
             // 启动串口
             if (busTcpServer != null)
             {
                 try
                 {
-                    busTcpServer.StartSerialPort( textBox10.Text );
+                    busTcpServer.StartSerialPort(textBox10.Text);
                     button5.Enabled = false;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    MessageBox.Show( "Start Failed：" + ex.Message );
+                    MessageBox.Show("Start Failed：" + ex.Message);
                 }
             }
             else
             {
-                MessageBox.Show( "Start tcp server first please!" );
+                MessageBox.Show("Start tcp server first please!");
             }
         }
 
-        private void button9_Click( object sender, EventArgs e )
+        private void button9_Click(object sender, EventArgs e)
         {
             // 将服务器的数据池存储起来
             if (busTcpServer != null)
             {
-                busTcpServer.SaveDataPool( "123.txt" );
-                MessageBox.Show( "save finsh" );
+                busTcpServer.SaveDataPool("123.txt");
+                MessageBox.Show("save finsh");
             }
         }
 
-        private void button8_Click( object sender, EventArgs e )
+        private void button8_Click(object sender, EventArgs e)
         {
             // 从文件加载服务器的数据池
             if (busTcpServer != null)
             {
-                if (System.IO.File.Exists( "123.txt" ))
+                if (System.IO.File.Exists("123.txt"))
                 {
-                    busTcpServer.LoadDataPool( "123.txt" );
-                    MessageBox.Show( "load finish" );
+                    busTcpServer.LoadDataPool("123.txt");
+                    MessageBox.Show("load finish");
                 }
                 else
                 {
-                    MessageBox.Show( "file not exist！" );
+                    MessageBox.Show("file not exist！");
                 }
             }
         }
@@ -628,20 +628,20 @@ namespace CommunicationDemo
         private string timerAddress = string.Empty;
         private ushort timerValue = 0;
         private System.Windows.Forms.Timer timerWrite = null;
-        private void button10_Click( object sender, EventArgs e )
+        private void button10_Click(object sender, EventArgs e)
         {
             // 定时写
-            timerWrite = new System.Windows.Forms.Timer( );
+            timerWrite = new System.Windows.Forms.Timer();
             timerWrite.Interval = 300;
             timerWrite.Tick += TimerWrite_Tick;
-            timerWrite.Start( );
+            timerWrite.Start();
             timerAddress = textBox8.Text;
             button10.Enabled = false;
         }
 
-        private void TimerWrite_Tick( object sender, EventArgs e )
+        private void TimerWrite_Tick(object sender, EventArgs e)
         {
-            busTcpServer.Write( timerAddress, timerValue );
+            busTcpServer.Write(timerAddress, timerValue);
             timerValue++;
         }
 

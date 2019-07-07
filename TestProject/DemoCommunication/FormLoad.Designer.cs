@@ -106,9 +106,9 @@
             this.button55 = new System.Windows.Forms.Button();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.button65 = new System.Windows.Forms.Button();
+            this.button62 = new System.Windows.Forms.Button();
             this.button61 = new System.Windows.Forms.Button();
             this.button60 = new System.Windows.Forms.Button();
-            this.button62 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -861,7 +861,7 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.menuStrip1.BackColor = System.Drawing.Color.LightSlateGray;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.简体中文ToolStripMenuItem,
             this.englishToolStripMenuItem});
@@ -873,6 +873,7 @@
             // 
             // 简体中文ToolStripMenuItem
             // 
+            this.简体中文ToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.简体中文ToolStripMenuItem.Name = "简体中文ToolStripMenuItem";
             this.简体中文ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
             this.简体中文ToolStripMenuItem.Text = "简体中文";
@@ -880,6 +881,7 @@
             // 
             // englishToolStripMenuItem
             // 
+            this.englishToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
             this.englishToolStripMenuItem.Size = new System.Drawing.Size(61, 21);
             this.englishToolStripMenuItem.Text = "English";
@@ -929,7 +931,7 @@
             this.button40.Name = "button40";
             this.button40.Size = new System.Drawing.Size(150, 32);
             this.button40.TabIndex = 0;
-            this.button40.Text = "RedisClient";
+            this.button40.Text = "Redis Client";
             this.button40.UseVisualStyleBackColor = true;
             this.button40.Click += new System.EventHandler(this.button40_Click);
             // 
@@ -1056,6 +1058,17 @@
             this.button65.UseVisualStyleBackColor = true;
             this.button65.Click += new System.EventHandler(this.button65_Click);
             // 
+            // button62
+            // 
+            this.button62.Location = new System.Drawing.Point(18, 144);
+            this.button62.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button62.Name = "button62";
+            this.button62.Size = new System.Drawing.Size(150, 32);
+            this.button62.TabIndex = 1;
+            this.button62.Text = "DSC Server";
+            this.button62.UseVisualStyleBackColor = true;
+            this.button62.Click += new System.EventHandler(this.button62_Click);
+            // 
             // button61
             // 
             this.button61.Location = new System.Drawing.Point(18, 104);
@@ -1077,17 +1090,6 @@
             this.button60.Text = "Udp(Udp)";
             this.button60.UseVisualStyleBackColor = true;
             this.button60.Click += new System.EventHandler(this.button60_Click);
-            // 
-            // button62
-            // 
-            this.button62.Location = new System.Drawing.Point(18, 144);
-            this.button62.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button62.Name = "button62";
-            this.button62.Size = new System.Drawing.Size(150, 32);
-            this.button62.TabIndex = 1;
-            this.button62.Text = "DSC Server";
-            this.button62.UseVisualStyleBackColor = true;
-            this.button62.Click += new System.EventHandler(this.button62_Click);
             // 
             // FormLoad
             // 
