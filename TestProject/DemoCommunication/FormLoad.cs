@@ -907,5 +907,17 @@ namespace CommunicationDemo
             System.Threading.Thread.Sleep(200);
             Show();
         }
+
+        private void button63_Click(object sender, EventArgs e)
+        {
+            Hide();
+            System.Threading.Thread.Sleep(200);
+            using (FormDemoCompilations form = new FormDemoCompilations())
+            {
+                form.ShowDialog();
+            }
+            System.Threading.Thread.Sleep(200);
+            Show();
+        }
     }
 }

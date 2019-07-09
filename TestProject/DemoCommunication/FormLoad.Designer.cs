@@ -106,6 +106,7 @@
             this.button55 = new System.Windows.Forms.Button();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.button65 = new System.Windows.Forms.Button();
+            this.button63 = new System.Windows.Forms.Button();
             this.button62 = new System.Windows.Forms.Button();
             this.button61 = new System.Windows.Forms.Button();
             this.button60 = new System.Windows.Forms.Button();
@@ -1034,6 +1035,7 @@
             // groupBox15
             // 
             this.groupBox15.Controls.Add(this.button65);
+            this.groupBox15.Controls.Add(this.button63);
             this.groupBox15.Controls.Add(this.button62);
             this.groupBox15.Controls.Add(this.button61);
             this.groupBox15.Controls.Add(this.button60);
@@ -1057,6 +1059,17 @@
             this.button65.Text = "宏电协议";
             this.button65.UseVisualStyleBackColor = true;
             this.button65.Click += new System.EventHandler(this.button65_Click);
+            // 
+            // button63
+            // 
+            this.button63.Location = new System.Drawing.Point(18, 184);
+            this.button63.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button63.Name = "button63";
+            this.button63.Size = new System.Drawing.Size(150, 32);
+            this.button63.TabIndex = 1;
+            this.button63.Text = "数据库连接";
+            this.button63.UseVisualStyleBackColor = true;
+            this.button63.Click += new System.EventHandler(this.button63_Click);
             // 
             // button62
             // 
@@ -1225,6 +1238,7 @@
         private System.Windows.Forms.Button button60;
         private System.Windows.Forms.Button button61;
         private System.Windows.Forms.Button button62;
+        private System.Windows.Forms.Button button63;
     }
 }
 
