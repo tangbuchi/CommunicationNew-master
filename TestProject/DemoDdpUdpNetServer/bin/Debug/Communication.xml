@@ -13016,6 +13016,12 @@
             </summary>
             <exception cref="T:System.ArgumentNullException"></exception>
         </member>
+        <member name="M:Communication.Enthernet.NetUdpServer.BuildDtuNumCommand(System.Byte[])">
+            <summary>
+            生成一个读取返回注册包的方法 ->
+            
+            </summary>
+        </member>
         <member name="M:Communication.Enthernet.NetUdpServer.DataProcessingCenter(Communication.Core.Net.AppSession,System.Int32,System.Int32,System.Byte[])">
             <summary>
             数据处理中心

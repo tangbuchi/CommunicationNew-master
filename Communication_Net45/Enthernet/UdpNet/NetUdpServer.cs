@@ -79,7 +79,6 @@ namespace Communication.Enthernet
                     byte[] publicNetworkArray = new byte[4];
                     byte[] publicPortArray = new byte[2];
 
-
                     if (contentLength > 0)
                     {
                         Array.Copy(session.BytesContent, 4, dtuNumArray, 0, 11);
@@ -92,26 +91,29 @@ namespace Communication.Enthernet
                         // 解析内容
                         if (session.BytesContent[1] == 0x01 && contentLength == 22) // 0x01 终端请求注册
                         {
-                            
-                            string publicNetwork = BasicFramework.SoftBasic.ByteToHexTenString(publicNetworkArray, '.');
-                            int publicPort = Convert.ToInt32(BasicFramework.SoftBasic.ByteToHexString(publicPortArray), 16);
-                            LogNet?.WriteInfo(ToString(), $"请求注册 终端号码：{dtuNum} 终端公网IP：{publicNetwork}:{publicPort}");
+                            string publicNetwork = BasicFramework.SoftBasic.ByteToHexTenString(publicNetworkArray, '.'); // 终端内网IP
+                            int publicPort = Convert.ToInt32(BasicFramework.SoftBasic.ByteToHexString(publicPortArray), 16); //终端内网端口
+                            SendBytesAsync(session, BuildDtuNumCommand(dtuNumArray));
+                            LogNet?.WriteInfo(ToString(), $"请求注册 终端号码：{dtuNum} 终端公网IP：{session.IpEndPoint} 终端内网IP：{publicNetwork}:{publicPort}");
                         }
+
                         if (session.BytesContent[1] == 0x02 && contentLength == 16) // 0x02 终端请求注销
                         {
                             LogNet?.WriteInfo(ToString(), $"请求注销 终端号码：{dtuNum}");
                         }
+
                         if (session.BytesContent[1] == 0x09) // 0x09 发送给DSC的用户数据包
                         {
-                            byte[] instructArray = new byte[session.BytesContent[18]]; // 接收的指令长度 + 宏电数据头 计算总长度
+                            byte[] instructArray = new byte[session.BytesContent[18]]; // 接收的指令长度（不包含宏电数据头）
                             Array.Copy(session.BytesContent, 16, instructArray, 0, session.BytesContent[18]);
 
-                            LogNet?.WriteInfo(ToString(), $"发送给DSC的用户数据包 终端号码：{dtuNum} {BasicFramework.SoftBasic.ByteToHexString(instructArray, ' ')}");
+                            LogNet?.WriteInfo(ToString(), $"发送给DSC的用户数据包 终端号码：{dtuNum} 数据捕获：{BasicFramework.SoftBasic.ByteToHexString(instructArray, ' ')}");
                         }
+
                     }
                     else
                     {
-                        LogNet?.WriteWarn(ToString(), $"{BasicFramework.SoftBasic.ByteToHexString(session.BytesContent, ' ')}");
+                        LogNet?.WriteWarn(ToString(), $"数据捕获：{BasicFramework.SoftBasic.ByteToHexString(session.BytesContent, ' ')}");
                     }
                 }
                 catch (ObjectDisposedException)
@@ -130,6 +132,32 @@ namespace Communication.Enthernet
                 }
 
             }
+        }
+        /// <summary>
+        /// 生成一个读取返回注册包的方法 ->
+        /// 
+        /// </summary>
+        public static byte[] BuildDtuNumCommand(byte[] dtuNumArray)
+        {
+            byte[] _Command = new byte[16];
+            _Command[0] = 0x7b;                 // 固定格式
+            _Command[1] = 0x81;
+            _Command[2] = 0x00;
+            _Command[3] = 0x10;
+            _Command[4] = dtuNumArray[0];       // 终端号码
+            _Command[5] = dtuNumArray[1];
+            _Command[6] = dtuNumArray[2];
+            _Command[7] = dtuNumArray[3];
+            _Command[8] = dtuNumArray[4];
+            _Command[9] = dtuNumArray[5];
+            _Command[10] = dtuNumArray[6];
+            _Command[11] = dtuNumArray[7];
+            _Command[12] = dtuNumArray[8];
+            _Command[13] = dtuNumArray[9];
+            _Command[14] = dtuNumArray[10];
+            _Command[15] = 0x7b;
+
+            return _Command;
         }
 
         /***********************************************************************************************************

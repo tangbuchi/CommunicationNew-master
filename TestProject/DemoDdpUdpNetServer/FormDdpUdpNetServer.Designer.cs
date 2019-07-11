@@ -37,6 +37,7 @@
             this.userButton1 = new Communication.Controls.UserButton();
             this.label4 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
+            this.userButton2 = new Communication.Controls.UserButton();
             this.SuspendLayout();
             // 
             // label3
@@ -104,7 +105,7 @@
             this.userButton1.BackColor = System.Drawing.Color.Transparent;
             this.userButton1.CustomerInformation = "";
             this.userButton1.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
-            this.userButton1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.userButton1.Font = new System.Drawing.Font("微软雅黑", 9F);
             this.userButton1.Location = new System.Drawing.Point(507, 13);
             this.userButton1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.userButton1.Name = "userButton1";
@@ -133,6 +134,21 @@
             this.textBox4.TabIndex = 14;
             this.textBox4.Text = "2048";
             // 
+            // userButton2
+            // 
+            this.userButton2.BackColor = System.Drawing.Color.Transparent;
+            this.userButton2.CustomerInformation = "";
+            this.userButton2.EnableColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
+            this.userButton2.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.userButton2.Location = new System.Drawing.Point(634, 13);
+            this.userButton2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.userButton2.Name = "userButton2";
+            this.userButton2.OriginalColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.userButton2.Size = new System.Drawing.Size(95, 29);
+            this.userButton2.TabIndex = 7;
+            this.userButton2.UIText = "停止服务";
+            this.userButton2.Click += new System.EventHandler(this.userButton2_Click);
+            // 
             // FormDdpUdpNetServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -146,6 +162,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.userButton2);
             this.Controls.Add(this.userButton1);
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -168,6 +185,7 @@
         private Communication.Controls.UserButton userButton1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBox4;
+        private Communication.Controls.UserButton userButton2;
     }
 }
 

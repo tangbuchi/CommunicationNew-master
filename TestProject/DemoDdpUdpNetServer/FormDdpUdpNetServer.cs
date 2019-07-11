@@ -22,6 +22,7 @@ namespace DemoDdpUdpNetServer
         private void FormUdpNetServer_Load(object sender, EventArgs e)
         {
             textBox3.Text = Guid.Empty.ToString();
+            userButton2.Enabled = false;
         }
 
 
@@ -79,6 +80,15 @@ namespace DemoDdpUdpNetServer
         private void userButton1_Click_1(object sender, EventArgs e)
         {
             Start();
+            userButton1.Enabled = false;
+            userButton2.Enabled = true;
+        }
+
+        private void userButton2_Click(object sender, EventArgs e)
+        {
+            udpNetServer.ServerClose();
+            userButton1.Enabled = true;
+            userButton2.Enabled = false;
         }
     }
 }
