@@ -232,3 +232,4 @@ E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoCommunication\obj\Debug\CommunicationDemo.exe
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoCommunication\obj\Debug\CommunicationDemo.pdb
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoCommunication\obj\Debug\CommunicationDemo.FormDemoCompilations.resources
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoCommunication\bin\Debug\Communication.xml
