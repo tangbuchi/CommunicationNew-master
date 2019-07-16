@@ -110,6 +110,7 @@
             this.button62 = new System.Windows.Forms.Button();
             this.button61 = new System.Windows.Forms.Button();
             this.button60 = new System.Windows.Forms.Button();
+            this.button64 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1035,6 +1036,7 @@
             // groupBox15
             // 
             this.groupBox15.Controls.Add(this.button65);
+            this.groupBox15.Controls.Add(this.button64);
             this.groupBox15.Controls.Add(this.button63);
             this.groupBox15.Controls.Add(this.button62);
             this.groupBox15.Controls.Add(this.button61);
@@ -1103,6 +1105,17 @@
             this.button60.Text = "Udp(Udp)";
             this.button60.UseVisualStyleBackColor = true;
             this.button60.Click += new System.EventHandler(this.button60_Click);
+            // 
+            // button64
+            // 
+            this.button64.Location = new System.Drawing.Point(18, 222);
+            this.button64.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button64.Name = "button64";
+            this.button64.Size = new System.Drawing.Size(150, 32);
+            this.button64.TabIndex = 1;
+            this.button64.Text = "方糖气球推送";
+            this.button64.UseVisualStyleBackColor = true;
+            this.button64.Click += new System.EventHandler(this.button64_Click);
             // 
             // FormLoad
             // 
@@ -1239,6 +1252,7 @@
         private System.Windows.Forms.Button button61;
         private System.Windows.Forms.Button button62;
         private System.Windows.Forms.Button button63;
+        private System.Windows.Forms.Button button64;
     }
 }
 

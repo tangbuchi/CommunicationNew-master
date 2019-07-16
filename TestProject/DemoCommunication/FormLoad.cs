@@ -919,5 +919,17 @@ namespace CommunicationDemo
             System.Threading.Thread.Sleep(200);
             Show();
         }
+
+        private void button64_Click(object sender, EventArgs e)
+        {
+            Hide();
+            System.Threading.Thread.Sleep(200);
+            using (FormFTPush form = new FormFTPush())
+            {
+                form.ShowDialog();
+            }
+            System.Threading.Thread.Sleep(200);
+            Show();
+        }
     }
 }
