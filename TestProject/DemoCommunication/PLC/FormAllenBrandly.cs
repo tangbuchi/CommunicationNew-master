@@ -18,7 +18,7 @@ namespace CommunicationDemo
         public FormAllenBrandly( )
         {
             InitializeComponent( );
-            allenBradleyNet = new AllenBradleyNet( "192.168.0.110" );
+            allenBradleyNet = new AllenBradleyNet( "192.168.1.13" );
         }
 
 

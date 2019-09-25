@@ -1,0 +1,15 @@
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\DemoNportConfig\obj\Debug\DemoNportConfig.csprojAssemblyReference.cache
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\DemoNportConfig\obj\Debug\DemoNportConfig.csproj.GenerateResource.cache
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\DemoNportConfig\obj\Debug\DemoNportConfig.csproj.CoreCompileInputs.cache
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\DemoNportConfig\obj\Debug\DemoNportConfig.FormNport.resources
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\DemoNportConfig\bin\Debug\DemoNportConfig.exe.config
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\DemoNportConfig\bin\Debug\DemoNportConfig.exe
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\DemoNportConfig\bin\Debug\DemoNportConfig.pdb
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\DemoNportConfig\bin\Debug\Communication.dll
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\DemoNportConfig\bin\Debug\Newtonsoft.Json.dll
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\DemoNportConfig\bin\Debug\Communication.pdb
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\DemoNportConfig\bin\Debug\Communication.xml
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\DemoNportConfig\bin\Debug\Newtonsoft.Json.xml
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\DemoNportConfig\obj\Debug\DemoNportConfig.csproj.CopyComplete
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\DemoNportConfig\obj\Debug\DemoNportConfig.exe
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\DemoNportConfig\obj\Debug\DemoNportConfig.pdb

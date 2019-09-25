@@ -18,14 +18,14 @@ namespace CommunicationDemo
         public FormSiemens(SiemensPLCS siemensPLCS)
         {
             InitializeComponent();
-            siemensPLCSelected = siemensPLCS;
+            siemensPLCSelected = siemensPLCS; //SiemensPLCS.S200Smart
             siemensTcpNet = new SiemensS7Net(siemensPLCS);
         }
 
 
         private SiemensS7Net siemensTcpNet = null;
         private SiemensPLCS siemensPLCSelected = SiemensPLCS.S1200;
-
+        
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try

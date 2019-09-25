@@ -4,7 +4,6 @@ E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDdpUdpNetServer\bin\Debug\Communication.dll
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDdpUdpNetServer\bin\Debug\Newtonsoft.Json.dll
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDdpUdpNetServer\bin\Debug\Communication.pdb
-E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDdpUdpNetServer\bin\Debug\Communication.xml
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDdpUdpNetServer\bin\Debug\Newtonsoft.Json.xml
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDdpUdpNetServer\obj\Debug\DemoDdpUdpNetServer.csprojAssemblyReference.cache
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDdpUdpNetServer\obj\Debug\DemoDdpUdpNetServer.Properties.Resources.resources
@@ -14,3 +13,4 @@ E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDdpUdpNetServer\obj\Debug\DemoDdpUdpNetServer.exe
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDdpUdpNetServer\obj\Debug\DemoDdpUdpNetServer.pdb
 E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDdpUdpNetServer\obj\Debug\DemoDdpUdpNetServer.FormDdpUdpNetServer.resources
+E:\源代码\仓库\CommunicationNew-master\CommunicationNew-master\TestProject\DemoDdpUdpNetServer\bin\Debug\Communication.xml
